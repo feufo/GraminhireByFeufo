@@ -69,13 +69,6 @@ const Auth = () => {
       icon: Building2,
       color: "orange",
     },
-    {
-      id: "admin",
-      title: "Administrator",
-      description: "Manage platform operations and analytics",
-      icon: Users,
-      color: "purple",
-    },
   ];
 
   const handleRoleSelect = (roleId: string) => {
