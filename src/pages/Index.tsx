@@ -234,72 +234,282 @@ const Index = () => {
               Who We Serve
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Tailored dashboards and features for every stakeholder in the
-              rural employment ecosystem.
+              Tailored solutions for every stakeholder in the rural employment
+              ecosystem.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center p-6 hover:shadow-lg transition-shadow border-2">
-              <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <User className="h-8 w-8 text-brand-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Job Seekers</h3>
-              <p className="text-muted-foreground mb-4">
-                Rural youth looking for skilled employment opportunities
-              </p>
-              <Link to="/auth?mode=signup&role=candidate">
-                <Button variant="outline" size="sm">
-                  Join as Candidate
-                </Button>
-              </Link>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Candidates - Show Available Jobs */}
+            <Card className="border-2 hover:shadow-lg transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <User className="h-8 w-8 text-brand-600" />
+                </div>
+                <CardTitle className="text-xl">Job Seekers</CardTitle>
+                <CardDescription>
+                  Rural youth looking for skilled employment opportunities
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-sm font-medium text-foreground mb-3">
+                  Latest Job Openings:
+                </div>
+
+                <div className="border rounded-lg p-3 bg-white">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Production Assistant
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Tata Motors • Pune
+                      </p>
+                    </div>
+                    <Badge className="bg-green-100 text-green-800 text-xs">
+                      ₹18K-22K
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-muted-foreground mb-2">
+                    5 positions • Assembly, Quality Control
+                  </div>
+                  <Link to="/auth?mode=signup&role=candidate">
+                    <Button size="sm" className="w-full text-xs h-7">
+                      Apply Now
+                    </Button>
+                  </Link>
+                </div>
+
+                <div className="border rounded-lg p-3 bg-white">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h4 className="font-medium text-sm">Quality Inspector</h4>
+                      <p className="text-xs text-muted-foreground">
+                        Bajaj Auto • Mumbai
+                      </p>
+                    </div>
+                    <Badge className="bg-green-100 text-green-800 text-xs">
+                      ₹20K-25K
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-muted-foreground mb-2">
+                    3 positions • Quality Control
+                  </div>
+                  <Link to="/auth?mode=signup&role=candidate">
+                    <Button size="sm" className="w-full text-xs h-7">
+                      Apply Now
+                    </Button>
+                  </Link>
+                </div>
+
+                <div className="border rounded-lg p-3 bg-white">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h4 className="font-medium text-sm">Machine Operator</h4>
+                      <p className="text-xs text-muted-foreground">
+                        Mahindra • Nashik
+                      </p>
+                    </div>
+                    <Badge className="bg-green-100 text-green-800 text-xs">
+                      ₹16K-20K
+                    </Badge>
+                  </div>
+                  <div className="text-xs text-muted-foreground mb-2">
+                    10 positions • Machine Operation
+                  </div>
+                  <Link to="/auth?mode=signup&role=candidate">
+                    <Button size="sm" className="w-full text-xs h-7">
+                      Apply Now
+                    </Button>
+                  </Link>
+                </div>
+
+                <div className="pt-2 border-t">
+                  <Link to="/auth?mode=signup&role=candidate">
+                    <Button variant="outline" size="sm" className="w-full">
+                      View All Jobs & Sign Up
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-lg transition-shadow border-2">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <GraduationCap className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">
-                Training Institutes
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                DDU-GKY, ITI, and private institutes training rural youth
-              </p>
-              <Link to="/auth?mode=signup&role=institute">
-                <Button variant="outline" size="sm">
-                  Join as Institute
-                </Button>
-              </Link>
+            {/* Institutes - Show Features */}
+            <Card className="border-2 hover:shadow-lg transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <GraduationCap className="h-8 w-8 text-green-600" />
+                </div>
+                <CardTitle className="text-xl">Training Institutes</CardTitle>
+                <CardDescription>
+                  DDU-GKY, ITI, and private institutes training rural youth
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-sm font-medium text-foreground mb-3">
+                  What You Can Do:
+                </div>
+
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Bulk Student Enrollment
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Upload CSV files with student data for quick
+                        registration
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Job Order Management
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Receive and submit students to matching job
+                        opportunities
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Placement Tracking
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Monitor student success and generate government reports
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Earnings Dashboard
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Track placement fees and commission payments
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-green-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Performance Analytics
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        View placement rates and institute rankings
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t">
+                  <Link to="/auth?mode=signup&role=institute">
+                    <Button variant="outline" size="sm" className="w-full">
+                      Register Your Institute
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-lg transition-shadow border-2">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Building2 className="h-8 w-8 text-orange-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Employers</h3>
-              <p className="text-muted-foreground mb-4">
-                Companies seeking skilled workforce from rural India
-              </p>
-              <Link to="/auth?mode=signup&role=employer">
-                <Button variant="outline" size="sm">
-                  Join as Employer
-                </Button>
-              </Link>
-            </Card>
+            {/* Employers - Show Features */}
+            <Card className="border-2 hover:shadow-lg transition-shadow">
+              <CardHeader className="text-center pb-4">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Building2 className="h-8 w-8 text-orange-600" />
+                </div>
+                <CardTitle className="text-xl">Employers</CardTitle>
+                <CardDescription>
+                  Companies seeking skilled workforce from rural India
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-sm font-medium text-foreground mb-3">
+                  What You Can Do:
+                </div>
 
-            <Card className="text-center p-6 hover:shadow-lg transition-shadow border-2">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Administrators</h3>
-              <p className="text-muted-foreground mb-4">
-                Platform managers overseeing operations and analytics
-              </p>
-              <Link to="/auth?mode=signup&role=admin">
-                <Button variant="outline" size="sm">
-                  Admin Access
-                </Button>
-              </Link>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-orange-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Post Job Requirements
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Create detailed job orders with skills and salary
+                        requirements
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-orange-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Kanban Hiring Board
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Drag-and-drop candidates through hiring stages
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-orange-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Video Profile Reviews
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Watch candidate introduction videos and view resumes
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-orange-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">
+                        Direct Communication
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        Call or WhatsApp candidates directly from the platform
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-4 w-4 text-orange-600 mt-0.5" />
+                    <div>
+                      <h4 className="font-medium text-sm">Hiring Analytics</h4>
+                      <p className="text-xs text-muted-foreground">
+                        Track time-to-hire, costs, and regional salary
+                        benchmarks
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t">
+                  <Link to="/auth?mode=signup&role=employer">
+                    <Button variant="outline" size="sm" className="w-full">
+                      Start Hiring Talent
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
             </Card>
           </div>
         </div>
