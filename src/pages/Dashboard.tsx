@@ -30,7 +30,6 @@ import {
 import CandidateDashboard from "@/components/dashboard/CandidateDashboard";
 import InstituteDashboard from "@/components/dashboard/InstituteDashboard";
 import EmployerDashboard from "@/components/dashboard/EmployerDashboard";
-import AdminDashboard from "@/components/dashboard/AdminDashboard";
 
 const Dashboard = () => {
   const [searchParams, setSearchParams] = useSearchParams();
