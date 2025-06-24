@@ -58,22 +58,13 @@ const Dashboard = () => {
       avatar: "",
       organization: "Tata Motors",
     },
-    admin: {
-      name: "Admin User",
-      email: "admin@graminhire.com",
-      avatar: "",
-      organization: "GraminHire",
-    },
   };
 
   const currentUser = userData[userRole as keyof typeof userData];
 
   useEffect(() => {
     const role = searchParams.get("role");
-    if (
-      role &&
-      ["candidate", "institute", "employer", "admin"].includes(role)
-    ) {
+    if (role && ["candidate", "institute", "employer"].includes(role)) {
       setUserRole(role);
     }
   }, [searchParams]);
@@ -88,7 +79,6 @@ const Dashboard = () => {
       candidate: { label: "Job Seeker", color: "bg-blue-100 text-blue-800" },
       institute: { label: "Institute", color: "bg-green-100 text-green-800" },
       employer: { label: "Employer", color: "bg-orange-100 text-orange-800" },
-      admin: { label: "Administrator", color: "bg-purple-100 text-purple-800" },
     };
     const config = roleConfig[userRole as keyof typeof roleConfig];
     return <Badge className={config.color}>{config.label}</Badge>;
@@ -102,8 +92,6 @@ const Dashboard = () => {
         return <InstituteDashboard />;
       case "employer":
         return <EmployerDashboard />;
-      case "admin":
-        return <AdminDashboard />;
       default:
         return <CandidateDashboard />;
     }
@@ -136,7 +124,6 @@ const Dashboard = () => {
                   <SelectItem value="candidate">Candidate View</SelectItem>
                   <SelectItem value="institute">Institute View</SelectItem>
                   <SelectItem value="employer">Employer View</SelectItem>
-                  <SelectItem value="admin">Admin View</SelectItem>
                 </SelectContent>
               </Select>
             </div>
