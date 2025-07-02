@@ -49,6 +49,8 @@ import {
   Send,
   FileText,
   Star,
+  Phone,
+  Download,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
