@@ -390,6 +390,17 @@ const SuperAdminPortal = () => {
           </div>
 
           <div className="flex space-x-3">
+            <Button
+              onClick={() => {
+                console.log("Quick test button clicked!");
+                alert(
+                  "✅ Buttons are working! SuperAdmin portal is functional.",
+                );
+              }}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              🔧 Test Button
+            </Button>
             <Dialog open={isCreatingUser} onOpenChange={setIsCreatingUser}>
               <DialogTrigger asChild>
                 <Button>
