@@ -527,9 +527,18 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
             </h4>
             {candidate.rating && (
               <div className="flex items-center mt-1">
-                <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    className={`h-3 w-3 ${
+                      star <= candidate.rating!
+                        ? "text-yellow-500 fill-current"
+                        : "text-gray-300"
+                    }`}
+                  />
+                ))}
                 <span className="text-xs text-muted-foreground ml-1">
-                  {candidate.rating}/5
+                  ({candidate.rating?.toFixed(1)})
                 </span>
               </div>
             )}
