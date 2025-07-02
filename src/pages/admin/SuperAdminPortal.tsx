@@ -1071,9 +1071,6 @@ const SuperAdminPortal = () => {
                                 size="sm"
                                 onClick={() => {
                                   console.log("View user details:", user.name);
-                                  alert(
-                                    `👁️ Viewing complete profile for ${user.name}\n\nRole: ${user.role}\nEmail: ${user.email}\nStatus: Active\nLast Login: 2 hours ago`,
-                                  );
                                 }}
                               >
                                 <Eye className="h-4 w-4 mr-2" />
