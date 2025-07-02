@@ -150,7 +150,7 @@ const EmployerDashboard = () => {
   ];
 
   const [selectedJob, setSelectedJob] = useState(jobOrders[0]);
-  const [editingJob, setEditingJob] = useState(null);
+  const [editingJob, setEditingJob] = useState<any>(null);
 
   // Calculate total potential and actual fees
   const totalPotentialFee = jobOrders
