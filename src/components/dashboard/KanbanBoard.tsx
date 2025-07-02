@@ -107,6 +107,35 @@ interface KanbanBoardProps {
 const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
   const [columns, setColumns] = useState<KanbanColumn[]>([
     {
+      id: "admin_approval",
+      title: "Admin Approval",
+      color: "bg-orange-100 border-orange-200",
+      candidates: [
+        {
+          id: "pending1",
+          name: "Deepak Verma",
+          skills: ["Welding", "Metal Work"],
+          location: "Kanpur, UP",
+          institute: "UP ITI",
+          appliedDate: "2024-01-22",
+          videoUrl: "#",
+          phone: "+91 98765 43212",
+          email: "deepak.verma@email.com",
+          experience: "4 months training",
+          education: "ITI Welding - 2023",
+          rating: 3.8,
+          profile: {
+            age: 21,
+            languages: ["Hindi", "English"],
+            previousWork: "Local workshop experience",
+            strengths: ["Hardworking", "Eager to Learn"],
+            salary_expectation: "₹12,000-15,000/month",
+          },
+          notes: [],
+        },
+      ],
+    },
+    {
       id: "applied",
       title: "Applied",
       color: "bg-blue-100 border-blue-200",
