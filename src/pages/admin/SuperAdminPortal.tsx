@@ -907,7 +907,7 @@ const SuperAdminPortal = () => {
                       size="sm"
                       onClick={() => {
                         console.log("Export users clicked");
-                        alert(
+                        console.log(
                           "📊 Export Users - Downloading user data as CSV...",
                         );
                       }}
