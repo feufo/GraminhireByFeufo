@@ -473,7 +473,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     };
 
     // Add to admin approval column (first column)
-    setColumns((prev) =>
+    setAllColumns((prev) =>
       prev.map((col) =>
         col.id === "admin_approval"
           ? { ...col, candidates: [...col.candidates, candidate] }
