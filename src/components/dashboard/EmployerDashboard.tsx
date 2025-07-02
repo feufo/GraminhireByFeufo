@@ -673,7 +673,10 @@ const EmployerDashboard = () => {
                     </Button>
                     <Button
                       variant="outline"
-                      onClick={() => setEditingJob(job)}
+                      onClick={() => {
+                        console.log("Edit Job clicked for job:", job.title); // Debug log
+                        setEditingJob(job);
+                      }}
                     >
                       <Edit className="h-4 w-4 mr-2" />
                       Edit Job
