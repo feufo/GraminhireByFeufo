@@ -719,7 +719,29 @@ const SuperAdminPortal = () => {
                       personal data
                     </CardDescription>
                   </div>
-                  <div className="flex space-x-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2 flex-1">
+                      <Search className="h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder="Search by name, email, or phone..."
+                        className="max-w-sm"
+                      />
+                    </div>
+                    <Select
+                      value={selectedUserType}
+                      onValueChange={setSelectedUserType}
+                    >
+                      <SelectTrigger className="w-40">
+                        <SelectValue placeholder="Filter by role" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Users</SelectItem>
+                        <SelectItem value="candidate">Candidates</SelectItem>
+                        <SelectItem value="employer">Employers</SelectItem>
+                        <SelectItem value="institute">Institutes</SelectItem>
+                        <SelectItem value="super_admin">Super Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <Button
                       variant={showPasswords ? "default" : "outline"}
                       size="sm"
@@ -748,21 +770,6 @@ const SuperAdminPortal = () => {
                       <Download className="h-4 w-4 mr-2" />
                       Export
                     </Button>
-                    <Select
-                      value={selectedUserType}
-                      onValueChange={setSelectedUserType}
-                    >
-                      <SelectTrigger className="w-48">
-                        <SelectValue placeholder="Filter by role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Users</SelectItem>
-                        <SelectItem value="candidate">Candidates</SelectItem>
-                        <SelectItem value="employer">Employers</SelectItem>
-                        <SelectItem value="institute">Institutes</SelectItem>
-                        <SelectItem value="super_admin">Super Admin</SelectItem>
-                      </SelectContent>
-                    </Select>
                   </div>
                 </div>
               </CardHeader>
