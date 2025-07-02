@@ -106,7 +106,11 @@ interface KanbanBoardProps {
 }
 
 const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
-  const [columns, setColumns] = useState<KanbanColumn[]>([
+  const { user } = useAuth();
+  const isInternalUser =
+    user?.role === "super_admin" || user?.role === "internal_admin";
+
+  const [allColumns, setAllColumns] = useState<KanbanColumn[]>([
     {
       id: "admin_approval",
       title: "Admin Approval",
