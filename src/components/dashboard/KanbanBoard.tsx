@@ -826,49 +826,37 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
         ))}
       </div>
 
-      {/* Summary Stats */}
+      {/* Summary Stats - Dynamic based on visible columns */}
       <div
-        className={`grid grid-cols-2 gap-4 ${isInternalUser ? "lg:grid-cols-5" : "lg:grid-cols-4"}`}
+        className="grid grid-cols-2 gap-4"
+        style={{
+          gridTemplateColumns: `repeat(${Math.min(columns.length, 6)}, minmax(150px, 1fr))`,
+        }}
       >
-        {isInternalUser && (
-          <Card className="text-center p-4">
-            <div className="text-2xl font-bold text-orange-600 mb-1">
-              {allColumns.find((col) => col.id === "admin_approval")?.candidates
-                .length || 0}
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Pending Approval
-            </div>
-          </Card>
-        )}
-        <Card className="text-center p-4">
-          <div className="text-2xl font-bold text-blue-600 mb-1">
-            {allColumns.find((col) => col.id === "awaiting_review")?.candidates
-              .length || 0}
-          </div>
-          <div className="text-sm text-muted-foreground">Awaiting Review</div>
-        </Card>
-        <Card className="text-center p-4">
-          <div className="text-2xl font-bold text-yellow-600 mb-1">
-            {allColumns.find((col) => col.id === "interview")?.candidates
-              .length || 0}
-          </div>
-          <div className="text-sm text-muted-foreground">Interview</div>
-        </Card>
-        <Card className="text-center p-4">
-          <div className="text-2xl font-bold text-green-600 mb-1">
-            {allColumns.find((col) => col.id === "hired")?.candidates.length ||
-              0}
-          </div>
-          <div className="text-sm text-muted-foreground">Hired</div>
-        </Card>
-        <Card className="text-center p-4">
-          <div className="text-2xl font-bold text-red-600 mb-1">
-            {allColumns.find((col) => col.id === "rejected")?.candidates
-              .length || 0}
-          </div>
-          <div className="text-sm text-muted-foreground">Rejected</div>
-        </Card>
+        {columns.map((column, index) => {
+          const colors = [
+            "text-orange-600",
+            "text-blue-600",
+            "text-yellow-600",
+            "text-green-600",
+            "text-red-600",
+            "text-purple-600",
+            "text-indigo-600",
+            "text-pink-600",
+          ];
+          const colorClass = colors[index % colors.length] || "text-gray-600";
+
+          return (
+            <Card key={column.id} className="text-center p-4">
+              <div className={`text-2xl font-bold ${colorClass} mb-1`}>
+                {column.candidates.length}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                {column.title}
+              </div>
+            </Card>
+          );
+        })}
       </div>
 
       {/* Feedback Dialog */}
