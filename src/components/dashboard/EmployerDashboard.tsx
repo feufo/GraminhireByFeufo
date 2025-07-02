@@ -315,11 +315,20 @@ const EmployerDashboard = () => {
               <div className="flex justify-end space-x-3">
                 <Button
                   variant="outline"
-                  onClick={() => setIsCreatingJob(false)}
+                  onClick={() => {
+                    console.log("Cancel create job clicked");
+                    setIsCreatingJob(false);
+                  }}
                 >
                   Cancel
                 </Button>
-                <Button onClick={() => setIsCreatingJob(false)}>
+                <Button
+                  onClick={() => {
+                    console.log("Post job order clicked");
+                    // TODO: Add form validation and job creation logic here
+                    setIsCreatingJob(false);
+                  }}
+                >
                   Post Job Order
                 </Button>
               </div>
