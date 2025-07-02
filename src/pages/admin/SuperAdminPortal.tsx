@@ -710,7 +710,13 @@ const SuperAdminPortal = () => {
                     <Button
                       variant={showPasswords ? "default" : "outline"}
                       size="sm"
-                      onClick={() => setShowPasswords(!showPasswords)}
+                      onClick={() => {
+                        console.log(
+                          "Toggle passwords clicked, current state:",
+                          showPasswords,
+                        );
+                        setShowPasswords(!showPasswords);
+                      }}
                     >
                       {showPasswords ? "Hide" : "Show"} Passwords
                     </Button>
