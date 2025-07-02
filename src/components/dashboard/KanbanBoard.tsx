@@ -16,6 +16,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
+import {
   Play,
   Phone,
   MessageCircle,
@@ -24,6 +36,15 @@ import {
   MapPin,
   Calendar,
   GraduationCap,
+  Share2,
+  Copy,
+  CheckCircle,
+  Star,
+  Mail,
+  Users,
+  Award,
+  Clock,
+  MessageSquare,
 } from "lucide-react";
 
 interface Candidate {
@@ -37,7 +58,28 @@ interface Candidate {
   videoUrl?: string;
   resumeUrl?: string;
   phone?: string;
+  email?: string;
   experience: string;
+  education?: string;
+  rating?: number;
+  notes?: FeedbackNote[];
+  profile?: {
+    age: number;
+    languages: string[];
+    previousWork?: string;
+    strengths: string[];
+    salary_expectation?: string;
+  };
+}
+
+interface FeedbackNote {
+  id: string;
+  stage_from: string;
+  stage_to: string;
+  feedback: string;
+  reason: string;
+  created_by: string;
+  created_at: string;
 }
 
 interface KanbanColumn {
@@ -67,7 +109,28 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
           appliedDate: "2024-01-20",
           videoUrl: "#",
           phone: "+91 98765 43210",
+          email: "rajesh.kumar@email.com",
           experience: "6 months training",
+          education: "ITI Mechanical - 2023",
+          rating: 4.2,
+          profile: {
+            age: 22,
+            languages: ["Hindi", "Marathi", "English"],
+            previousWork: "Internship at Local Workshop",
+            strengths: ["Quick Learner", "Punctual", "Team Player"],
+            salary_expectation: "₹15,000-18,000/month",
+          },
+          notes: [
+            {
+              id: "n1",
+              stage_from: "applied",
+              stage_to: "shortlisted",
+              feedback: "Good technical skills, needs interview",
+              reason: "Strong mechanical background",
+              created_by: "HR Team",
+              created_at: "2024-01-21",
+            },
+          ],
         },
         {
           id: "2",
@@ -77,7 +140,19 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
           institute: "DDU-GKY Center",
           appliedDate: "2024-01-19",
           videoUrl: "#",
+          phone: "+91 98765 43211",
+          email: "priya.sharma@email.com",
           experience: "1 year experience",
+          education: "ITI Electrical - 2022",
+          rating: 4.5,
+          profile: {
+            age: 24,
+            languages: ["Hindi", "English", "Gujarati"],
+            previousWork: "Machine Operator at Local Factory",
+            strengths: ["Safety Conscious", "Detail Oriented", "Leadership"],
+            salary_expectation: "₹18,000-22,000/month",
+          },
+          notes: [],
         },
         {
           id: "3",
@@ -150,6 +225,21 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
   const [draggedCandidate, setDraggedCandidate] = useState<Candidate | null>(
     null,
   );
+  const [feedbackDialog, setFeedbackDialog] = useState({
+    open: false,
+    candidate: null as Candidate | null,
+    fromStage: "",
+    toStage: "",
+  });
+  const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(
+    null,
+  );
+  const [profileDialog, setProfileDialog] = useState(false);
+  const [shareDialog, setShareDialog] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [reason, setReason] = useState("");
 
   const handleDragStart = (candidate: Candidate) => {
     setDraggedCandidate(candidate);
@@ -163,23 +253,96 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     e.preventDefault();
     if (!draggedCandidate) return;
 
+    // Find current stage of candidate
+    const currentStage = columns.find((col) =>
+      col.candidates.some((c) => c.id === draggedCandidate.id),
+    )?.id;
+
+    if (currentStage && currentStage !== targetColumnId) {
+      // Open feedback dialog before moving
+      setFeedbackDialog({
+        open: true,
+        candidate: draggedCandidate,
+        fromStage: currentStage,
+        toStage: targetColumnId,
+      });
+    }
+
+    setDraggedCandidate(null);
+  };
+
+  const handleFeedbackSubmit = () => {
+    if (!feedbackDialog.candidate) return;
+
+    const newNote: FeedbackNote = {
+      id: Date.now().toString(),
+      stage_from: feedbackDialog.fromStage,
+      stage_to: feedbackDialog.toStage,
+      feedback,
+      reason,
+      created_by: "Current User", // Would be actual user in real app
+      created_at: new Date().toISOString().split("T")[0],
+    };
+
     setColumns((prevColumns) => {
       const newColumns = prevColumns.map((column) => ({
         ...column,
-        candidates: column.candidates.filter(
-          (c) => c.id !== draggedCandidate.id,
-        ),
+        candidates: column.candidates
+          .map((candidate) =>
+            candidate.id === feedbackDialog.candidate?.id
+              ? { ...candidate, notes: [...(candidate.notes || []), newNote] }
+              : candidate,
+          )
+          .filter((c) => c.id !== feedbackDialog.candidate?.id),
       }));
 
-      const targetColumn = newColumns.find((col) => col.id === targetColumnId);
-      if (targetColumn) {
-        targetColumn.candidates.push(draggedCandidate);
+      const targetColumn = newColumns.find(
+        (col) => col.id === feedbackDialog.toStage,
+      );
+      if (targetColumn && feedbackDialog.candidate) {
+        const updatedCandidate = {
+          ...feedbackDialog.candidate,
+          notes: [...(feedbackDialog.candidate.notes || []), newNote],
+        };
+        targetColumn.candidates.push(updatedCandidate);
       }
 
       return newColumns;
     });
 
-    setDraggedCandidate(null);
+    // Reset dialog state
+    setFeedbackDialog({
+      open: false,
+      candidate: null,
+      fromStage: "",
+      toStage: "",
+    });
+    setFeedback("");
+    setReason("");
+  };
+
+  const generateShareUrl = () => {
+    const baseUrl = window.location.origin;
+    const jobId = jobTitle.toLowerCase().replace(/\s+/g, "-");
+    const shareToken = Math.random().toString(36).substring(7);
+    const url = `${baseUrl}/kanban/shared/${jobId}?token=${shareToken}`;
+    setShareUrl(url);
+    setShareDialog(true);
+  };
+
+  const copyShareUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy URL");
+    }
+  };
+
+  const openProfile = (candidate: Candidate) => {
+    setSelectedCandidate(candidate);
+    setProfileDialog(true);
   };
 
   const CandidateCard = ({ candidate }: { candidate: Candidate }) => (
@@ -190,7 +353,10 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     >
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
-          <Avatar className="h-10 w-10">
+          <Avatar
+            className="h-10 w-10 cursor-pointer"
+            onClick={() => openProfile(candidate)}
+          >
             <AvatarImage src={candidate.avatar} />
             <AvatarFallback>
               {candidate.name
@@ -200,9 +366,20 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <h4 className="font-medium text-sm text-foreground truncate">
+            <h4
+              className="font-medium text-sm text-foreground truncate cursor-pointer hover:text-brand-600 transition-colors"
+              onClick={() => openProfile(candidate)}
+            >
               {candidate.name}
             </h4>
+            {candidate.rating && (
+              <div className="flex items-center mt-1">
+                <Star className="h-3 w-3 text-yellow-500 fill-current" />
+                <span className="text-xs text-muted-foreground ml-1">
+                  {candidate.rating}/5
+                </span>
+              </div>
+            )}
             <div className="flex items-center text-xs text-muted-foreground mt-1">
               <MapPin className="h-3 w-3 mr-1" />
               {candidate.location}
@@ -302,10 +479,18 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
             {jobTitle} • Drag candidates between stages
           </p>
         </div>
-        <div className="text-right">
-          <div className="text-sm text-muted-foreground">Total Candidates</div>
-          <div className="text-2xl font-bold text-brand-600">
-            {columns.reduce((acc, col) => acc + col.candidates.length, 0)}
+        <div className="flex items-center space-x-4">
+          <Button variant="outline" onClick={generateShareUrl}>
+            <Share2 className="h-4 w-4 mr-2" />
+            Share Pipeline
+          </Button>
+          <div className="text-right">
+            <div className="text-sm text-muted-foreground">
+              Total Candidates
+            </div>
+            <div className="text-2xl font-bold text-brand-600">
+              {columns.reduce((acc, col) => acc + col.candidates.length, 0)}
+            </div>
           </div>
         </div>
       </div>
@@ -367,6 +552,351 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
           <div className="text-sm text-muted-foreground">Hired</div>
         </Card>
       </div>
+
+      {/* Feedback Dialog */}
+      <Dialog
+        open={feedbackDialog.open}
+        onOpenChange={(open) =>
+          setFeedbackDialog((prev) => ({ ...prev, open }))
+        }
+      >
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Move Candidate</DialogTitle>
+            <DialogDescription>
+              Moving {feedbackDialog.candidate?.name} from{" "}
+              <span className="capitalize font-medium">
+                {feedbackDialog.fromStage}
+              </span>{" "}
+              to{" "}
+              <span className="capitalize font-medium">
+                {feedbackDialog.toStage}
+              </span>
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="reason">Reason for moving</Label>
+              <Input
+                id="reason"
+                placeholder="e.g., Passed technical round"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="feedback">Feedback/Notes</Label>
+              <Textarea
+                id="feedback"
+                placeholder="Add detailed feedback for next interview or notes..."
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+                rows={3}
+              />
+            </div>
+            <div className="flex justify-end space-x-3">
+              <Button
+                variant="outline"
+                onClick={() =>
+                  setFeedbackDialog((prev) => ({ ...prev, open: false }))
+                }
+              >
+                Cancel
+              </Button>
+              <Button onClick={handleFeedbackSubmit} disabled={!reason.trim()}>
+                Move Candidate
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Profile Dialog */}
+      <Dialog open={profileDialog} onOpenChange={setProfileDialog}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          {selectedCandidate && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="flex items-center space-x-3">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={selectedCandidate.avatar} />
+                    <AvatarFallback>
+                      {selectedCandidate.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <div className="font-bold text-xl">
+                      {selectedCandidate.name}
+                    </div>
+                    <div className="flex items-center text-muted-foreground">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      {selectedCandidate.location}
+                    </div>
+                  </div>
+                </DialogTitle>
+              </DialogHeader>
+
+              <div className="space-y-6">
+                {/* Contact & Basic Info */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="font-semibold mb-2 flex items-center">
+                      <Mail className="h-4 w-4 mr-2" />
+                      Contact Information
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <div>
+                        <strong>Email:</strong> {selectedCandidate.email}
+                      </div>
+                      <div>
+                        <strong>Phone:</strong> {selectedCandidate.phone}
+                      </div>
+                      <div>
+                        <strong>Age:</strong> {selectedCandidate.profile?.age}{" "}
+                        years
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2 flex items-center">
+                      <GraduationCap className="h-4 w-4 mr-2" />
+                      Education & Training
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <div>
+                        <strong>Education:</strong>{" "}
+                        {selectedCandidate.education}
+                      </div>
+                      <div>
+                        <strong>Institute:</strong>{" "}
+                        {selectedCandidate.institute}
+                      </div>
+                      <div>
+                        <strong>Experience:</strong>{" "}
+                        {selectedCandidate.experience}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <Separator />
+
+                {/* Skills & Strengths */}
+                <div>
+                  <h3 className="font-semibold mb-2 flex items-center">
+                    <Award className="h-4 w-4 mr-2" />
+                    Skills & Strengths
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <div className="text-sm font-medium mb-2">
+                        Technical Skills:
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {selectedCandidate.skills.map((skill, index) => (
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="text-xs"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium mb-2">Strengths:</div>
+                      <div className="flex flex-wrap gap-1">
+                        {selectedCandidate.profile?.strengths.map(
+                          (strength, index) => (
+                            <Badge
+                              key={index}
+                              className="text-xs bg-green-100 text-green-800"
+                            >
+                              {strength}
+                            </Badge>
+                          ),
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <Separator />
+
+                {/* Languages & Salary */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <h3 className="font-semibold mb-2 flex items-center">
+                      <Users className="h-4 w-4 mr-2" />
+                      Languages
+                    </h3>
+                    <div className="flex flex-wrap gap-1">
+                      {selectedCandidate.profile?.languages.map(
+                        (lang, index) => (
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="text-xs"
+                          >
+                            {lang}
+                          </Badge>
+                        ),
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2">Salary Expectation</h3>
+                    <div className="text-sm">
+                      {selectedCandidate.profile?.salary_expectation}
+                    </div>
+                  </div>
+                </div>
+
+                {selectedCandidate.profile?.previousWork && (
+                  <>
+                    <Separator />
+                    <div>
+                      <h3 className="font-semibold mb-2">
+                        Previous Work Experience
+                      </h3>
+                      <div className="text-sm">
+                        {selectedCandidate.profile.previousWork}
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Interview Notes */}
+                {selectedCandidate.notes &&
+                  selectedCandidate.notes.length > 0 && (
+                    <>
+                      <Separator />
+                      <div>
+                        <h3 className="font-semibold mb-2 flex items-center">
+                          <MessageSquare className="h-4 w-4 mr-2" />
+                          Interview Notes & Feedback
+                        </h3>
+                        <div className="space-y-3">
+                          {selectedCandidate.notes.map((note) => (
+                            <div
+                              key={note.id}
+                              className="border rounded-lg p-3 bg-gray-50"
+                            >
+                              <div className="flex items-center justify-between mb-2">
+                                <div className="text-sm font-medium">
+                                  Moved from{" "}
+                                  <span className="capitalize">
+                                    {note.stage_from}
+                                  </span>{" "}
+                                  to{" "}
+                                  <span className="capitalize">
+                                    {note.stage_to}
+                                  </span>
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                  {note.created_at} • {note.created_by}
+                                </div>
+                              </div>
+                              <div className="text-sm">
+                                <div>
+                                  <strong>Reason:</strong> {note.reason}
+                                </div>
+                                <div>
+                                  <strong>Feedback:</strong> {note.feedback}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                {/* Action Buttons */}
+                <div className="flex space-x-3 pt-4">
+                  <Button className="flex-1">
+                    <Play className="h-4 w-4 mr-2" />
+                    Watch Video
+                  </Button>
+                  <Button variant="outline" className="flex-1">
+                    <FileText className="h-4 w-4 mr-2" />
+                    View Resume
+                  </Button>
+                  {selectedCandidate.phone && (
+                    <Button variant="outline" className="flex-1">
+                      <Phone className="h-4 w-4 mr-2" />
+                      Call
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Share Dialog */}
+      <Dialog open={shareDialog} onOpenChange={setShareDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Share Hiring Pipeline</DialogTitle>
+            <DialogDescription>
+              Share this kanban board with team members or stakeholders
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label>Shareable Link</Label>
+              <div className="flex space-x-2 mt-1">
+                <Input
+                  value={shareUrl}
+                  readOnly
+                  className="font-mono text-xs"
+                />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={copyShareUrl}
+                  className={copied ? "text-green-600" : ""}
+                >
+                  {copied ? (
+                    <CheckCircle className="h-4 w-4" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
+              {copied && (
+                <div className="text-xs text-green-600 mt-1">
+                  Link copied to clipboard!
+                </div>
+              )}
+            </div>
+
+            <div className="bg-blue-50 p-3 rounded-lg text-sm">
+              <div className="font-medium text-blue-900 mb-1">
+                Share Features:
+              </div>
+              <ul className="text-blue-800 space-y-1">
+                <li>• View-only access to the pipeline</li>
+                <li>• See candidate profiles and feedback</li>
+                <li>• Real-time updates as you move candidates</li>
+                <li>• No login required for viewers</li>
+              </ul>
+            </div>
+
+            <div className="flex justify-end">
+              <Button variant="outline" onClick={() => setShareDialog(false)}>
+                Close
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
