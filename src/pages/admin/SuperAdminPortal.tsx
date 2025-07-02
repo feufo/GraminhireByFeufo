@@ -694,106 +694,260 @@ const SuperAdminPortal = () => {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>User Management</CardTitle>
+                    <CardTitle>Complete User Management</CardTitle>
                     <CardDescription>
-                      View, edit, and manage all platform users
+                      Full access to all platform users including passwords and
+                      personal data
                     </CardDescription>
                   </div>
                   <div className="flex space-x-3">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder="Search users..."
-                        className="pl-10 w-64"
-                      />
-                    </div>
+                    <Button
+                      variant={showPasswords ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setShowPasswords(!showPasswords)}
+                    >
+                      {showPasswords ? "Hide" : "Show"} Passwords
+                    </Button>
                     <Select
                       value={selectedUserType}
                       onValueChange={setSelectedUserType}
                     >
                       <SelectTrigger className="w-48">
-                        <SelectValue placeholder="Filter by type" />
+                        <SelectValue placeholder="Filter by role" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">All Users</SelectItem>
                         <SelectItem value="candidate">Candidates</SelectItem>
                         <SelectItem value="employer">Employers</SelectItem>
                         <SelectItem value="institute">Institutes</SelectItem>
-                        <SelectItem value="internal_admin">
-                          Internal Admin
-                        </SelectItem>
+                        <SelectItem value="super_admin">Super Admin</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>User</TableHead>
-                      <TableHead>Type</TableHead>
-                      <TableHead>Contact</TableHead>
-                      <TableHead>Location</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Last Active</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredUsers.map((user) => (
-                      <TableRow key={user.id}>
-                        <TableCell>
-                          <div>
-                            <div className="font-medium">{user.name}</div>
-                            <div className="text-sm text-muted-foreground">
-                              {user.role && `${user.role} • `}Registered{" "}
-                              {user.registeredDate}
+                <div className="space-y-4">
+                  {allUsers
+                    .filter(
+                      (user) =>
+                        selectedUserType === "all" ||
+                        user.role === selectedUserType,
+                    )
+                    .map((user) => (
+                      <Card
+                        key={user.id}
+                        className="border hover:shadow-md transition-shadow"
+                      >
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center space-x-4">
+                              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                <span className="text-white font-bold text-lg">
+                                  {user.name
+                                    .split(" ")
+                                    .map((n) => n[0])
+                                    .join("")}
+                                </span>
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-semibold">
+                                  {user.name}
+                                </h3>
+                                <div className="flex items-center space-x-2">
+                                  <Badge className="capitalize">
+                                    {user.role.replace("_", " ")}
+                                  </Badge>
+                                  <Badge
+                                    className={getStatusColor(user.status)}
+                                  >
+                                    {user.status}
+                                  </Badge>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex space-x-2">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  console.log("Edit user clicked:", user.name);
+                                  setEditingUser(user);
+                                }}
+                              >
+                                <Edit className="h-4 w-4 mr-2" />
+                                Edit
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  console.log("View user details:", user.name);
+                                  alert(`👤 Viewing details for ${user.name}`);
+                                }}
+                              >
+                                <Eye className="h-4 w-4 mr-2" />
+                                View
+                              </Button>
                             </div>
                           </div>
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline" className="capitalize">
-                            {getUserTypeIcon(user.type)}
-                            <span className="ml-1">
-                              {user.type.replace("_", " ")}
-                            </span>
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-sm">
-                            <div>{user.email}</div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Basic Info */}
+                            <div>
+                              <h4 className="font-medium text-sm text-gray-700 mb-2">
+                                Contact Information
+                              </h4>
+                              <div className="space-y-1 text-sm">
+                                <div>
+                                  <strong>Email:</strong> {user.email}
+                                </div>
+                                <div>
+                                  <strong>Phone:</strong> {user.phone}
+                                </div>
+                                <div>
+                                  <strong>Location:</strong> {user.location}
+                                </div>
+                                {showPasswords && (
+                                  <div className="bg-red-50 p-2 rounded border">
+                                    <strong className="text-red-700">
+                                      Password:
+                                    </strong>
+                                    <span className="font-mono text-red-600 ml-2">
+                                      {user.password}
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Role-specific Data */}
+                            <div>
+                              <h4 className="font-medium text-sm text-gray-700 mb-2">
+                                Role-specific Data
+                              </h4>
+                              <div className="space-y-1 text-sm">
+                                {user.candidateData && (
+                                  <>
+                                    <div>
+                                      <strong>Skills:</strong>{" "}
+                                      {user.candidateData.skills.join(", ")}
+                                    </div>
+                                    <div>
+                                      <strong>Institute:</strong>{" "}
+                                      {user.candidateData.institute}
+                                    </div>
+                                    <div>
+                                      <strong>Rating:</strong>{" "}
+                                      {user.candidateData.rating}/5
+                                    </div>
+                                    <div>
+                                      <strong>Applications:</strong>{" "}
+                                      {user.candidateData.applications}
+                                    </div>
+                                  </>
+                                )}
+                                {user.employerData && (
+                                  <>
+                                    <div>
+                                      <strong>Company:</strong>{" "}
+                                      {user.employerData.company}
+                                    </div>
+                                    <div>
+                                      <strong>Active Jobs:</strong>{" "}
+                                      {user.employerData.activeJobs}
+                                    </div>
+                                    <div>
+                                      <strong>Total Hires:</strong>{" "}
+                                      {user.employerData.totalHires}
+                                    </div>
+                                    <div>
+                                      <strong>Pending:</strong> ₹
+                                      {user.employerData.pendingPayments.toLocaleString()}
+                                    </div>
+                                  </>
+                                )}
+                                {user.instituteData && (
+                                  <>
+                                    <div>
+                                      <strong>Institute:</strong>{" "}
+                                      {user.instituteData.instituteName}
+                                    </div>
+                                    <div>
+                                      <strong>Students:</strong>{" "}
+                                      {user.instituteData.totalStudents}
+                                    </div>
+                                    <div>
+                                      <strong>Placed:</strong>{" "}
+                                      {user.instituteData.placedStudents}
+                                    </div>
+                                    <div>
+                                      <strong>Success Rate:</strong>{" "}
+                                      {user.instituteData.successRate}%
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Activity & Admin Actions */}
+                            <div>
+                              <h4 className="font-medium text-sm text-gray-700 mb-2">
+                                Platform Activity
+                              </h4>
+                              <div className="space-y-1 text-sm">
+                                <div>
+                                  <strong>Joined:</strong> {user.joinedDate}
+                                </div>
+                                <div>
+                                  <strong>Last Active:</strong>{" "}
+                                  {user.lastActive}
+                                </div>
+                                <div className="pt-2">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full mb-2"
+                                    onClick={() => {
+                                      const newPassword = prompt(
+                                        `Enter new password for ${user.name}:`,
+                                      );
+                                      if (newPassword) {
+                                        updatePassword(user.id, newPassword);
+                                        alert(
+                                          `✅ Password updated for ${user.name}`,
+                                        );
+                                      }
+                                    }}
+                                  >
+                                    Reset Password
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full"
+                                    onClick={() => {
+                                      if (
+                                        confirm(
+                                          `Are you sure you want to delete ${user.name}?`,
+                                        )
+                                      ) {
+                                        deleteUser(user.id);
+                                        alert(`🗑️ User ${user.name} deleted`);
+                                      }
+                                    }}
+                                  >
+                                    <Trash2 className="h-4 w-4 mr-2" />
+                                    Delete User
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </TableCell>
-                        <TableCell>{user.location}</TableCell>
-                        <TableCell>
-                          <Badge className={getStatusColor(user.status)}>
-                            {getStatusIcon(user.status)}
-                            <span className="ml-1 capitalize">
-                              {user.status}
-                            </span>
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="text-sm">{user.lastActive}</div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2">
-                            <Button variant="outline" size="sm">
-                              <Eye className="h-3 w-3" />
-                            </Button>
-                            <Button variant="outline" size="sm">
-                              <Edit className="h-3 w-3" />
-                            </Button>
-                            <Button variant="outline" size="sm">
-                              <Trash2 className="h-3 w-3" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
+                        </CardContent>
+                      </Card>
                     ))}
-                  </TableBody>
-                </Table>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
