@@ -135,7 +135,7 @@ const Navigation = () => {
               size="sm"
               onClick={() => {
                 console.log("Notification clicked");
-                alert("���� Notifications feature coming soon!");
+                console.log("FIXED ALERT:", "���� Notifications feature coming soon!");
               }}
             >
               <Bell className="h-4 w-4" />
