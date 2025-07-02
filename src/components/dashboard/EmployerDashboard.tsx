@@ -161,6 +161,7 @@ const EmployerDashboard = () => {
 
   // Job management functions
   const handleJobAction = (jobId: number, action: string) => {
+    console.log("Job action:", { jobId, action }); // Debug log
     setJobOrders((prev) =>
       prev.map((job) =>
         job.id === jobId
