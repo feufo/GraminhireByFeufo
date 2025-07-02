@@ -482,7 +482,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     setShareDialog(true);
   }, [jobTitle]);
 
-  const copyShareUrl = async () => {
+  const copyShareUrl = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -490,7 +490,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     } catch (err) {
       console.error("Failed to copy URL");
     }
-  };
+  }, [shareUrl]);
 
   const openProfile = (candidate: Candidate) => {
     setSelectedCandidate(candidate);
