@@ -479,6 +479,103 @@ const EmployerDashboard = () => {
               </CardContent>
             </Card>
           </div>
+
+          {/* Analytics Section */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold">Performance Analytics</h3>
+              <Badge variant="secondary">Updated daily</Badge>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <Card className="text-center p-6">
+                <TrendingUp className="h-8 w-8 text-brand-600 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-foreground">
+                  {analytics.avgTimeToHire}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Avg Time to Hire
+                </div>
+              </Card>
+              <Card className="text-center p-6">
+                <IndianRupee className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-foreground">
+                  {analytics.avgSalaryRange}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Avg Salary Offered
+                </div>
+              </Card>
+              <Card className="text-center p-6">
+                <Users className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-foreground">
+                  {analytics.placementRate}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Success Rate
+                </div>
+              </Card>
+              <Card className="text-center p-6">
+                <Clock className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-foreground">
+                  {analytics.totalSpent}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Total Recruitment Cost
+                </div>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Performance Insights</CardTitle>
+                <CardDescription>
+                  Key metrics and recommendations for your hiring process
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-green-900">
+                        Strong Performance
+                      </h4>
+                      <p className="text-sm text-green-700">
+                        Your placement rate is 23% above industry average
+                      </p>
+                    </div>
+                    <div className="text-2xl font-bold text-green-600">78%</div>
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-blue-900">
+                        Time Efficiency
+                      </h4>
+                      <p className="text-sm text-blue-700">
+                        Average hiring time is within industry standards
+                      </p>
+                    </div>
+                    <div className="text-2xl font-bold text-blue-600">
+                      12 days
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-orange-50 rounded-lg">
+                    <div>
+                      <h4 className="font-medium text-orange-900">
+                        Cost Optimization
+                      </h4>
+                      <p className="text-sm text-orange-700">
+                        Consider bulk recruitment for better rates
+                      </p>
+                    </div>
+                    <div className="text-2xl font-bold text-orange-600">
+                      ₹4,900
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="jobs" className="space-y-6">
