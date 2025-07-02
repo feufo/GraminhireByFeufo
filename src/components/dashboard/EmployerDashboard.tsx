@@ -215,7 +215,12 @@ const EmployerDashboard = () => {
 
         <Dialog open={isCreatingJob} onOpenChange={setIsCreatingJob}>
           <DialogTrigger asChild>
-            <Button>
+            <Button
+              onClick={() => {
+                console.log("Post New Job clicked"); // Debug log
+                setIsCreatingJob(true);
+              }}
+            >
               <Plus className="h-4 w-4 mr-2" />
               Post New Job
             </Button>
