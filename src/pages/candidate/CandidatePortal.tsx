@@ -66,7 +66,7 @@ const CandidatePortal = () => {
       jobTitle: "Quality Inspector",
       company: "Bajaj Auto",
       location: "Aurangabad, Maharashtra",
-      salary: "₹20,000-25,000/month",
+      salary: "��20,000-25,000/month",
       appliedDate: "2024-01-18",
       status: "applied",
       institute: "DDU-GKY Center",
@@ -325,7 +325,10 @@ const CandidatePortal = () => {
                           size="icon"
                           onClick={() => {
                             console.log("Share clicked");
-                            alert("📤 Share link copied to clipboard!");
+                            toast({
+                              title: "📤 Link Copied",
+                              description: "Job link copied to clipboard",
+                            });
                           }}
                         >
                           <Share className="h-4 w-4" />
@@ -335,7 +338,10 @@ const CandidatePortal = () => {
                           size="icon"
                           onClick={() => {
                             console.log("Contact clicked");
-                            alert("📞 Contact feature coming soon!");
+                            toast({
+                              title: "📞 Contact Employer",
+                              description: "Feature coming soon",
+                            });
                           }}
                         >
                           <Phone className="h-4 w-4" />
