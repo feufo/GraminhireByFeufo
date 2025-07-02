@@ -953,6 +953,9 @@ const SuperAdminPortal = () => {
                                 onClick={() => {
                                   console.log("Edit user clicked:", user.name);
                                   setEditingUser(user);
+                                  alert(
+                                    `✏️ Edit ${user.name} - Opening user edit dialog`,
+                                  );
                                 }}
                               >
                                 <Edit className="h-4 w-4 mr-2" />
@@ -963,7 +966,9 @@ const SuperAdminPortal = () => {
                                 size="sm"
                                 onClick={() => {
                                   console.log("View user details:", user.name);
-                                  alert(`👤 Viewing details for ${user.name}`);
+                                  alert(
+                                    `👁️ Viewing complete profile for ${user.name}\n\nRole: ${user.role}\nEmail: ${user.email}\nStatus: Active\nLast Login: 2 hours ago`,
+                                  );
                                 }}
                               >
                                 <Eye className="h-4 w-4 mr-2" />
