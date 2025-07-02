@@ -240,6 +240,22 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
   const [copied, setCopied] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [reason, setReason] = useState("");
+  const [addColumnDialog, setAddColumnDialog] = useState(false);
+  const [addCandidateDialog, setAddCandidateDialog] = useState(false);
+  const [newColumnName, setNewColumnName] = useState("");
+  const [newColumnColor, setNewColumnColor] = useState(
+    "bg-gray-100 border-gray-200",
+  );
+  const [newCandidate, setNewCandidate] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    location: "",
+    institute: "",
+    skills: "",
+    experience: "",
+    education: "",
+  });
 
   const handleDragStart = (candidate: Candidate) => {
     setDraggedCandidate(candidate);
@@ -343,6 +359,90 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
   const openProfile = (candidate: Candidate) => {
     setSelectedCandidate(candidate);
     setProfileDialog(true);
+  };
+
+  const handleAddColumn = () => {
+    if (!newColumnName.trim()) return;
+
+    const newColumn: KanbanColumn = {
+      id: newColumnName.toLowerCase().replace(/\s+/g, "_"),
+      title: newColumnName,
+      candidates: [],
+      color: newColumnColor,
+    };
+
+    setColumns((prev) => [...prev, newColumn]);
+    setNewColumnName("");
+    setNewColumnColor("bg-gray-100 border-gray-200");
+    setAddColumnDialog(false);
+  };
+
+  const handleAddCandidate = () => {
+    if (!newCandidate.name.trim() || !newCandidate.email.trim()) return;
+
+    const candidate: Candidate = {
+      id: Date.now().toString(),
+      name: newCandidate.name,
+      email: newCandidate.email,
+      phone: newCandidate.phone,
+      skills: newCandidate.skills
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s),
+      location: newCandidate.location,
+      institute: newCandidate.institute,
+      appliedDate: new Date().toISOString().split("T")[0],
+      experience: newCandidate.experience,
+      education: newCandidate.education,
+      rating: 0,
+      profile: {
+        age: 22,
+        languages: ["Hindi", "English"],
+        strengths: ["New Talent", "Verified"],
+        salary_expectation: "Negotiable",
+      },
+      notes: [
+        {
+          id: Date.now().toString(),
+          stage_from: "external",
+          stage_to: "applied",
+          feedback: "Added by admin/recruiter",
+          reason: "New talent with intro video",
+          created_by: "Platform Admin",
+          created_at: new Date().toISOString().split("T")[0],
+        },
+      ],
+    };
+
+    // Add to first column (Applied)
+    setColumns((prev) =>
+      prev.map((col) =>
+        col.id === "applied"
+          ? { ...col, candidates: [...col.candidates, candidate] }
+          : col,
+      ),
+    );
+
+    // Reset form
+    setNewCandidate({
+      name: "",
+      email: "",
+      phone: "",
+      location: "",
+      institute: "",
+      skills: "",
+      experience: "",
+      education: "",
+    });
+    setAddCandidateDialog(false);
+  };
+
+  const handleDeleteColumn = (columnId: string) => {
+    // Don't allow deleting default columns
+    const defaultColumns = ["applied", "shortlisted", "interviewed", "hired"];
+    if (defaultColumns.includes(columnId)) return;
+
+    setColumns((prev) => prev.filter((col) => col.id !== columnId));
   };
 
   const CandidateCard = ({ candidate }: { candidate: Candidate }) => (
@@ -479,7 +579,15 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
             {jobTitle} • Drag candidates between stages
           </p>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
+          <Button variant="outline" onClick={() => setAddCandidateDialog(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Candidate
+          </Button>
+          <Button variant="outline" onClick={() => setAddColumnDialog(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Column
+          </Button>
           <Button variant="outline" onClick={generateShareUrl}>
             <Share2 className="h-4 w-4 mr-2" />
             Share Pipeline
@@ -508,7 +616,21 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
                 <h3 className="font-semibold text-foreground">
                   {column.title}
                 </h3>
-                <Badge variant="secondary">{column.candidates.length}</Badge>
+                <div className="flex items-center space-x-2">
+                  <Badge variant="secondary">{column.candidates.length}</Badge>
+                  {!["applied", "shortlisted", "interviewed", "hired"].includes(
+                    column.id,
+                  ) && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
+                      onClick={() => handleDeleteColumn(column.id)}
+                    >
+                      ×
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
             <div className="p-4">
@@ -892,6 +1014,259 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
             <div className="flex justify-end">
               <Button variant="outline" onClick={() => setShareDialog(false)}>
                 Close
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Column Dialog */}
+      <Dialog open={addColumnDialog} onOpenChange={setAddColumnDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add Custom Column</DialogTitle>
+            <DialogDescription>
+              Create a new stage in your hiring pipeline
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="columnName">Column Name</Label>
+              <Input
+                id="columnName"
+                placeholder="e.g., Technical Round, Final Review"
+                value={newColumnName}
+                onChange={(e) => setNewColumnName(e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="columnColor">Column Color</Label>
+              <Select value={newColumnColor} onValueChange={setNewColumnColor}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="bg-gray-100 border-gray-200">
+                    Gray
+                  </SelectItem>
+                  <SelectItem value="bg-red-100 border-red-200">Red</SelectItem>
+                  <SelectItem value="bg-orange-100 border-orange-200">
+                    Orange
+                  </SelectItem>
+                  <SelectItem value="bg-amber-100 border-amber-200">
+                    Amber
+                  </SelectItem>
+                  <SelectItem value="bg-lime-100 border-lime-200">
+                    Lime
+                  </SelectItem>
+                  <SelectItem value="bg-emerald-100 border-emerald-200">
+                    Emerald
+                  </SelectItem>
+                  <SelectItem value="bg-cyan-100 border-cyan-200">
+                    Cyan
+                  </SelectItem>
+                  <SelectItem value="bg-sky-100 border-sky-200">Sky</SelectItem>
+                  <SelectItem value="bg-indigo-100 border-indigo-200">
+                    Indigo
+                  </SelectItem>
+                  <SelectItem value="bg-violet-100 border-violet-200">
+                    Violet
+                  </SelectItem>
+                  <SelectItem value="bg-pink-100 border-pink-200">
+                    Pink
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="bg-blue-50 p-3 rounded-lg text-sm">
+              <div className="text-blue-900 font-medium mb-1">
+                Custom Pipeline Stage
+              </div>
+              <div className="text-blue-800">
+                Add custom stages like "Background Check", "Reference Check",
+                "Salary Negotiation", etc.
+              </div>
+            </div>
+            <div className="flex justify-end space-x-3">
+              <Button
+                variant="outline"
+                onClick={() => setAddColumnDialog(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleAddColumn}
+                disabled={!newColumnName.trim()}
+              >
+                <Columns className="h-4 w-4 mr-2" />
+                Add Column
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Candidate Dialog */}
+      <Dialog open={addCandidateDialog} onOpenChange={setAddCandidateDialog}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Add New Candidate</DialogTitle>
+            <DialogDescription>
+              Add a candidate directly to the pipeline (Admin/Recruiter
+              function)
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-6 py-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="candidateName">Full Name *</Label>
+                <Input
+                  id="candidateName"
+                  placeholder="Candidate full name"
+                  value={newCandidate.name}
+                  onChange={(e) =>
+                    setNewCandidate((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div>
+                <Label htmlFor="candidateEmail">Email Address *</Label>
+                <Input
+                  id="candidateEmail"
+                  type="email"
+                  placeholder="candidate@email.com"
+                  value={newCandidate.email}
+                  onChange={(e) =>
+                    setNewCandidate((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="candidatePhone">Phone Number</Label>
+                <Input
+                  id="candidatePhone"
+                  placeholder="+91 XXXXX XXXXX"
+                  value={newCandidate.phone}
+                  onChange={(e) =>
+                    setNewCandidate((prev) => ({
+                      ...prev,
+                      phone: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div>
+                <Label htmlFor="candidateLocation">Location</Label>
+                <Input
+                  id="candidateLocation"
+                  placeholder="City, State"
+                  value={newCandidate.location}
+                  onChange={(e) =>
+                    setNewCandidate((prev) => ({
+                      ...prev,
+                      location: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="candidateInstitute">Training Institute</Label>
+                <Input
+                  id="candidateInstitute"
+                  placeholder="ITI/College/Training Center"
+                  value={newCandidate.institute}
+                  onChange={(e) =>
+                    setNewCandidate((prev) => ({
+                      ...prev,
+                      institute: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div>
+                <Label htmlFor="candidateEducation">Education</Label>
+                <Input
+                  id="candidateEducation"
+                  placeholder="e.g., ITI Mechanical - 2023"
+                  value={newCandidate.education}
+                  onChange={(e) =>
+                    setNewCandidate((prev) => ({
+                      ...prev,
+                      education: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="candidateSkills">Skills (comma separated)</Label>
+              <Input
+                id="candidateSkills"
+                placeholder="e.g., Assembly, Quality Control, Machine Operation"
+                value={newCandidate.skills}
+                onChange={(e) =>
+                  setNewCandidate((prev) => ({
+                    ...prev,
+                    skills: e.target.value,
+                  }))
+                }
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="candidateExperience">Experience</Label>
+              <Input
+                id="candidateExperience"
+                placeholder="e.g., 6 months training, 1 year experience"
+                value={newCandidate.experience}
+                onChange={(e) =>
+                  setNewCandidate((prev) => ({
+                    ...prev,
+                    experience: e.target.value,
+                  }))
+                }
+              />
+            </div>
+
+            <div className="bg-green-50 p-3 rounded-lg text-sm">
+              <div className="text-green-900 font-medium mb-1">
+                Recruiter Function
+              </div>
+              <div className="text-green-800">
+                This candidate will be added to the "Applied" stage with a note
+                that they were added by admin/recruiter after video
+                verification.
+              </div>
+            </div>
+
+            <div className="flex justify-end space-x-3">
+              <Button
+                variant="outline"
+                onClick={() => setAddCandidateDialog(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleAddCandidate}
+                disabled={
+                  !newCandidate.name.trim() || !newCandidate.email.trim()
+                }
+              >
+                <UserPlus className="h-4 w-4 mr-2" />
+                Add to Pipeline
               </Button>
             </div>
           </div>
