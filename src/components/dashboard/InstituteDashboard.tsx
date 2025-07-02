@@ -616,11 +616,27 @@ const InstituteDashboard = () => {
                     </div>
 
                     <div className="flex space-x-3">
-                      <Button>
+                      <Button
+                        onClick={() => {
+                          console.log(
+                            "Submit students clicked for job:",
+                            job.title,
+                          );
+                          alert(
+                            `📋 Submitting ${job.matchingStudents} students for ${job.title}`,
+                          );
+                        }}
+                      >
                         <Send className="h-4 w-4 mr-2" />
                         Submit Students ({job.matchingStudents})
                       </Button>
-                      <Button variant="outline">
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          console.log("View job details clicked:", job.title);
+                          alert(`��️ Viewing details for ${job.title}`);
+                        }}
+                      >
                         <Eye className="h-4 w-4 mr-2" />
                         View Details
                       </Button>
