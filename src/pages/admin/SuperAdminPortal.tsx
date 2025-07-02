@@ -983,26 +983,45 @@ const SuperAdminPortal = () => {
                                 </DialogTrigger>
                                 <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
                                   <DialogHeader>
-                                    <DialogTitle>Manage User: {user.name}</DialogTitle>
+                                    <DialogTitle>
+                                      Manage User: {user.name}
+                                    </DialogTitle>
                                     <DialogDescription>
-                                      Complete user management - perform all actions as {user.role.replace('_', ' ')}
+                                      Complete user management - perform all
+                                      actions as {user.role.replace("_", " ")}
                                     </DialogDescription>
                                   </DialogHeader>
 
-                                  <Tabs defaultValue="profile" className="w-full">
+                                  <Tabs
+                                    defaultValue="profile"
+                                    className="w-full"
+                                  >
                                     <TabsList className="grid w-full grid-cols-3">
-                                      <TabsTrigger value="profile">Profile & Settings</TabsTrigger>
-                                      <TabsTrigger value="management">Management & Analytics</TabsTrigger>
-                                      <TabsTrigger value="security">Security & Admin</TabsTrigger>
+                                      <TabsTrigger value="profile">
+                                        Profile & Settings
+                                      </TabsTrigger>
+                                      <TabsTrigger value="management">
+                                        Management & Analytics
+                                      </TabsTrigger>
+                                      <TabsTrigger value="security">
+                                        Security & Admin
+                                      </TabsTrigger>
                                     </TabsList>
 
-                                    <TabsContent value="profile" className="space-y-6">
+                                    <TabsContent
+                                      value="profile"
+                                      className="space-y-6"
+                                    >
                                       {/* Basic Info Section */}
                                       <div className="space-y-4">
-                                        <h4 className="font-semibold text-lg">Basic Information</h4>
+                                        <h4 className="font-semibold text-lg">
+                                          Basic Information
+                                        </h4>
                                         <div className="grid grid-cols-2 gap-4">
                                           <div>
-                                            <Label htmlFor="editName">Name</Label>
+                                            <Label htmlFor="editName">
+                                              Name
+                                            </Label>
                                             <Input
                                               id="editName"
                                               defaultValue={user.name}
@@ -1010,7 +1029,9 @@ const SuperAdminPortal = () => {
                                             />
                                           </div>
                                           <div>
-                                            <Label htmlFor="editEmail">Email</Label>
+                                            <Label htmlFor="editEmail">
+                                              Email
+                                            </Label>
                                             <Input
                                               id="editEmail"
                                               type="email"
@@ -1019,7 +1040,9 @@ const SuperAdminPortal = () => {
                                             />
                                           </div>
                                           <div>
-                                            <Label htmlFor="editPhone">Phone</Label>
+                                            <Label htmlFor="editPhone">
+                                              Phone
+                                            </Label>
                                             <Input
                                               id="editPhone"
                                               defaultValue={user.phone}
@@ -1027,7 +1050,9 @@ const SuperAdminPortal = () => {
                                             />
                                           </div>
                                           <div>
-                                            <Label htmlFor="editLocation">Location</Label>
+                                            <Label htmlFor="editLocation">
+                                              Location
+                                            </Label>
                                             <Input
                                               id="editLocation"
                                               defaultValue={user.location}
@@ -1035,29 +1060,47 @@ const SuperAdminPortal = () => {
                                             />
                                           </div>
                                           <div>
-                                            <Label htmlFor="editStatus">Status</Label>
+                                            <Label htmlFor="editStatus">
+                                              Status
+                                            </Label>
                                             <Select defaultValue={user.status}>
                                               <SelectTrigger>
                                                 <SelectValue />
                                               </SelectTrigger>
                                               <SelectContent>
-                                                <SelectItem value="active">Active</SelectItem>
-                                                <SelectItem value="inactive">Inactive</SelectItem>
-                                                <SelectItem value="suspended">Suspended</SelectItem>
+                                                <SelectItem value="active">
+                                                  Active
+                                                </SelectItem>
+                                                <SelectItem value="inactive">
+                                                  Inactive
+                                                </SelectItem>
+                                                <SelectItem value="suspended">
+                                                  Suspended
+                                                </SelectItem>
                                               </SelectContent>
                                             </Select>
                                           </div>
                                           <div>
-                                            <Label htmlFor="editRole">Role</Label>
+                                            <Label htmlFor="editRole">
+                                              Role
+                                            </Label>
                                             <Select defaultValue={user.role}>
                                               <SelectTrigger>
                                                 <SelectValue />
                                               </SelectTrigger>
                                               <SelectContent>
-                                                <SelectItem value="candidate">Candidate</SelectItem>
-                                                <SelectItem value="employer">Employer</SelectItem>
-                                                <SelectItem value="institute">Institute</SelectItem>
-                                                <SelectItem value="super_admin">Super Admin</SelectItem>
+                                                <SelectItem value="candidate">
+                                                  Candidate
+                                                </SelectItem>
+                                                <SelectItem value="employer">
+                                                  Employer
+                                                </SelectItem>
+                                                <SelectItem value="institute">
+                                                  Institute
+                                                </SelectItem>
+                                                <SelectItem value="super_admin">
+                                                  Super Admin
+                                                </SelectItem>
                                               </SelectContent>
                                             </Select>
                                           </div>
@@ -1066,342 +1109,752 @@ const SuperAdminPortal = () => {
 
                                       {/* Role-Specific Profile Section */}
                                       <div className="border-t pt-4 space-y-4">
-                                      {user.role === 'candidate' && (
-                                        <div className="space-y-4">
-                                          <h4 className="font-semibold">Candidate Profile Management</h4>
-                                          <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                              <Label>Skills</Label>
-                                              <Input defaultValue={user.candidateData?.skills?.join(', ') || ''} placeholder="React, Node.js, Python..." />
-                                            </div>
-                                            <div>
-                                              <Label>Experience</Label>
-                                              <Select defaultValue="2-3">
-                                                <SelectTrigger>
-                                                  <SelectValue />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                  <SelectItem value="0-1">0-1 years</SelectItem>
-                                                  <SelectItem value="1-2">1-2 years</SelectItem>
-                                                  <SelectItem value="2-3">2-3 years</SelectItem>
-                                                  <SelectItem value="3-5">3-5 years</SelectItem>
-                                                  <SelectItem value="5+">5+ years</SelectItem>
-                                                </SelectContent>
-                                              </Select>
-                                            </div>
-                                            <div>
-                                              <Label>Expected Salary</Label>
-                                              <Input placeholder="₹5,00,000" />
-                                            </div>
-                                            <div>
-                                              <Label>Job Preferences</Label>
-                                              <Select>
-                                                <SelectTrigger>
-                                                  <SelectValue placeholder="Full-time" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                  <SelectItem value="full-time">Full-time</SelectItem>
-                                                  <SelectItem value="part-time">Part-time</SelectItem>
-                                                  <SelectItem value="contract">Contract</SelectItem>
-                                                  <SelectItem value="freelance">Freelance</SelectItem>
-                                                </SelectContent>
-                                              </Select>
-                                            </div>
-                                          </div>
-                                          <div>
-                                            <Label>Resume Upload</Label>
-                                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                                              <Upload className="h-8 w-8 mx-auto mb-2 text-gray-400" />
-                                              <p className="text-sm text-gray-600">Upload new resume for {user.name}</p>
-                                              <Button variant="outline" size="sm" className="mt-2">
-                                                <Upload className="h-4 w-4 mr-2" />
-                                                Choose File
-                                              </Button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      )}
-
-                                      {user.role === 'employer' && (
-                                        <div className="space-y-4">
-                                          <h4 className="font-semibold">Employer Profile Management</h4>
-                                          <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                              <Label>Company Name</Label>
-                                              <Input defaultValue={user.employerData?.company || ''} placeholder="Company Name" />
-                                            </div>
-                                            <div>
-                                              <Label>Industry</Label>
-                                              <Select>
-                                                <SelectTrigger>
-                                                  <SelectValue placeholder="Select industry" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                  <SelectItem value="technology">Technology</SelectItem>
-                                                  <SelectItem value="finance">Finance</SelectItem>
-                                                  <SelectItem value="healthcare">Healthcare</SelectItem>
-                                                  <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                                                </SelectContent>
-                                              </Select>
-                                            </div>
-                                            <div>
-                                              <Label>Company Size</Label>
-                                              <Select>
-                                                <SelectTrigger>
-                                                  <SelectValue placeholder="Select size" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                  <SelectItem value="1-10">1-10 employees</SelectItem>
-                                                  <SelectItem value="11-50">11-50 employees</SelectItem>
-                                                  <SelectItem value="51-200">51-200 employees</SelectItem>
-                                                  <SelectItem value="200+">200+ employees</SelectItem>
-                                                </SelectContent>
-                                              </Select>
-                                            </div>
-                                            <div>
-                                              <Label>Website</Label>
-                                              <Input placeholder="https://company.com" />
-                                            </div>
-                                          </div>
-                                        </div>
-                                      )}
-
-                                      {user.role === 'institute' && (
-                                        <div className="space-y-4">
-                                          <h4 className="font-semibold">Institute Profile Management</h4>
-                                          <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                              <Label>Institute Name</Label>
-                                              <Input defaultValue={user.instituteData?.instituteName || ''} placeholder="Institute Name" />
-                                            </div>
-                                            <div>
-                                              <Label>Institute Type</Label>
-                                              <Select>
-                                                <SelectTrigger>
-                                                  <SelectValue placeholder="Select type" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                  <SelectItem value="university">University</SelectItem>
-                                                  <SelectItem value="college">College</SelectItem>
-                                                  <SelectItem value="technical">Technical Institute</SelectItem>
-                                                  <SelectItem value="training">Training Center</SelectItem>
-                                                </SelectContent>
-                                              </Select>
-                                            </div>
-                                            <div>
-                                              <Label>Established Year</Label>
-                                              <Input placeholder="2000" />
-                                            </div>
-                                            <div>
-                                              <Label>Affiliation</Label>
-                                              <Input placeholder="University/Board" />
-                                            </div>
-                                          </div>
-                                        </div>
-                                      )}
-                                    </TabsContent>
-
-                                    <TabsContent value="actions" className="space-y-4">
-                                      <h4 className="font-semibold">Quick Actions for {user.name}</h4>
-
-                                      {user.role === 'candidate' && (
-                                        <div className="grid grid-cols-2 gap-4">
-                                          <Card className="p-4">
-                                            <h5 className="font-medium mb-3">Job Applications</h5>
-                                            <div className="space-y-2">
-                                              <Button onClick={() => console.log(`Applying ${user.name} to Software Developer at TechCorp`)} size="sm" className="w-full">
-                                                Apply to Jobs
-                                              </Button>
-                                              <Button onClick={() => console.log(`Withdrawing application for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Withdraw Applications
-                                              </Button>
-                                              <Button onClick={() => console.log(`Viewing applications for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                View All Applications
-                                              </Button>
-                                            </div>
-                                          </Card>
-                                          <Card className="p-4">
-                                            <h5 className="font-medium mb-3">Profile Actions</h5>
-                                            <div className="space-y-2">
-                                              <Button onClick={() => console.log(`Updating resume for ${user.name}`)} size="sm" className="w-full">
-                                                Update Resume
-                                              </Button>
-                                              <Button onClick={() => console.log(`Setting availability for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Set Availability
-                                              </Button>
-                                              <Button onClick={() => console.log(`Profile visibility toggle for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Toggle Visibility
-                                              </Button>
-                                            </div>
-                                          </Card>
-                                        </div>
-                                      )}
-
-                                      {user.role === 'employer' && (
-                                        <div className="grid grid-cols-2 gap-4">
-                                          <Card className="p-4">
-                                            <h5 className="font-medium mb-3">Job Management</h5>
-                                            <div className="space-y-2">
-                                              <Button onClick={() => console.log(`Creating job for ${user.name}`)} size="sm" className="w-full">
-                                                Create New Job
-                                              </Button>
-                                              <Button onClick={() => console.log(`Managing active jobs for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Manage Active Jobs
-                                              </Button>
-                                              <Button onClick={() => console.log(`Viewing applications for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                View Applications
-                                              </Button>
-                                            </div>
-                                          </Card>
-                                          <Card className="p-4">
-                                            <h5 className="font-medium mb-3">Candidate Actions</h5>
-                                            <div className="space-y-2">
-                                              <Button onClick={() => console.log(`Searching candidates for ${user.name}`)} size="sm" className="w-full">
-                                                Search Candidates
-                                              </Button>
-                                              <Button onClick={() => console.log(`Shortlisting candidates for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Shortlist Candidates
-                                              </Button>
-                                              <Button onClick={() => console.log(`Sending offers for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Send Job Offers
-                                              </Button>
-                                            </div>
-                                          </Card>
-                                        </div>
-                                      )}
-
-                                      {user.role === 'institute' && (
-                                        <div className="grid grid-cols-2 gap-4">
-                                          <Card className="p-4">
-                                            <h5 className="font-medium mb-3">Student Management</h5>
-                                            <div className="space-y-2">
-                                              <Button onClick={() => console.log(`Adding students for ${user.name}`)} size="sm" className="w-full">
-                                                Add Students
-                                              </Button>
-                                              <Button onClick={() => console.log(`Managing student profiles for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Manage Profiles
-                                              </Button>
-                                              <Button onClick={() => console.log(`Bulk student operations for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Bulk Operations
-                                              </Button>
-                                            </div>
-                                          </Card>
-                                          <Card className="p-4">
-                                            <h5 className="font-medium mb-3">Placement Actions</h5>
-                                            <div className="space-y-2">
-                                              <Button onClick={() => console.log(`Submitting students for ${user.name}`)} size="sm" className="w-full">
-                                                Submit to Jobs
-                                              </Button>
-                                              <Button onClick={() => console.log(`Tracking placements for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Track Placements
-                                              </Button>
-                                              <Button onClick={() => console.log(`Generating reports for ${user.name}`)} variant="outline" size="sm" className="w-full">
-                                                Generate Reports
-                                              </Button>
-                                            </div>
-                                          </Card>
-                                        </div>
-                                      )}
-                                    </TabsContent>
-
-                                    <TabsContent value="data" className="space-y-4">
-                                      <h4 className="font-semibold">User Data & Analytics</h4>
-                                      <div className="grid grid-cols-1 gap-4">
-                                        <Card className="p-4">
-                                          <h5 className="font-medium mb-3">Activity Summary</h5>
-                                          <div className="grid grid-cols-3 gap-4 text-center">
-                                            <div>
-                                              <div className="text-2xl font-bold text-blue-600">
-                                                {user.role === 'candidate' ? user.candidateData?.applications || 12 :
-                                                 user.role === 'employer' ? user.employerData?.totalHires || 8 :
-                                                 user.instituteData?.placedStudents || 45}
+                                        {user.role === "candidate" && (
+                                          <div className="space-y-4">
+                                            <h4 className="font-semibold">
+                                              Candidate Profile Management
+                                            </h4>
+                                            <div className="grid grid-cols-2 gap-4">
+                                              <div>
+                                                <Label>Skills</Label>
+                                                <Input
+                                                  defaultValue={
+                                                    user.candidateData?.skills?.join(
+                                                      ", ",
+                                                    ) || ""
+                                                  }
+                                                  placeholder="React, Node.js, Python..."
+                                                />
                                               </div>
-                                              <div className="text-sm text-gray-600">
-                                                {user.role === 'candidate' ? 'Applications' :
-                                                 user.role === 'employer' ? 'Total Hires' : 'Placements'}
+                                              <div>
+                                                <Label>Experience</Label>
+                                                <Select defaultValue="2-3">
+                                                  <SelectTrigger>
+                                                    <SelectValue />
+                                                  </SelectTrigger>
+                                                  <SelectContent>
+                                                    <SelectItem value="0-1">
+                                                      0-1 years
+                                                    </SelectItem>
+                                                    <SelectItem value="1-2">
+                                                      1-2 years
+                                                    </SelectItem>
+                                                    <SelectItem value="2-3">
+                                                      2-3 years
+                                                    </SelectItem>
+                                                    <SelectItem value="3-5">
+                                                      3-5 years
+                                                    </SelectItem>
+                                                    <SelectItem value="5+">
+                                                      5+ years
+                                                    </SelectItem>
+                                                  </SelectContent>
+                                                </Select>
+                                              </div>
+                                              <div>
+                                                <Label>Expected Salary</Label>
+                                                <Input placeholder="₹5,00,000" />
+                                              </div>
+                                              <div>
+                                                <Label>Job Preferences</Label>
+                                                <Select>
+                                                  <SelectTrigger>
+                                                    <SelectValue placeholder="Full-time" />
+                                                  </SelectTrigger>
+                                                  <SelectContent>
+                                                    <SelectItem value="full-time">
+                                                      Full-time
+                                                    </SelectItem>
+                                                    <SelectItem value="part-time">
+                                                      Part-time
+                                                    </SelectItem>
+                                                    <SelectItem value="contract">
+                                                      Contract
+                                                    </SelectItem>
+                                                    <SelectItem value="freelance">
+                                                      Freelance
+                                                    </SelectItem>
+                                                  </SelectContent>
+                                                </Select>
                                               </div>
                                             </div>
                                             <div>
-                                              <div className="text-2xl font-bold text-green-600">
-                                                {user.role === 'candidate' ? '4.2' :
-                                                 user.role === 'employer' ? user.employerData?.activeJobs || 3 :
-                                                 user.instituteData?.totalStudents || 150}
-                                              </div>
-                                              <div className="text-sm text-gray-600">
-                                                {user.role === 'candidate' ? 'Rating' :
-                                                 user.role === 'employer' ? 'Active Jobs' : 'Total Students'}
-                                              </div>
-                                            </div>
-                                            <div>
-                                              <div className="text-2xl font-bold text-purple-600">
-                                                {user.role === 'candidate' ? '3' :
-                                                 user.role === 'employer' ? '₹2.1L' :
-                                                 user.instituteData?.successRate || 78}%
-                                              </div>
-                                              <div className="text-sm text-gray-600">
-                                                {user.role === 'candidate' ? 'Interviews' :
-                                                 user.role === 'employer' ? 'Avg Package' : 'Success Rate'}
+                                              <Label>Resume Upload</Label>
+                                              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                                <Upload className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                                                <p className="text-sm text-gray-600">
+                                                  Upload new resume for{" "}
+                                                  {user.name}
+                                                </p>
+                                                <Button
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="mt-2"
+                                                  onClick={() =>
+                                                    console.log(
+                                                      `Uploading resume for ${user.name}`,
+                                                    )
+                                                  }
+                                                >
+                                                  <Upload className="h-4 w-4 mr-2" />
+                                                  Choose File
+                                                </Button>
                                               </div>
                                             </div>
                                           </div>
-                                        </Card>
+                                        )}
 
-                                        <Card className="p-4">
-                                          <h5 className="font-medium mb-3">Recent Activity</h5>
-                                          <div className="space-y-2 text-sm">
-                                            <div className="flex justify-between">
-                                              <span>Last Login</span>
-                                              <span>2 hours ago</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                              <span>Profile Updated</span>
-                                              <span>1 day ago</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                              <span>Last Action</span>
-                                              <span>{user.role === 'candidate' ? 'Applied to job' :
-                                                     user.role === 'employer' ? 'Posted new job' : 'Added students'}</span>
+                                        {user.role === "employer" && (
+                                          <div className="space-y-4">
+                                            <h4 className="font-semibold">
+                                              Employer Profile Management
+                                            </h4>
+                                            <div className="grid grid-cols-2 gap-4">
+                                              <div>
+                                                <Label>Company Name</Label>
+                                                <Input
+                                                  defaultValue={
+                                                    user.employerData
+                                                      ?.company || ""
+                                                  }
+                                                  placeholder="Company Name"
+                                                />
+                                              </div>
+                                              <div>
+                                                <Label>Industry</Label>
+                                                <Select>
+                                                  <SelectTrigger>
+                                                    <SelectValue placeholder="Select industry" />
+                                                  </SelectTrigger>
+                                                  <SelectContent>
+                                                    <SelectItem value="technology">
+                                                      Technology
+                                                    </SelectItem>
+                                                    <SelectItem value="finance">
+                                                      Finance
+                                                    </SelectItem>
+                                                    <SelectItem value="healthcare">
+                                                      Healthcare
+                                                    </SelectItem>
+                                                    <SelectItem value="manufacturing">
+                                                      Manufacturing
+                                                    </SelectItem>
+                                                  </SelectContent>
+                                                </Select>
+                                              </div>
+                                              <div>
+                                                <Label>Company Size</Label>
+                                                <Select>
+                                                  <SelectTrigger>
+                                                    <SelectValue placeholder="Select size" />
+                                                  </SelectTrigger>
+                                                  <SelectContent>
+                                                    <SelectItem value="1-10">
+                                                      1-10 employees
+                                                    </SelectItem>
+                                                    <SelectItem value="11-50">
+                                                      11-50 employees
+                                                    </SelectItem>
+                                                    <SelectItem value="51-200">
+                                                      51-200 employees
+                                                    </SelectItem>
+                                                    <SelectItem value="200+">
+                                                      200+ employees
+                                                    </SelectItem>
+                                                  </SelectContent>
+                                                </Select>
+                                              </div>
+                                              <div>
+                                                <Label>Website</Label>
+                                                <Input placeholder="https://company.com" />
+                                              </div>
                                             </div>
                                           </div>
-                                        </Card>
+                                        )}
+
+                                        {user.role === "institute" && (
+                                          <div className="space-y-4">
+                                            <h4 className="font-semibold">
+                                              Institute Profile Management
+                                            </h4>
+                                            <div className="grid grid-cols-2 gap-4">
+                                              <div>
+                                                <Label>Institute Name</Label>
+                                                <Input
+                                                  defaultValue={
+                                                    user.instituteData
+                                                      ?.instituteName || ""
+                                                  }
+                                                  placeholder="Institute Name"
+                                                />
+                                              </div>
+                                              <div>
+                                                <Label>Institute Type</Label>
+                                                <Select>
+                                                  <SelectTrigger>
+                                                    <SelectValue placeholder="Select type" />
+                                                  </SelectTrigger>
+                                                  <SelectContent>
+                                                    <SelectItem value="university">
+                                                      University
+                                                    </SelectItem>
+                                                    <SelectItem value="college">
+                                                      College
+                                                    </SelectItem>
+                                                    <SelectItem value="technical">
+                                                      Technical Institute
+                                                    </SelectItem>
+                                                    <SelectItem value="training">
+                                                      Training Center
+                                                    </SelectItem>
+                                                  </SelectContent>
+                                                </Select>
+                                              </div>
+                                              <div>
+                                                <Label>Established Year</Label>
+                                                <Input placeholder="2000" />
+                                              </div>
+                                              <div>
+                                                <Label>Affiliation</Label>
+                                                <Input placeholder="University/Board" />
+                                              </div>
+                                            </div>
+                                          </div>
+                                        )}
                                       </div>
                                     </TabsContent>
 
-                                    <TabsContent value="security" className="space-y-4">
-                                      <h4 className="font-semibold">Security & Access Management</h4>
+                                    <TabsContent
+                                      value="management"
+                                      className="space-y-6"
+                                    >
+                                      {/* Quick Actions Section */}
+                                      <div className="space-y-4">
+                                        <h4 className="font-semibold text-lg">
+                                          Quick Actions for {user.name}
+                                        </h4>
+
+                                        {user.role === "candidate" && (
+                                          <div className="grid grid-cols-2 gap-4">
+                                            <Card className="p-4">
+                                              <h5 className="font-medium mb-3">
+                                                Job Applications
+                                              </h5>
+                                              <div className="space-y-2">
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Applying ${user.name} to Software Developer at TechCorp`,
+                                                    );
+                                                    setActiveTab("content");
+                                                  }}
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Apply to Jobs
+                                                </Button>
+                                                <Button
+                                                  onClick={() =>
+                                                    console.log(
+                                                      `Withdrawing application for ${user.name}`,
+                                                    )
+                                                  }
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Withdraw Applications
+                                                </Button>
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Viewing applications for ${user.name}`,
+                                                    );
+                                                    setActiveTab("overview");
+                                                  }}
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  View All Applications
+                                                </Button>
+                                              </div>
+                                            </Card>
+                                            <Card className="p-4">
+                                              <h5 className="font-medium mb-3">
+                                                Profile Actions
+                                              </h5>
+                                              <div className="space-y-2">
+                                                <Button
+                                                  onClick={() =>
+                                                    console.log(
+                                                      `Updating resume for ${user.name}`,
+                                                    )
+                                                  }
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Update Resume
+                                                </Button>
+                                                <Button
+                                                  onClick={() =>
+                                                    console.log(
+                                                      `Setting availability for ${user.name}`,
+                                                    )
+                                                  }
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Set Availability
+                                                </Button>
+                                                <Button
+                                                  onClick={() =>
+                                                    console.log(
+                                                      `Profile visibility toggle for ${user.name}`,
+                                                    )
+                                                  }
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Toggle Visibility
+                                                </Button>
+                                              </div>
+                                            </Card>
+                                          </div>
+                                        )}
+
+                                        {user.role === "employer" && (
+                                          <div className="grid grid-cols-2 gap-4">
+                                            <Card className="p-4">
+                                              <h5 className="font-medium mb-3">
+                                                Job Management
+                                              </h5>
+                                              <div className="space-y-2">
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Creating job for ${user.name}`,
+                                                    );
+                                                    setActiveTab("content");
+                                                  }}
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Create New Job
+                                                </Button>
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Managing active jobs for ${user.name}`,
+                                                    );
+                                                    setActiveTab("content");
+                                                  }}
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Manage Active Jobs
+                                                </Button>
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Viewing applications for ${user.name}`,
+                                                    );
+                                                    setActiveTab("overview");
+                                                  }}
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  View Applications
+                                                </Button>
+                                              </div>
+                                            </Card>
+                                            <Card className="p-4">
+                                              <h5 className="font-medium mb-3">
+                                                Candidate Actions
+                                              </h5>
+                                              <div className="space-y-2">
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Searching candidates for ${user.name}`,
+                                                    );
+                                                    setActiveTab("users");
+                                                  }}
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Search Candidates
+                                                </Button>
+                                                <Button
+                                                  onClick={() =>
+                                                    console.log(
+                                                      `Shortlisting candidates for ${user.name}`,
+                                                    )
+                                                  }
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Shortlist Candidates
+                                                </Button>
+                                                <Button
+                                                  onClick={() =>
+                                                    console.log(
+                                                      `Sending offers for ${user.name}`,
+                                                    )
+                                                  }
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Send Job Offers
+                                                </Button>
+                                              </div>
+                                            </Card>
+                                          </div>
+                                        )}
+
+                                        {user.role === "institute" && (
+                                          <div className="grid grid-cols-2 gap-4">
+                                            <Card className="p-4">
+                                              <h5 className="font-medium mb-3">
+                                                Student Management
+                                              </h5>
+                                              <div className="space-y-2">
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Adding students for ${user.name}`,
+                                                    );
+                                                    setActiveTab("users");
+                                                  }}
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Add Students
+                                                </Button>
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Managing student profiles for ${user.name}`,
+                                                    );
+                                                    setActiveTab("users");
+                                                  }}
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Manage Profiles
+                                                </Button>
+                                                <Button
+                                                  onClick={() =>
+                                                    console.log(
+                                                      `Bulk student operations for ${user.name}`,
+                                                    )
+                                                  }
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Bulk Operations
+                                                </Button>
+                                              </div>
+                                            </Card>
+                                            <Card className="p-4">
+                                              <h5 className="font-medium mb-3">
+                                                Placement Actions
+                                              </h5>
+                                              <div className="space-y-2">
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Submitting students for ${user.name}`,
+                                                    );
+                                                    setActiveTab("content");
+                                                  }}
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Submit to Jobs
+                                                </Button>
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Tracking placements for ${user.name}`,
+                                                    );
+                                                    setActiveTab("overview");
+                                                  }}
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Track Placements
+                                                </Button>
+                                                <Button
+                                                  onClick={() => {
+                                                    console.log(
+                                                      `Generating reports for ${user.name}`,
+                                                    );
+                                                    setActiveTab("reports");
+                                                  }}
+                                                  variant="outline"
+                                                  size="sm"
+                                                  className="w-full"
+                                                >
+                                                  Generate Reports
+                                                </Button>
+                                              </div>
+                                            </Card>
+                                          </div>
+                                        )}
+                                      </div>
+
+                                      {/* Analytics Section */}
+                                      <div className="border-t pt-4 space-y-4">
+                                        <h4 className="font-semibold text-lg">
+                                          User Analytics & Data
+                                        </h4>
+                                        <div className="grid grid-cols-1 gap-4">
+                                          <Card className="p-4">
+                                            <h5 className="font-medium mb-3">
+                                              Activity Summary
+                                            </h5>
+                                            <div className="grid grid-cols-3 gap-4 text-center">
+                                              <div>
+                                                <div className="text-2xl font-bold text-blue-600">
+                                                  {user.role === "candidate"
+                                                    ? user.candidateData
+                                                        ?.applications || 12
+                                                    : user.role === "employer"
+                                                      ? user.employerData
+                                                          ?.totalHires || 8
+                                                      : user.instituteData
+                                                          ?.placedStudents ||
+                                                        45}
+                                                </div>
+                                                <div className="text-sm text-gray-600">
+                                                  {user.role === "candidate"
+                                                    ? "Applications"
+                                                    : user.role === "employer"
+                                                      ? "Total Hires"
+                                                      : "Placements"}
+                                                </div>
+                                              </div>
+                                              <div>
+                                                <div className="text-2xl font-bold text-green-600">
+                                                  {user.role === "candidate"
+                                                    ? "4.2"
+                                                    : user.role === "employer"
+                                                      ? user.employerData
+                                                          ?.activeJobs || 3
+                                                      : user.instituteData
+                                                          ?.totalStudents ||
+                                                        150}
+                                                </div>
+                                                <div className="text-sm text-gray-600">
+                                                  {user.role === "candidate"
+                                                    ? "Rating"
+                                                    : user.role === "employer"
+                                                      ? "Active Jobs"
+                                                      : "Total Students"}
+                                                </div>
+                                              </div>
+                                              <div>
+                                                <div className="text-2xl font-bold text-purple-600">
+                                                  {user.role === "candidate"
+                                                    ? "3"
+                                                    : user.role === "employer"
+                                                      ? "₹2.1L"
+                                                      : user.instituteData
+                                                          ?.successRate || 78}
+                                                  %
+                                                </div>
+                                                <div className="text-sm text-gray-600">
+                                                  {user.role === "candidate"
+                                                    ? "Interviews"
+                                                    : user.role === "employer"
+                                                      ? "Avg Package"
+                                                      : "Success Rate"}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </Card>
+
+                                          <Card className="p-4">
+                                            <h5 className="font-medium mb-3">
+                                              Recent Activity
+                                            </h5>
+                                            <div className="space-y-2 text-sm">
+                                              <div className="flex justify-between">
+                                                <span>Last Login</span>
+                                                <span>2 hours ago</span>
+                                              </div>
+                                              <div className="flex justify-between">
+                                                <span>Profile Updated</span>
+                                                <span>1 day ago</span>
+                                              </div>
+                                              <div className="flex justify-between">
+                                                <span>Last Action</span>
+                                                <span>
+                                                  {user.role === "candidate"
+                                                    ? "Applied to job"
+                                                    : user.role === "employer"
+                                                      ? "Posted new job"
+                                                      : "Added students"}
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </Card>
+                                        </div>
+                                      </div>
+                                    </TabsContent>
+
+                                    <TabsContent
+                                      value="security"
+                                      className="space-y-4"
+                                    >
+                                      <h4 className="font-semibold text-lg">
+                                        Security & Access Management
+                                      </h4>
                                       <div className="grid grid-cols-1 gap-4">
                                         <Card className="p-4">
-                                          <h5 className="font-medium mb-3">Password Management</h5>
+                                          <h5 className="font-medium mb-3">
+                                            Password Management
+                                          </h5>
                                           <div className="space-y-3">
                                             <div>
                                               <Label>Current Password</Label>
-                                              <Input type="password" defaultValue={user.password} />
+                                              <Input
+                                                type="password"
+                                                defaultValue={user.password}
+                                              />
                                             </div>
                                             <div>
                                               <Label>New Password</Label>
-                                              <Input type="password" placeholder="Enter new password" />
+                                              <Input
+                                                type="password"
+                                                placeholder="Enter new password"
+                                              />
                                             </div>
-                                            <Button onClick={() => console.log(`Password reset for ${user.name}`)} size="sm">
+                                            <Button
+                                              onClick={() => {
+                                                const newPassword = prompt(
+                                                  "Enter new password:",
+                                                );
+                                                if (
+                                                  newPassword &&
+                                                  newPassword.length >= 6
+                                                ) {
+                                                  updatePassword(
+                                                    user.id,
+                                                    newPassword,
+                                                  );
+                                                  console.log(
+                                                    `✅ Password updated for ${user.name}. New password: ${newPassword}`,
+                                                  );
+                                                }
+                                              }}
+                                              size="sm"
+                                            >
                                               Reset Password
                                             </Button>
                                           </div>
                                         </Card>
 
                                         <Card className="p-4">
-                                          <h5 className="font-medium mb-3">Account Actions</h5>
+                                          <h5 className="font-medium mb-3">
+                                            Account Actions
+                                          </h5>
                                           <div className="space-y-2">
-                                            <Button onClick={() => console.log(`Force logout for ${user.name}`)} variant="outline" size="sm" className="w-full">
+                                            <Button
+                                              onClick={() =>
+                                                console.log(
+                                                  `Force logout for ${user.name}`,
+                                                )
+                                              }
+                                              variant="outline"
+                                              size="sm"
+                                              className="w-full"
+                                            >
                                               Force Logout
                                             </Button>
-                                            <Button onClick={() => console.log(`Suspend account for ${user.name}`)} variant="outline" size="sm" className="w-full">
+                                            <Button
+                                              onClick={() => {
+                                                updateUser(user.id, {
+                                                  ...user,
+                                                  status: "suspended",
+                                                });
+                                                console.log(
+                                                  `Account suspended for ${user.name}`,
+                                                );
+                                              }}
+                                              variant="outline"
+                                              size="sm"
+                                              className="w-full"
+                                            >
                                               Suspend Account
                                             </Button>
-                                            <Button onClick={() => console.log(`Generate login link for ${user.name}`)} variant="outline" size="sm" className="w-full">
+                                            <Button
+                                              onClick={() =>
+                                                console.log(
+                                                  `Login link generated for ${user.name}: https://graminhire.com/auto-login/${user.id}`,
+                                                )
+                                              }
+                                              variant="outline"
+                                              size="sm"
+                                              className="w-full"
+                                            >
                                               Generate Login Link
                                             </Button>
-                                            <Button onClick={() => console.log(`Permanently deleting ${user.name}`)} variant="destructive" size="sm" className="w-full">
+                                            <Button
+                                              onClick={() => {
+                                                if (
+                                                  confirm(
+                                                    `Are you sure you want to permanently delete ${user.name}?`,
+                                                  )
+                                                ) {
+                                                  deleteUser(user.id);
+                                                  console.log(
+                                                    `🗑️ User ${user.name} permanently deleted`,
+                                                  );
+                                                  setEditingUser(null);
+                                                }
+                                              }}
+                                              variant="destructive"
+                                              size="sm"
+                                              className="w-full"
+                                            >
                                               Delete Account
                                             </Button>
+                                          </div>
+                                        </Card>
+
+                                        <Card className="p-4">
+                                          <h5 className="font-medium mb-3">
+                                            Impersonation
+                                          </h5>
+                                          <div className="space-y-2">
+                                            <Button
+                                              onClick={() => {
+                                                console.log(
+                                                  `🎭 Impersonating ${user.name} - switching to ${user.role} dashboard`,
+                                                );
+                                                // This would switch the main admin view to act as this user
+                                                setEditingUser(null);
+                                                setActiveTab("overview");
+                                              }}
+                                              className="w-full bg-purple-600 hover:bg-purple-700"
+                                            >
+                                              Login as {user.name}
+                                            </Button>
+                                            <p className="text-xs text-gray-600">
+                                              Switch to their dashboard and
+                                              perform actions on their behalf
+                                            </p>
                                           </div>
                                         </Card>
                                       </div>
@@ -1411,7 +1864,10 @@ const SuperAdminPortal = () => {
                                   <div className="flex space-x-2 pt-4 border-t">
                                     <Button
                                       onClick={() => {
-                                        console.log("Saving comprehensive changes for:", user.name);
+                                        console.log(
+                                          "Saving comprehensive changes for:",
+                                          user.name,
+                                        );
                                         setEditingUser(null);
                                       }}
                                       className="flex-1"
