@@ -351,6 +351,10 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     "bg-gray-100 border-gray-200",
   );
   const [newColumnPosition, setNewColumnPosition] = useState("end");
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved">(
+    "idle",
+  );
   const [newCandidate, setNewCandidate] = useState({
     name: "",
     email: "",
