@@ -1297,6 +1297,25 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
                 </SelectContent>
               </Select>
             </div>
+            <div>
+              <Label htmlFor="columnPosition">Insert Position</Label>
+              <Select
+                value={newColumnPosition}
+                onValueChange={setNewColumnPosition}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="end">At the end (rightmost)</SelectItem>
+                  {allColumns.map((col, index) => (
+                    <SelectItem key={col.id} value={col.id}>
+                      After "{col.title}" (position {index + 2})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <div className="bg-blue-50 p-3 rounded-lg text-sm">
               <div className="text-blue-900 font-medium mb-1">
                 Custom Pipeline Stage
