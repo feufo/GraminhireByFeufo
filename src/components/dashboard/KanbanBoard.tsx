@@ -308,6 +308,23 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     ? allColumns
     : allColumns.filter((col) => col.id !== "admin_approval");
 
+  // Sync kanban data to localStorage for shared pipeline
+  useEffect(() => {
+    const sharedData = {
+      columns: columns.map((col) => ({
+        id: col.id,
+        title: col.title,
+        color: col.color,
+        candidates: col.candidates,
+      })),
+      lastUpdated: new Date().toISOString(),
+      jobTitle: jobTitle,
+    };
+
+    const jobId = jobTitle.toLowerCase().replace(/\s+/g, "-");
+    localStorage.setItem(`kanban_${jobId}`, JSON.stringify(sharedData));
+  }, [columns, jobTitle]);
+
   const [draggedCandidate, setDraggedCandidate] = useState<Candidate | null>(
     null,
   );
