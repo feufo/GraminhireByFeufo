@@ -428,7 +428,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
       color: newColumnColor,
     };
 
-    setColumns((prev) => [...prev, newColumn]);
+    setAllColumns((prev) => [...prev, newColumn]);
     setNewColumnName("");
     setNewColumnColor("bg-gray-100 border-gray-200");
     setAddColumnDialog(false);
