@@ -213,12 +213,11 @@ const SharedPipeline = () => {
           notes: [
             {
               id: "n2",
-              stage_from: "shortlisted",
-              stage_to: "interviewed",
-              feedback:
-                "Excellent interview performance, strong technical knowledge",
-              reason: "Passed technical round",
-              created_by: "Technical Team",
+              stage_from: "interview",
+              stage_to: "hired",
+              feedback: "Selected for the position, excellent fit for the role",
+              reason: "Top performer, great cultural fit",
+              created_by: "Hiring Manager",
               created_at: "2024-01-22",
             },
           ],
@@ -226,9 +225,9 @@ const SharedPipeline = () => {
       ],
     },
     {
-      id: "hired",
-      title: "Hired",
-      color: "bg-green-100 border-green-200",
+      id: "rejected",
+      title: "Rejected",
+      color: "bg-red-100 border-red-200",
       candidates: [
         {
           id: "6",
@@ -238,25 +237,21 @@ const SharedPipeline = () => {
           institute: "Karnataka Skill Center",
           appliedDate: "2024-01-10",
           experience: "1.5 years experience",
-          rating: 4.8,
+          rating: 3.2,
           profile: {
             age: 23,
             languages: ["Hindi", "Kannada", "English"],
             previousWork: "Quality Inspector Trainee",
-            strengths: [
-              "Meticulous",
-              "Documentation Skills",
-              "Process Oriented",
-            ],
+            strengths: ["Meticulous", "Documentation Skills"],
             salary_expectation: "₹18,000-22,000/month",
           },
           notes: [
             {
               id: "n3",
-              stage_from: "interviewed",
-              stage_to: "hired",
-              feedback: "Selected for the position, excellent fit for the role",
-              reason: "Top performer, great cultural fit",
+              stage_from: "interview",
+              stage_to: "rejected",
+              feedback: "Not a good fit for current role requirements",
+              reason: "Lacks specific technical skills needed",
               created_by: "Hiring Manager",
               created_at: "2024-01-23",
             },
