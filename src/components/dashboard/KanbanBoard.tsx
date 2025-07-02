@@ -141,8 +141,8 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
       ],
     },
     {
-      id: "applied",
-      title: "Applied",
+      id: "awaiting_review",
+      title: "Awaiting Review",
       color: "bg-blue-100 border-blue-200",
       candidates: [
         {
