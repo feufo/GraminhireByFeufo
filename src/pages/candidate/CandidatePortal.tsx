@@ -496,7 +496,7 @@ const CandidatePortal = () => {
                     </CardTitle>
                     <CardDescription>
                       Upload your resume to increase your chances • अपने अवसर
-                      बढ़ाने ���े लि��� रिज्यूमे अपलोड करे���
+                      बढ़ाने ���े लि��� रिज्यूमे अपलोड करें
                     </CardDescription>
                   </div>
                 </div>
@@ -516,7 +516,10 @@ const CandidatePortal = () => {
                       className="mt-4"
                       onClick={() => {
                         console.log("Resume upload clicked");
-                        alert("📄 Resume upload feature coming soon!");
+                        toast({
+                          title: "📄 Resume Upload",
+                          description: "Feature coming soon",
+                        });
                       }}
                     >
                       <Upload className="h-4 w-4 mr-2" />
@@ -614,7 +617,10 @@ const CandidatePortal = () => {
                   className="mt-4"
                   onClick={() => {
                     console.log("Save profile clicked");
-                    alert("✅ Profile saved successfully!");
+                    toast({
+                      title: "✅ Profile Saved",
+                      description: "Your profile has been updated successfully",
+                    });
                   }}
                 >
                   <Save className="h-4 w-4 mr-2" />
