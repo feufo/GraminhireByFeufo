@@ -358,6 +358,59 @@ const InstituteDashboard = () => {
             </Card>
           </div>
 
+          {/* Payment Tracking */}
+          <Card className="border-2 bg-gradient-to-r from-orange-50 to-red-50">
+            <CardHeader>
+              <CardTitle className="text-lg">Payment Summary</CardTitle>
+              <CardDescription>
+                Track your placement fees and payments to GraminHire
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center mb-6">
+                <div className="text-3xl font-bold text-orange-600 mb-2">
+                  ₹89,500
+                </div>
+                <div className="text-muted-foreground">
+                  Total Payment Obligation This Year
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-green-100 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-green-700 mb-1">
+                    ₹45,000
+                  </div>
+                  <div className="text-sm text-green-800">Paid</div>
+                  <div className="text-xs text-green-600 mt-1">
+                    18 student placements
+                  </div>
+                </div>
+                <div className="bg-orange-100 rounded-lg p-4 text-center">
+                  <div className="text-2xl font-bold text-orange-700 mb-1">
+                    ₹44,500
+                  </div>
+                  <div className="text-sm text-orange-800">Pending</div>
+                  <div className="text-xs text-orange-600 mt-1">
+                    17 recent placements
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-4 border-t">
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-muted-foreground">
+                    Payment Rate: ₹2,500 per placement
+                  </span>
+                  <Button size="sm" variant="outline">
+                    <FileText className="h-4 w-4 mr-2" />
+                    View Payment History
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <div className="grid lg:grid-cols-2 gap-6">
             {/* Placement Progress */}
             <Card className="border-2">
