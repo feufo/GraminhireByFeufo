@@ -44,6 +44,8 @@ import {
 } from "@/components/ui/select";
 import Navigation from "@/components/layout/Navigation";
 import { useToast } from "@/hooks/use-toast";
+import ProfileSettings from "./ProfileSettings";
+import AccountSettings from "./AccountSettings";
 
 const CandidatePortal = () => {
   const [hasVideo, setHasVideo] = useState(false);
