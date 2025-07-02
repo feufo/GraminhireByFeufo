@@ -49,95 +49,137 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Mock user data for different roles - in real app this would come from API
+  // Mock user data for demo purposes when needed
   const mockUsers: Record<UserRole, User> = {
     candidate: {
-      id: "cand-001",
-      name: "Rajesh Kumar",
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      full_name: "Rajesh Kumar",
       email: "rajesh.kumar@email.com",
       role: "candidate",
       institute: "ITI Pune",
+      phone: "+91-9876543210",
+      location: "Pune, Maharashtra",
+      verified: true,
+      created_at: new Date().toISOString(),
     },
     employer: {
-      id: "emp-001",
-      name: "Vikram Patel",
-      email: "hr@tatamotors.com",
+      id: "550e8400-e29b-41d4-a716-446655440003",
+      full_name: "Amit Patel",
+      email: "amit.patel@techcorp.com",
       role: "employer",
-      organization: "Tata Motors",
+      organization: "TechCorp Solutions",
+      phone: "+91-9876543212",
+      location: "Mumbai, Maharashtra",
+      verified: true,
+      created_at: new Date().toISOString(),
     },
     institute: {
-      id: "inst-001",
-      name: "Dr. Priya Sharma",
-      email: "admin@itipune.edu.in",
+      id: "550e8400-e29b-41d4-a716-446655440004",
+      full_name: "Dr. Ravi Singh",
+      email: "dr.singh@ruraltech.edu",
       role: "institute",
-      organization: "ITI Pune",
+      organization: "Rural Technology Institute",
+      phone: "+91-9876543213",
+      location: "Chandigarh",
+      verified: true,
+      created_at: new Date().toISOString(),
     },
     super_admin: {
-      id: "admin-001",
-      name: "Arun Joshi",
+      id: "550e8400-e29b-41d4-a716-446655440005",
+      full_name: "Platform Admin",
       email: "admin@graminhire.com",
       role: "super_admin",
       organization: "GraminHire",
       permissions: ["all"],
-    },
-    internal_admin: {
-      id: "iadmin-001",
-      name: "Meera Gupta",
-      email: "ops@graminhire.com",
-      role: "internal_admin",
-      organization: "GraminHire",
-      permissions: ["ops_admin", "payment_admin"],
+      phone: "+91-9876543214",
+      location: "Delhi",
+      verified: true,
+      created_at: new Date().toISOString(),
     },
   };
 
   useEffect(() => {
-    // Check if user is already logged in (from localStorage)
-    const savedUser = localStorage.getItem("graminhire_user");
-    if (savedUser) {
-      try {
-        const userData = JSON.parse(savedUser);
-        setUser(userData);
+    // Check for existing session with Supabase
+    authService.getCurrentUser().then((currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
         setIsAuthenticated(true);
-      } catch (error) {
-        console.error("Error parsing saved user data:", error);
-        localStorage.removeItem("graminhire_user");
       }
-    }
+      setIsLoading(false);
+    });
+
+    // Listen to auth state changes
+    const {
+      data: { subscription },
+    } = authService.onAuthStateChange((authUser) => {
+      if (authUser) {
+        setUser(authUser);
+        setIsAuthenticated(true);
+      } else {
+        setUser(null);
+        setIsAuthenticated(false);
+      }
+      setIsLoading(false);
+    });
+
+    return () => subscription?.unsubscribe();
   }, []);
 
   const login = async (email: string, password: string, role?: UserRole) => {
-    // Mock authentication - in real app this would call API
+    setIsLoading(true);
     try {
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Find user by role or email
-      let userData: User;
-      if (role && mockUsers[role]) {
-        userData = mockUsers[role];
-      } else {
-        // Find by email
-        userData =
-          Object.values(mockUsers).find((u) => u.email === email) ||
-          mockUsers.candidate;
-      }
-
+      const { user: userData } = await authService.signIn(email, password);
       setUser(userData);
       setIsAuthenticated(true);
-
-      // Save to localStorage
-      localStorage.setItem("graminhire_user", JSON.stringify(userData));
     } catch (error) {
       console.error("Login error:", error);
-      throw new Error("Invalid credentials");
+      // Fallback to mock data for demo
+      if (role && mockUsers[role] && mockUsers[role].email === email) {
+        const userData = mockUsers[role];
+        setUser(userData);
+        setIsAuthenticated(true);
+      } else {
+        throw new Error("Invalid credentials");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    localStorage.removeItem("graminhire_user");
+  const register = async (
+    email: string,
+    password: string,
+    role: string,
+    name: string,
+  ) => {
+    setIsLoading(true);
+    try {
+      const { user: userData } = await authService.signUp(
+        email,
+        password,
+        role,
+        name,
+      );
+      setUser(userData);
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error("Registration error:", error);
+      throw new Error("Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await authService.signOut();
+      setUser(null);
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   const switchRole = (role: UserRole) => {
@@ -145,7 +187,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (mockUsers[role]) {
       const userData = mockUsers[role];
       setUser(userData);
-      localStorage.setItem("graminhire_user", JSON.stringify(userData));
+      setIsAuthenticated(true);
     }
   };
 
