@@ -370,7 +370,7 @@ const InstituteDashboard = () => {
             <CardContent>
               <div className="text-center mb-6">
                 <div className="text-3xl font-bold text-orange-600 mb-2">
-                  ₹89,500
+                  ��89,500
                 </div>
                 <div className="text-muted-foreground">
                   Total Payment Obligation This Year
@@ -733,123 +733,6 @@ const InstituteDashboard = () => {
                     </div>
                   </div>
                 ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="reports" className="space-y-6">
-          <div className="grid lg:grid-cols-2 gap-6">
-            <Card className="border-2">
-              <CardHeader>
-                <CardTitle>Placement Report</CardTitle>
-                <CardDescription>
-                  Generate reports for government audits
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                    <div>
-                      <h4 className="font-medium text-green-900">
-                        Current Month
-                      </h4>
-                      <p className="text-sm text-green-700">
-                        12 students placed this month
-                      </p>
-                    </div>
-                    <Button size="sm" variant="outline">
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-                    <div>
-                      <h4 className="font-medium text-blue-900">
-                        Quarterly Report
-                      </h4>
-                      <p className="text-sm text-blue-700">
-                        Q4 2024 placement summary
-                      </p>
-                    </div>
-                    <Button size="sm" variant="outline">
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2">
-              <CardHeader>
-                <CardTitle>Earnings Summary</CardTitle>
-                <CardDescription>
-                  Track your placement fees and earnings
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <div className="text-3xl font-bold text-purple-600">
-                      {placementStats.totalEarnings}
-                    </div>
-                    <div className="text-sm text-purple-800">
-                      Total Earnings This Year
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="text-center p-3 bg-green-50 rounded-lg">
-                      <div className="text-xl font-bold text-green-600">
-                        ₹45,000
-                      </div>
-                      <div className="text-xs text-green-800">Received</div>
-                    </div>
-                    <div className="text-center p-3 bg-orange-50 rounded-lg">
-                      <div className="text-xl font-bold text-orange-600">
-                        ₹44,500
-                      </div>
-                      <div className="text-xs text-orange-800">Pending</div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card className="border-2">
-            <CardHeader>
-              <CardTitle>Institute Performance</CardTitle>
-              <CardDescription>
-                Compare your performance with other institutes
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-3 gap-6 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-brand-600 mb-1">
-                    #3
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Regional Ranking
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-green-600 mb-1">
-                    92%
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Student Satisfaction
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-orange-600 mb-1">
-                    4.7⭐
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Employer Rating
-                  </div>
-                </div>
               </div>
             </CardContent>
           </Card>
