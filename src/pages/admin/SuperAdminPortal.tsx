@@ -1094,31 +1094,48 @@ const SuperAdminPortal = () => {
                                     size="sm"
                                     className="w-full mb-2"
                                     onClick={() => {
-                                      const newPassword = prompt(
-                                        `Enter new password for ${user.name}:`,
+                                      console.log(
+                                        "Reset password clicked for:",
+                                        user.name,
                                       );
-                                      if (newPassword) {
+                                      const newPassword = prompt(
+                                        `🔐 Enter new password for ${user.name}:\n\n(As Super Admin, you have full access to reset any user's password)`,
+                                      );
+                                      if (
+                                        newPassword &&
+                                        newPassword.length >= 6
+                                      ) {
                                         updatePassword(user.id, newPassword);
                                         alert(
-                                          `✅ Password updated for ${user.name}`,
+                                          `✅ Password successfully updated for ${user.name}\n\nNew password: ${newPassword}\n\nUser will need to use this password on next login.`,
+                                        );
+                                      } else if (newPassword) {
+                                        alert(
+                                          "❌ Password must be at least 6 characters long",
                                         );
                                       }
                                     }}
                                   >
-                                    Reset Password
+                                    🔐 Reset Password
                                   </Button>
                                   <Button
-                                    variant="outline"
+                                    variant="destructive"
                                     size="sm"
                                     className="w-full"
                                     onClick={() => {
+                                      console.log(
+                                        "Delete user clicked for:",
+                                        user.name,
+                                      );
                                       if (
                                         confirm(
-                                          `Are you sure you want to delete ${user.name}?`,
+                                          `⚠️ DANGER: Delete User Account\n\nAre you sure you want to permanently delete ${user.name}?\n\nThis will:\n• Remove all user data\n• Delete job applications/postings\n• Remove payment history\n• Cannot be undone\n\nType YES to confirm:`,
                                         )
                                       ) {
                                         deleteUser(user.id);
-                                        alert(`🗑️ User ${user.name} deleted`);
+                                        alert(
+                                          `🗑️ User ${user.name} has been permanently deleted from the platform.\n\nAll associated data has been removed.`,
+                                        );
                                       }
                                     }}
                                   >
