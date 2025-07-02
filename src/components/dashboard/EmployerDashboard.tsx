@@ -838,6 +838,128 @@ const EmployerDashboard = () => {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Edit Job Dialog */}
+      <Dialog open={!!editingJob} onOpenChange={() => setEditingJob(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Edit Job Order</DialogTitle>
+            <DialogDescription>
+              Modify the job details and requirements
+            </DialogDescription>
+          </DialogHeader>
+          {editingJob && (
+            <div className="grid gap-6 py-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="editJobTitle">Job Title</Label>
+                  <Input
+                    id="editJobTitle"
+                    defaultValue={editingJob.title}
+                    placeholder="e.g., Production Assistant"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editPositions">Number of Positions</Label>
+                  <Input
+                    id="editPositions"
+                    type="number"
+                    defaultValue={editingJob.positions}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="editLocation">Location</Label>
+                  <Input
+                    id="editLocation"
+                    defaultValue={editingJob.location}
+                    placeholder="City, State"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editStatus">Job Status</Label>
+                  <Select defaultValue={editingJob.status}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="paused">Paused</SelectItem>
+                      <SelectItem value="on_hold">On Hold</SelectItem>
+                      <SelectItem value="closed">Closed</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="editMinSalary">Min Salary (₹/month)</Label>
+                  <Input
+                    id="editMinSalary"
+                    type="number"
+                    defaultValue={editingJob.minSalary}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="editMaxSalary">Max Salary (₹/month)</Label>
+                  <Input
+                    id="editMaxSalary"
+                    type="number"
+                    defaultValue={editingJob.maxSalary}
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="editFeeType">Fee Type</Label>
+                  <Select defaultValue={editingJob.feeType}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="flat">Flat Rate (₹)</SelectItem>
+                      <SelectItem value="percentage">Percentage (%)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="editFeeAmount">Fee Amount</Label>
+                  <Input
+                    id="editFeeAmount"
+                    defaultValue={editingJob.feeAmount}
+                    placeholder="5000 or 15"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end space-x-3">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    console.log("Cancel edit job clicked");
+                    setEditingJob(null);
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => {
+                    console.log("Save job changes clicked");
+                    // TODO: Implement save logic here
+                    setEditingJob(null);
+                  }}
+                >
+                  Save Changes
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
