@@ -226,27 +226,23 @@ const Navigation = () => {
                   <p className="text-xs text-muted-foreground">{user.email}</p>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Profile Settings clicked");
-                    alert("👤 Profile Settings feature coming soon!");
-                  }}
-                >
-                  <User className="h-4 w-4 mr-2" />
-                  Profile Settings
+                <DropdownMenuItem asChild>
+                  <Link
+                    to={`/${user.role}/profile`}
+                    className="flex items-center"
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    Profile Settings
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Account Settings clicked");
-                    alert("⚙️ Account Settings feature coming soon!");
-                  }}
-                >
-                  <Settings className="h-4 w-4 mr-2" />
-                  Account Settings
+                <DropdownMenuItem asChild>
+                  <Link
+                    to={`/${user.role}/settings`}
+                    className="flex items-center"
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    Account Settings
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
