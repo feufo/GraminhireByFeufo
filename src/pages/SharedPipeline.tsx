@@ -109,12 +109,27 @@ const SharedPipeline = () => {
   const [isViewerMode, setIsViewerMode] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
 
-  // Mock data - in real app this would be fetched based on jobId and token
-  const [columns, setColumns] = useState<SharedColumn[]>([
-    {
-      id: "awaiting_review",
-      title: "Awaiting Review",
-      color: "bg-blue-100 border-blue-200",
+  // Load real-time data from localStorage - synced with main kanban
+  const [columns, setColumns] = useState<SharedColumn[]>([]);
+
+  // Load shared kanban data
+  const loadSharedData = () => {
+    if (!jobId) return;
+
+    const storedData = localStorage.getItem(`kanban_${jobId}`);
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        setColumns(parsedData.columns || []);
+        setJobTitle(parsedData.jobTitle || jobId.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()));
+      } catch (error) {
+        console.error('Error loading shared kanban data:', error);
+        // Fallback to default data
+        setColumns([
+          {
+            id: "awaiting_review",
+            title: "Awaiting Review",
+            color: "bg-blue-100 border-blue-200",
       candidates: [
         {
           id: "1",
