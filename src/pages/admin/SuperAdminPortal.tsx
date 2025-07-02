@@ -119,6 +119,59 @@ const SuperAdminPortal = () => {
     },
   ];
 
+  // Mock institute payment data - institutes pay when their students get placed
+  const institutes = [
+    {
+      id: 1,
+      name: "ITI Pune",
+      email: "admin@itipune.edu.in",
+      location: "Pune, MH",
+      status: "active",
+      joinedDate: "2024-01-05",
+      totalStudents: 150,
+      placedStudents: 25,
+      pendingPlacements: 8,
+      placementFeeRate: 2000, // ₹2000 per placement
+      totalEarned: 50000, // 25 placements × ₹2000
+      pendingPayment: 16000, // 8 pending × ₹2000
+      paidAmount: 34000,
+      successRate: 67, // 25/37 placed out of applied
+    },
+    {
+      id: 2,
+      name: "DDU-GKY Center Mumbai",
+      email: "admin@ddugky.gov.in",
+      location: "Mumbai, MH",
+      status: "active",
+      joinedDate: "2024-01-10",
+      totalStudents: 200,
+      placedStudents: 18,
+      pendingPlacements: 5,
+      placementFeeRate: 2500,
+      totalEarned: 45000,
+      pendingPayment: 12500,
+      paidAmount: 32500,
+      successRate: 78,
+    },
+    {
+      id: 3,
+      name: "Women's ITI Jaipur",
+      email: "admin@witijaipur.edu.in",
+      location: "Jaipur, RJ",
+      status: "active",
+      joinedDate: "2024-01-12",
+      totalStudents: 80,
+      placedStudents: 12,
+      pendingPlacements: 3,
+      placementFeeRate: 1800,
+      totalEarned: 21600,
+      pendingPayment: 5400,
+      paidAmount: 16200,
+      successRate: 85,
+    },
+  ];
+
+  // Calculate employer totals
   const totalPlatformPotential = employers.reduce(
     (sum, emp) => sum + emp.potentialEarnings,
     0,
@@ -127,10 +180,24 @@ const SuperAdminPortal = () => {
     (sum, emp) => sum + emp.actualEarnings,
     0,
   );
-  const totalPendingPayments = employers.reduce(
+  const totalEmployerPending = employers.reduce(
     (sum, emp) => sum + emp.pendingPayment,
     0,
   );
+
+  // Calculate institute totals
+  const totalInstitutePending = institutes.reduce(
+    (sum, inst) => sum + inst.pendingPayment,
+    0,
+  );
+  const totalInstituteEarned = institutes.reduce(
+    (sum, inst) => sum + inst.totalEarned,
+    0,
+  );
+
+  // Combined platform totals
+  const totalPendingPayments = totalEmployerPending + totalInstitutePending;
+  const totalPlatformRevenue = totalPlatformActual + totalInstituteEarned;
 
   // Mock data
   const platformStats = {
