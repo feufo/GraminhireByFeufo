@@ -86,17 +86,10 @@ const Auth = () => {
     },
     {
       id: "super_admin",
-      title: "Super Admin",
+      title: "Platform Owner",
       description: "Complete platform control and oversight",
       icon: Shield,
       color: "purple",
-    },
-    {
-      id: "internal_admin",
-      title: "Internal Admin",
-      description: "Operations, support, and internal management",
-      icon: Users,
-      color: "red",
     },
   ];
 
