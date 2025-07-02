@@ -777,7 +777,14 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
             <Plus className="h-4 w-4 mr-2" />
             Add Column
           </Button>
-          <Button variant="outline" onClick={generateShareUrl}>
+          <Button
+            variant="outline"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              generateShareUrl();
+            }}
+          >
             <Share2 className="h-4 w-4 mr-2" />
             Share Pipeline
           </Button>
