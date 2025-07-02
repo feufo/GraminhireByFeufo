@@ -105,6 +105,7 @@ const SharedPipeline = () => {
   });
   const [feedback, setFeedback] = useState("");
   const [reason, setReason] = useState("");
+  const [rating, setRating] = useState(0);
   const [isViewerMode, setIsViewerMode] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
 
