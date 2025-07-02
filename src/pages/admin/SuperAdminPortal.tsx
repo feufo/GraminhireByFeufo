@@ -1208,11 +1208,11 @@ const SuperAdminPortal = () => {
                                         newPassword.length >= 6
                                       ) {
                                         updatePassword(user.id, newPassword);
-                                        alert(
-                                          `✅ Password successfully updated for ${user.name}\n\nNew password: ${newPassword}\n\nUser will need to use this password on next login.`,
+                                        console.log(
+                                          `✅ Password successfully updated for ${user.name}. New password: ${newPassword}`,
                                         );
                                       } else if (newPassword) {
-                                        alert(
+                                        console.log(
                                           "❌ Password must be at least 6 characters long",
                                         );
                                       }
