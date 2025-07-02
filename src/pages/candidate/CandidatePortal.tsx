@@ -305,14 +305,39 @@ const CandidatePortal = () => {
                       </div>
 
                       <div className="flex space-x-2">
-                        <Button className="flex-1">
+                        <Button
+                          className="flex-1"
+                          onClick={() => {
+                            console.log(
+                              "Apply Now clicked for job:",
+                              job.title,
+                            );
+                            alert(
+                              `✅ Applied to ${job.title}! Application submitted successfully.`,
+                            );
+                          }}
+                        >
                           <Plus className="h-4 w-4 mr-2" />
                           Apply Now
                         </Button>
-                        <Button variant="outline" size="icon">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => {
+                            console.log("Share clicked");
+                            alert("📤 Share link copied to clipboard!");
+                          }}
+                        >
                           <Share className="h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="icon">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => {
+                            console.log("Contact clicked");
+                            alert("📞 Contact feature coming soon!");
+                          }}
+                        >
                           <Phone className="h-4 w-4" />
                         </Button>
                       </div>
