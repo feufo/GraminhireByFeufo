@@ -1,14 +1,16 @@
+import { Routes, Route } from "react-router-dom";
 import Navigation from "@/components/layout/Navigation";
 import EmployerDashboard from "@/components/dashboard/EmployerDashboard";
+import ProfileSettings from "./ProfileSettings";
+import AccountSettings from "./AccountSettings";
 
 const EmployerPortal = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <div className="container mx-auto px-4 py-8">
-        <EmployerDashboard />
-      </div>
-    </div>
+    <Routes>
+      <Route path="/" element={<EmployerDashboard />} />
+      <Route path="/profile" element={<ProfileSettings />} />
+      <Route path="/settings" element={<AccountSettings />} />
+    </Routes>
   );
 };
 
