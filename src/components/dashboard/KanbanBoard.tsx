@@ -751,7 +751,10 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
       </div>
 
       <div
-        className={`grid gap-6 ${isInternalUser ? "lg:grid-cols-5" : "lg:grid-cols-4"}`}
+        className={`grid gap-6`}
+        style={{
+          gridTemplateColumns: `repeat(${columns.length}, minmax(280px, 1fr))`,
+        }}
       >
         {columns.map((column) => (
           <div
