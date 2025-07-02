@@ -14,6 +14,7 @@ import EmployerPortal from "./pages/employer/EmployerPortal";
 import InstitutePortal from "./pages/institute/InstitutePortal";
 import SuperAdminPortal from "./pages/admin/SuperAdminPortal";
 import InternalAdminPortal from "./pages/internal/InternalAdminPortal";
+import AdminLogin from "./pages/AdminLogin";
 import SharedPipeline from "./pages/SharedPipeline";
 import NotFound from "./pages/NotFound";
 
