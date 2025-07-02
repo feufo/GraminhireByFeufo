@@ -1207,8 +1207,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
           <DialogHeader>
             <DialogTitle>Add New Candidate</DialogTitle>
             <DialogDescription>
-              Add a candidate directly to the pipeline (Admin/Recruiter
-              function)
+              Add a candidate to Admin Approval stage (Admin/Recruiter function)
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-6 py-4">
