@@ -1258,11 +1258,27 @@ const SuperAdminPortal = () => {
                       <Plus className="h-4 w-4 mr-2" />
                       Create Global Job
                     </Button>
-                    <Button variant="outline" className="w-full">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        console.log("Bulk edit jobs clicked");
+                        alert("📝 Bulk Edit Jobs - Mass edit job postings");
+                      }}
+                    >
                       <Edit className="h-4 w-4 mr-2" />
                       Bulk Edit Jobs
                     </Button>
-                    <Button variant="outline" className="w-full">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        console.log("Export all data clicked");
+                        alert(
+                          "💾 Export All Data - Generating comprehensive export...",
+                        );
+                      }}
+                    >
                       <Download className="h-4 w-4 mr-2" />
                       Export All Data
                     </Button>
@@ -1913,7 +1929,7 @@ const SuperAdminPortal = () => {
                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <span className="font-medium">Employer Fee</span>
                       <div className="text-right">
-                        <div className="font-bold">��5,000-25,000</div>
+                        <div className="font-bold">₹5,000-25,000</div>
                         <div className="text-xs text-muted-foreground">
                           Per placement
                         </div>
