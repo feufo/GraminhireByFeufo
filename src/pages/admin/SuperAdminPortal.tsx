@@ -60,6 +60,8 @@ import {
   Settings,
 } from "lucide-react";
 import Navigation from "@/components/layout/Navigation";
+import ProfileSettings from "./ProfileSettings";
+import AccountSettings from "./AccountSettings";
 
 const SuperAdminPortal = () => {
   const [activeTab, setActiveTab] = useState("overview");
