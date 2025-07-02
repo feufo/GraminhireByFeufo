@@ -2448,6 +2448,313 @@ const SuperAdminPortal = () => {
               </Card>
             </div>
           </TabsContent>
+          <TabsContent value="reports" className="space-y-6">
+            <div className="grid lg:grid-cols-2 gap-6">
+              {/* Report Generation */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <BarChart3 className="h-5 w-5 mr-2" />
+                    Report Generator
+                  </CardTitle>
+                  <CardDescription>
+                    Generate custom reports and analytics
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label>Report Type</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select report type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="user-activity">
+                          User Activity
+                        </SelectItem>
+                        <SelectItem value="financial">
+                          Financial Summary
+                        </SelectItem>
+                        <SelectItem value="placement">
+                          Placement Analytics
+                        </SelectItem>
+                        <SelectItem value="performance">
+                          Platform Performance
+                        </SelectItem>
+                        <SelectItem value="compliance">
+                          Compliance Report
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Start Date</Label>
+                      <Input type="date" />
+                    </div>
+                    <div>
+                      <Label>End Date</Label>
+                      <Input type="date" />
+                    </div>
+                  </div>
+                  <div className="flex space-x-2">
+                    <Button className="flex-1">
+                      <Download className="h-4 w-4 mr-2" />
+                      Generate PDF
+                    </Button>
+                    <Button variant="outline" className="flex-1">
+                      <FileText className="h-4 w-4 mr-2" />
+                      Export Excel
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Scheduled Reports */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle>Scheduled Reports</CardTitle>
+                  <CardDescription>Automated report delivery</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="p-3 border rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-medium">Monthly Financial</div>
+                          <div className="text-sm text-muted-foreground">
+                            Every 1st of month • admin@graminhire.com
+                          </div>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+                    </div>
+                    <div className="p-3 border rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-medium">Weekly User Stats</div>
+                          <div className="text-sm text-muted-foreground">
+                            Every Monday • team@graminhire.com
+                          </div>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Scheduled Report
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="integrations" className="space-y-6">
+            <div className="grid lg:grid-cols-3 gap-6">
+              {/* API Management */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle>API Management</CardTitle>
+                  <CardDescription>
+                    Manage API keys and integrations
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span>API Status</span>
+                      <Badge className="bg-green-100 text-green-800">
+                        Active
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Rate Limiting</span>
+                      <Badge className="bg-blue-100 text-blue-800">
+                        1000/hr
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Active Keys</span>
+                      <Badge variant="outline">12</Badge>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Button className="w-full">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Generate API Key
+                    </Button>
+                    <Button variant="outline" className="w-full">
+                      View Documentation
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Third-party Integrations */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle>Integrations</CardTitle>
+                  <CardDescription>Connected services and apps</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-2 border rounded">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-8 h-8 bg-blue-500 rounded"></div>
+                        <span>Payment Gateway</span>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between p-2 border rounded">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-8 h-8 bg-green-500 rounded"></div>
+                        <span>Email Service</span>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between p-2 border rounded">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-8 h-8 bg-orange-500 rounded"></div>
+                        <span>SMS Gateway</span>
+                      </div>
+                      <Switch />
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    Add Integration
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Webhooks */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle>Webhooks</CardTitle>
+                  <CardDescription>Event-driven notifications</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="p-2 border rounded-lg">
+                      <div className="font-medium">User Registration</div>
+                      <div className="text-sm text-muted-foreground">
+                        https://api.example.com/webhook
+                      </div>
+                      <div className="flex space-x-2 mt-2">
+                        <Button size="sm" variant="outline">
+                          Test
+                        </Button>
+                        <Button size="sm" variant="ghost">
+                          <Edit className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Webhook
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="audit" className="space-y-6">
+            <div className="grid lg:grid-cols-2 gap-6">
+              {/* Activity Logs */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <FileText className="h-5 w-5 mr-2" />
+                    Activity Logs
+                  </CardTitle>
+                  <CardDescription>
+                    Track all system activities and changes
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="p-3 border-l-4 border-green-500 bg-green-50 rounded">
+                      <div className="font-medium">User Created</div>
+                      <div className="text-sm text-muted-foreground">
+                        New employer account: Tata Motors • 2 hours ago
+                      </div>
+                    </div>
+                    <div className="p-3 border-l-4 border-blue-500 bg-blue-50 rounded">
+                      <div className="font-medium">Job Published</div>
+                      <div className="text-sm text-muted-foreground">
+                        Mechanical Engineer position • Bajaj Auto • 4 hours ago
+                      </div>
+                    </div>
+                    <div className="p-3 border-l-4 border-orange-500 bg-orange-50 rounded">
+                      <div className="font-medium">Payment Processed</div>
+                      <div className="text-sm text-muted-foreground">
+                        ₹25,000 placement fee • Institute XYZ • 6 hours ago
+                      </div>
+                    </div>
+                    <div className="p-3 border-l-4 border-red-500 bg-red-50 rounded">
+                      <div className="font-medium">Security Alert</div>
+                      <div className="text-sm text-muted-foreground">
+                        Failed login attempts detected • 8 hours ago
+                      </div>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    View Full Audit Log
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Security Monitoring */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="text-red-900">
+                    Security Center
+                  </CardTitle>
+                  <CardDescription>
+                    Monitor security events and threats
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div className="p-3 bg-red-50 rounded-lg">
+                      <div className="text-xl font-bold text-red-600">3</div>
+                      <div className="text-xs text-red-800">
+                        Security Alerts
+                      </div>
+                    </div>
+                    <div className="p-3 bg-yellow-50 rounded-lg">
+                      <div className="text-xl font-bold text-yellow-600">
+                        12
+                      </div>
+                      <div className="text-xs text-yellow-800">Suspicious</div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="p-3 border border-red-200 bg-red-50 rounded">
+                      <div className="font-medium text-red-900">
+                        Brute Force Attack
+                      </div>
+                      <div className="text-sm text-red-700">
+                        Multiple failed logins from IP: 192.168.1.100
+                      </div>
+                      <Button size="sm" variant="destructive" className="mt-2">
+                        Block IP
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button variant="outline" size="sm">
+                      Security Report
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      Block User
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
         </Tabs>
       </div>
     );
