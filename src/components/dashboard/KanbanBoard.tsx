@@ -780,24 +780,17 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
         )}
         <Card className="text-center p-4">
           <div className="text-2xl font-bold text-blue-600 mb-1">
-            {allColumns.find((col) => col.id === "applied")?.candidates
+            {allColumns.find((col) => col.id === "awaiting_review")?.candidates
               .length || 0}
           </div>
-          <div className="text-sm text-muted-foreground">Applied</div>
+          <div className="text-sm text-muted-foreground">Awaiting Review</div>
         </Card>
         <Card className="text-center p-4">
           <div className="text-2xl font-bold text-yellow-600 mb-1">
-            {allColumns.find((col) => col.id === "shortlisted")?.candidates
+            {allColumns.find((col) => col.id === "interview")?.candidates
               .length || 0}
           </div>
-          <div className="text-sm text-muted-foreground">Shortlisted</div>
-        </Card>
-        <Card className="text-center p-4">
-          <div className="text-2xl font-bold text-purple-600 mb-1">
-            {allColumns.find((col) => col.id === "interviewed")?.candidates
-              .length || 0}
-          </div>
-          <div className="text-sm text-muted-foreground">Interviewed</div>
+          <div className="text-sm text-muted-foreground">Interview</div>
         </Card>
         <Card className="text-center p-4">
           <div className="text-2xl font-bold text-green-600 mb-1">
@@ -805,6 +798,13 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
               0}
           </div>
           <div className="text-sm text-muted-foreground">Hired</div>
+        </Card>
+        <Card className="text-center p-4">
+          <div className="text-2xl font-bold text-red-600 mb-1">
+            {allColumns.find((col) => col.id === "rejected")?.candidates
+              .length || 0}
+          </div>
+          <div className="text-sm text-muted-foreground">Rejected</div>
         </Card>
       </div>
 
