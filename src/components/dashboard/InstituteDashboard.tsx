@@ -786,7 +786,10 @@ const InstituteDashboard = () => {
                         variant="outline"
                         onClick={() => {
                           console.log("View job details clicked:", job.title);
-                          alert(`��️ Viewing details for ${job.title}`);
+                          toast({
+                            title: `🔍 ${job.title}`,
+                            description: `${job.company} • ${job.location} • ${job.positions} positions`,
+                          });
                         }}
                       >
                         <Eye className="h-4 w-4 mr-2" />
