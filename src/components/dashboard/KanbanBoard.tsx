@@ -213,8 +213,8 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
       ],
     },
     {
-      id: "shortlisted",
-      title: "Shortlisted",
+      id: "interview",
+      title: "Interview",
       color: "bg-yellow-100 border-yellow-200",
       candidates: [
         {
@@ -227,13 +227,21 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
           videoUrl: "#",
           phone: "+91 76543 21098",
           experience: "Fresh graduate",
+          rating: 4.3,
+          profile: {
+            age: 20,
+            languages: ["Hindi", "English"],
+            strengths: ["Attention to Detail", "Team Player"],
+            salary_expectation: "₹14,000-16,000/month",
+          },
+          notes: [],
         },
       ],
     },
     {
-      id: "interviewed",
-      title: "Interviewed",
-      color: "bg-purple-100 border-purple-200",
+      id: "hired",
+      title: "Hired",
+      color: "bg-green-100 border-green-200",
       candidates: [
         {
           id: "5",
@@ -245,13 +253,22 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
           videoUrl: "#",
           phone: "+91 65432 10987",
           experience: "2 years experience",
+          rating: 4.7,
+          profile: {
+            age: 25,
+            languages: ["Hindi", "Gujarati", "English"],
+            previousWork: "Assembly Worker at Local Factory",
+            strengths: ["Experienced", "Reliable", "Technical Skills"],
+            salary_expectation: "₹20,000-24,000/month",
+          },
+          notes: [],
         },
       ],
     },
     {
-      id: "hired",
-      title: "Hired",
-      color: "bg-green-100 border-green-200",
+      id: "rejected",
+      title: "Rejected",
+      color: "bg-red-100 border-red-200",
       candidates: [
         {
           id: "6",
@@ -262,6 +279,25 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
           appliedDate: "2024-01-10",
           videoUrl: "#",
           experience: "1.5 years experience",
+          rating: 3.2,
+          profile: {
+            age: 23,
+            languages: ["Hindi", "Kannada", "English"],
+            previousWork: "Quality Inspector Trainee",
+            strengths: ["Meticulous", "Documentation Skills"],
+            salary_expectation: "₹18,000-22,000/month",
+          },
+          notes: [
+            {
+              id: "n3",
+              stage_from: "interview",
+              stage_to: "rejected",
+              feedback: "Not a good fit for current role requirements",
+              reason: "Lacks specific technical skills needed",
+              created_by: "Hiring Manager",
+              created_at: "2024-01-23",
+            },
+          ],
         },
       ],
     },
