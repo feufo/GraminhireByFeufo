@@ -484,11 +484,12 @@ const SuperAdminPortal = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-7">
+          <TabsList className="grid w-full grid-cols-8">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="users">User Management</TabsTrigger>
             <TabsTrigger value="jobs">Job Control</TabsTrigger>
             <TabsTrigger value="employers">Employers</TabsTrigger>
+            <TabsTrigger value="institutes">Institutes</TabsTrigger>
             <TabsTrigger value="pipelines">Pipelines</TabsTrigger>
             <TabsTrigger value="finances">Finance</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
@@ -1331,7 +1332,7 @@ const SuperAdminPortal = () => {
                             {employer.name}
                           </h3>
                           <p className="text-muted-foreground">
-                            {employer.email} • {employer.location}
+                            {employer.email} �� {employer.location}
                           </p>
                           <p className="text-sm text-muted-foreground">
                             Member since {employer.joinedDate} •{" "}
