@@ -486,7 +486,13 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
 
   const handleDeleteColumn = (columnId: string) => {
     // Don't allow deleting default columns
-    const defaultColumns = ["applied", "shortlisted", "interviewed", "hired"];
+    const defaultColumns = [
+      "admin_approval",
+      "applied",
+      "shortlisted",
+      "interviewed",
+      "hired",
+    ];
     if (defaultColumns.includes(columnId)) return;
 
     setColumns((prev) => prev.filter((col) => col.id !== columnId));
