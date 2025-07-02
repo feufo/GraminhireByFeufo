@@ -1397,7 +1397,9 @@ const SuperAdminPortal = () => {
                       className="w-full"
                       onClick={() => {
                         console.log("Bulk edit jobs clicked");
-                        alert("📝 Bulk Edit Jobs - Mass edit job postings");
+                        console.log(
+                          "📝 Bulk Edit Jobs - Mass edit job postings",
+                        );
                       }}
                     >
                       <Edit className="h-4 w-4 mr-2" />
