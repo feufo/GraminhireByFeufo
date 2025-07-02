@@ -118,23 +118,6 @@ const Auth = () => {
       ],
       stats: "5K+ companies hiring",
     },
-    {
-      id: "super_admin",
-      title: "Platform Owner",
-      subtitle: "Complete Control",
-      description:
-        "Full platform administration with advanced analytics and user management",
-      icon: Shield,
-      color: "purple",
-      gradient: "from-purple-500 to-indigo-500",
-      benefits: [
-        "Complete user management",
-        "Advanced analytics",
-        "Content management",
-        "System configuration",
-      ],
-      stats: "All-access admin panel",
-    },
   ];
 
   const handleRoleSelect = (roleId: string) => {
