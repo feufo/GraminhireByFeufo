@@ -50,11 +50,13 @@ import {
   FileText,
   Star,
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const InstituteDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isAddingStudent, setIsAddingStudent] = useState(false);
   const [isBulkUpload, setIsBulkUpload] = useState(false);
+  const { toast } = useToast();
 
   // Mock data
   const students = [
