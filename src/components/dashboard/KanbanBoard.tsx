@@ -351,7 +351,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
       created_at: new Date().toISOString().split("T")[0],
     };
 
-    setColumns((prevColumns) => {
+    setAllColumns((prevColumns) => {
       const newColumns = prevColumns.map((column) => ({
         ...column,
         candidates: column.candidates
