@@ -314,9 +314,10 @@ const CandidatePortal = () => {
                               "Apply Now clicked for job:",
                               job.title,
                             );
-                            alert(
-                              `✅ Applied to ${job.title}! Application submitted successfully.`,
-                            );
+                            toast({
+                              title: "✅ Application Submitted",
+                              description: `Successfully applied to ${job.title}`,
+                            });
                           }}
                         >
                           <Plus className="h-4 w-4 mr-2" />
@@ -495,7 +496,7 @@ const CandidatePortal = () => {
                     </CardTitle>
                     <CardDescription>
                       Upload your resume to increase your chances • अपने अवसर
-                      बढ़ाने ���े लि��� रिज्यूमे अपलोड करें
+                      बढ़ाने ���े लि��� रिज्यूमे अपलोड करे���
                     </CardDescription>
                   </div>
                 </div>
