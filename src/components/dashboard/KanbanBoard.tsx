@@ -676,7 +676,9 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-5 gap-6">
+      <div
+        className={`grid gap-6 ${isInternalUser ? "lg:grid-cols-5" : "lg:grid-cols-4"}`}
+      >
         {columns.map((column) => (
           <div
             key={column.id}
