@@ -508,15 +508,17 @@ const SuperAdminPortal = () => {
             setActiveTab(value);
           }}
         >
-          <TabsList className="grid w-full grid-cols-8">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="users">User Management</TabsTrigger>
-            <TabsTrigger value="jobs">Job Control</TabsTrigger>
-            <TabsTrigger value="employers">Employers</TabsTrigger>
-            <TabsTrigger value="institutes">Institutes</TabsTrigger>
-            <TabsTrigger value="pipelines">Pipelines</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-10">
+            <TabsTrigger value="overview">Dashboard</TabsTrigger>
+            <TabsTrigger value="users">Users</TabsTrigger>
+            <TabsTrigger value="content">Content</TabsTrigger>
             <TabsTrigger value="finances">Finance</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="communications">Comms</TabsTrigger>
+            <TabsTrigger value="system">System</TabsTrigger>
+            <TabsTrigger value="reports">Reports</TabsTrigger>
+            <TabsTrigger value="integrations">API</TabsTrigger>
+            <TabsTrigger value="audit">Audit</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
