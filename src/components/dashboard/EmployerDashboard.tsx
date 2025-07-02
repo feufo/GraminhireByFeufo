@@ -344,12 +344,38 @@ const EmployerDashboard = () => {
         </Dialog>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => {
+          console.log("Tab changed to:", value);
+          setActiveTab(value);
+        }}
+      >
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="jobs">Job Orders</TabsTrigger>
-          <TabsTrigger value="kanban">Hiring Pipeline</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger
+            value="overview"
+            onClick={() => console.log("Overview tab clicked")}
+          >
+            Overview
+          </TabsTrigger>
+          <TabsTrigger
+            value="jobs"
+            onClick={() => console.log("Jobs tab clicked")}
+          >
+            Job Orders
+          </TabsTrigger>
+          <TabsTrigger
+            value="kanban"
+            onClick={() => console.log("Kanban tab clicked")}
+          >
+            Hiring Pipeline
+          </TabsTrigger>
+          <TabsTrigger
+            value="analytics"
+            onClick={() => console.log("Analytics tab clicked")}
+          >
+            Analytics
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
