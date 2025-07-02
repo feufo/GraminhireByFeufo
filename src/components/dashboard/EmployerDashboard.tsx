@@ -170,7 +170,7 @@ const EmployerDashboard = () => {
     );
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
         return "bg-green-100 text-green-800";
@@ -185,7 +185,7 @@ const EmployerDashboard = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
       case "active":
         return <Play className="h-3 w-3" />;
