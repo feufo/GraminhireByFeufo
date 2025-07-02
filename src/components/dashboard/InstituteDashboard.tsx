@@ -56,6 +56,8 @@ const InstituteDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isAddingStudent, setIsAddingStudent] = useState(false);
   const [isBulkUpload, setIsBulkUpload] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isViewingStudent, setIsViewingStudent] = useState(false);
   const { toast } = useToast();
 
   // Mock data
@@ -678,10 +680,8 @@ const InstituteDashboard = () => {
                                 "View student details:",
                                 student.name,
                               );
-                              toast({
-                                title: `👤 ${student.name} Details`,
-                                description: `Status: ${student.status.toUpperCase()} • Course: ${student.course}${student.status === "placed" ? ` • Placed at ${student.placedCompany}` : ""}`,
-                              });
+                              setSelectedStudent(student);
+                              setIsViewingStudent(true);
                             }}
                           >
                             <Eye className="h-3 w-3" />
