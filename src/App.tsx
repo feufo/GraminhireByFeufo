@@ -118,6 +118,7 @@ const App = () => (
         <AuthProvider>
           <SharedDataProvider>
             <AppRoutes />
+            <FeedbackWidget />
           </SharedDataProvider>
         </AuthProvider>
       </BrowserRouter>
