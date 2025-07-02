@@ -280,6 +280,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
   const [copied, setCopied] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [reason, setReason] = useState("");
+  const [rating, setRating] = useState(0);
   const [addColumnDialog, setAddColumnDialog] = useState(false);
   const [addCandidateDialog, setAddCandidateDialog] = useState(false);
   const [newColumnName, setNewColumnName] = useState("");
