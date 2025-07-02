@@ -666,7 +666,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-4 gap-6">
+      <div className="grid lg:grid-cols-5 gap-6">
         {columns.map((column) => (
           <div
             key={column.id}
