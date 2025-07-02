@@ -421,10 +421,10 @@ const SuperAdminPortal = () => {
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="users">User Management</TabsTrigger>
             <TabsTrigger value="jobs">Job Control</TabsTrigger>
-            <TabsTrigger value="pipelines">Employer Pipelines</TabsTrigger>
-            <TabsTrigger value="finances">Financial Control</TabsTrigger>
+            <TabsTrigger value="employers">Employers</TabsTrigger>
+            <TabsTrigger value="pipelines">Pipelines</TabsTrigger>
+            <TabsTrigger value="finances">Finance</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
