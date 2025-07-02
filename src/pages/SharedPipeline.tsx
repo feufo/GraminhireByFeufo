@@ -166,8 +166,8 @@ const SharedPipeline = () => {
       ],
     },
     {
-      id: "shortlisted",
-      title: "Shortlisted",
+      id: "interview",
+      title: "Interview",
       color: "bg-yellow-100 border-yellow-200",
       candidates: [
         {
@@ -190,9 +190,9 @@ const SharedPipeline = () => {
       ],
     },
     {
-      id: "interviewed",
-      title: "Interviewed",
-      color: "bg-purple-100 border-purple-200",
+      id: "hired",
+      title: "Hired",
+      color: "bg-green-100 border-green-200",
       candidates: [
         {
           id: "5",
