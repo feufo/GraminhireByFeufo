@@ -848,7 +848,7 @@ const SuperAdminPortal = () => {
                       size="sm"
                       onClick={() => {
                         console.log("Users tab test button clicked!");
-                        alert(
+                        console.log(
                           "✅ Users Tab Working! All buttons in this tab are now functional.",
                         );
                       }}
