@@ -751,9 +751,9 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
       </div>
 
       <div
-        className={`grid gap-6`}
+        className="flex gap-6 overflow-x-auto pb-4"
         style={{
-          gridTemplateColumns: `repeat(${columns.length}, minmax(280px, 1fr))`,
+          minWidth: `${columns.length * 300}px`,
         }}
       >
         {columns.map((column) => (
