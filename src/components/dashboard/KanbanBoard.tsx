@@ -1318,11 +1318,12 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
             </div>
             <div className="bg-blue-50 p-3 rounded-lg text-sm">
               <div className="text-blue-900 font-medium mb-1">
-                Custom Pipeline Stage
+                Flexible Pipeline Organization
               </div>
               <div className="text-blue-800">
-                Add custom stages like "Background Check", "Reference Check",
-                "Salary Negotiation", etc.
+                Add custom stages like "Interview 2", "Technical Round",
+                "Background Check", "Reference Check". Use arrows in column
+                headers to reorder after creation.
               </div>
             </div>
             <div className="flex justify-end space-x-3">
