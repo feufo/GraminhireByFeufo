@@ -881,14 +881,24 @@ const SuperAdminPortal = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => console.log("Bulk operations clicked")}
+                      onClick={() => {
+                        console.log("Bulk operations clicked");
+                        alert(
+                          "💡 Bulk Actions - Mass user operations (edit/delete/export)",
+                        );
+                      }}
                     >
                       Bulk Actions
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => console.log("Export users clicked")}
+                      onClick={() => {
+                        console.log("Export users clicked");
+                        alert(
+                          "📊 Export Users - Downloading user data as CSV...",
+                        );
+                      }}
                     >
                       <Download className="h-4 w-4 mr-2" />
                       Export
