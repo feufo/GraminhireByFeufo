@@ -803,6 +803,219 @@ const InstituteDashboard = () => {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Student Details Modal */}
+      <Dialog open={isViewingStudent} onOpenChange={setIsViewingStudent}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              👤 {selectedStudent?.name} - Student Details
+            </DialogTitle>
+            <DialogDescription>
+              Complete student information including documents and placement
+              details
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedStudent && (
+            <div className="space-y-6">
+              {/* Basic Info */}
+              <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
+                <div>
+                  <Label className="text-sm font-medium text-gray-600">
+                    Enrollment ID
+                  </Label>
+                  <p className="font-mono">{selectedStudent.enrollmentId}</p>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium text-gray-600">
+                    Course
+                  </Label>
+                  <p>{selectedStudent.course}</p>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium text-gray-600">
+                    Status
+                  </Label>
+                  <Badge className={getStatusColor(selectedStudent.status)}>
+                    {selectedStudent.status}
+                  </Badge>
+                </div>
+                <div>
+                  <Label className="text-sm font-medium text-gray-600">
+                    Join Date
+                  </Label>
+                  <p>{selectedStudent.joinDate}</p>
+                </div>
+              </div>
+
+              {/* Placement Details (if placed) */}
+              {selectedStudent.status === "placed" && (
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <h3 className="font-semibold text-green-900 mb-3">
+                    Placement Information
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-sm font-medium text-green-700">
+                        Company
+                      </Label>
+                      <p className="font-semibold">
+                        {selectedStudent.placedCompany}
+                      </p>
+                    </div>
+                    <div>
+                      <Label className="text-sm font-medium text-green-700">
+                        Salary
+                      </Label>
+                      <p className="font-semibold">
+                        {selectedStudent.salary}/month
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Documents Section */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg">
+                  📄 Available Documents
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Resume */}
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium">📋 Resume/CV</h4>
+                      <Button size="sm" variant="outline">
+                        <Eye className="h-4 w-4 mr-2" />
+                        View
+                      </Button>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Updated: 2 weeks ago
+                    </p>
+                  </div>
+
+                  {/* Academic Transcripts */}
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium">🎓 Academic Transcripts</h4>
+                      <Button size="sm" variant="outline">
+                        <Eye className="h-4 w-4 mr-2" />
+                        View
+                      </Button>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Course completion certificate
+                    </p>
+                  </div>
+
+                  {/* Salary Slip (if placed) */}
+                  {selectedStudent.status === "placed" && (
+                    <div className="border-2 border-green-200 bg-green-50 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-medium text-green-900">
+                          💰 Salary Slip
+                        </h4>
+                        <Button
+                          size="sm"
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          <FileText className="h-4 w-4 mr-2" />
+                          Download
+                        </Button>
+                      </div>
+                      <p className="text-sm text-green-700">
+                        Latest: December 2024
+                      </p>
+                      <p className="text-xs text-green-600">
+                        From {selectedStudent.placedCompany}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Offer Letter (if placed) */}
+                  {selectedStudent.status === "placed" && (
+                    <div className="border-2 border-green-200 bg-green-50 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-medium text-green-900">
+                          📋 Offer Letter
+                        </h4>
+                        <Button
+                          size="sm"
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          <FileText className="h-4 w-4 mr-2" />
+                          Download
+                        </Button>
+                      </div>
+                      <p className="text-sm text-green-700">
+                        Signed and verified
+                      </p>
+                      <p className="text-xs text-green-600">
+                        From {selectedStudent.placedCompany}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Contact Information */}
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium">📞 Contact Details</h4>
+                      <Button size="sm" variant="outline">
+                        <Phone className="h-4 w-4 mr-2" />
+                        Contact
+                      </Button>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Phone: +91 98765 43210
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Email:{" "}
+                      {selectedStudent.name.toLowerCase().replace(" ", ".")}
+                      @email.com
+                    </p>
+                  </div>
+
+                  {/* ID Proof */}
+                  <div className="border rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-medium">🆔 Identity Documents</h4>
+                      <Button size="sm" variant="outline">
+                        <Eye className="h-4 w-4 mr-2" />
+                        View
+                      </Button>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Aadhaar, PAN Card verified
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-end space-x-3 pt-4 border-t">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    toast({
+                      title: "📋 All Documents",
+                      description: "Downloading complete document package...",
+                    });
+                  }}
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Download All
+                </Button>
+                <Button onClick={() => setIsViewingStudent(false)}>
+                  Close
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
