@@ -308,8 +308,10 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     ? allColumns
     : allColumns.filter((col) => col.id !== "admin_approval");
 
-  // Sync kanban data to localStorage for shared pipeline
-  useEffect(() => {
+  // Save kanban data to localStorage
+  const saveKanbanData = () => {
+    setSaveStatus("saving");
+
     const sharedData = {
       columns: columns.map((col) => ({
         id: col.id,
@@ -322,7 +324,25 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     };
 
     const jobId = jobTitle.toLowerCase().replace(/\s+/g, "-");
-    localStorage.setItem(`kanban_${jobId}`, JSON.stringify(sharedData));
+
+    try {
+      localStorage.setItem(`kanban_${jobId}`, JSON.stringify(sharedData));
+      setLastSaved(new Date());
+      setSaveStatus("saved");
+
+      // Reset save status after 2 seconds
+      setTimeout(() => setSaveStatus("idle"), 2000);
+    } catch (error) {
+      console.error("Failed to save kanban data:", error);
+      setSaveStatus("idle");
+    }
+  };
+
+  // Auto-save whenever columns change
+  useEffect(() => {
+    if (columns.length > 0) {
+      saveKanbanData();
+    }
   }, [columns, jobTitle]);
 
   const [draggedCandidate, setDraggedCandidate] = useState<Candidate | null>(
