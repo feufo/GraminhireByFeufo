@@ -106,6 +106,7 @@ const SharedPipeline = () => {
   const [feedback, setFeedback] = useState("");
   const [reason, setReason] = useState("");
   const [isViewerMode, setIsViewerMode] = useState(false);
+  const [isAdminMode, setIsAdminMode] = useState(false);
 
   // Mock data - in real app this would be fetched based on jobId and token
   const [columns, setColumns] = useState<SharedColumn[]>([
@@ -273,10 +274,14 @@ const SharedPipeline = () => {
         setJobTitle(
           jobId.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
         );
+
+        // Check if this is admin mode
+        const isAdmin = searchParams.get("admin") === "true";
+        setIsAdminMode(isAdmin);
       }
       setLoading(false);
     }, 1000);
-  }, [token, jobId]);
+  }, [token, jobId, searchParams]);
 
   const openProfile = (candidate: SharedCandidate) => {
     setSelectedCandidate(candidate);
@@ -322,7 +327,7 @@ const SharedPipeline = () => {
       stage_to: feedbackDialog.toStage,
       feedback,
       reason,
-      created_by: "External Collaborator", // Could be user name if authenticated
+      created_by: isAdminMode ? "Super Admin" : "External Collaborator",
       created_at: new Date().toISOString().split("T")[0],
     };
 
@@ -523,8 +528,14 @@ const SharedPipeline = () => {
                 GraminHire
               </span>
               <Badge variant="outline" className="ml-2">
-                Shared Pipeline
+                {isAdminMode ? "Admin Access" : "Shared Pipeline"}
               </Badge>
+              {isAdminMode && (
+                <Badge className="ml-2 bg-purple-100 text-purple-800">
+                  <Shield className="h-3 w-3 mr-1" />
+                  Super Admin
+                </Badge>
+              )}
             </div>
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Clock className="h-4 w-4" />
@@ -921,13 +932,21 @@ const SharedPipeline = () => {
                   rows={3}
                 />
               </div>
-              <div className="bg-blue-50 p-3 rounded-lg text-sm">
-                <div className="text-blue-900 font-medium mb-1">
-                  Acting as External Collaborator
+              <div
+                className={`p-3 rounded-lg text-sm ${isAdminMode ? "bg-purple-50" : "bg-blue-50"}`}
+              >
+                <div
+                  className={`font-medium mb-1 ${isAdminMode ? "text-purple-900" : "text-blue-900"}`}
+                >
+                  Acting as{" "}
+                  {isAdminMode ? "Super Admin" : "External Collaborator"}
                 </div>
-                <div className="text-blue-800">
-                  Your feedback will be visible to the employer and team
-                  members.
+                <div
+                  className={`${isAdminMode ? "text-purple-800" : "text-blue-800"}`}
+                >
+                  {isAdminMode
+                    ? "Your admin feedback will be visible to the employer and logged in the system."
+                    : "Your feedback will be visible to the employer and team members."}
                 </div>
               </div>
               <div className="flex justify-end space-x-3">
