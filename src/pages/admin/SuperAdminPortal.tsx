@@ -393,7 +393,7 @@ const SuperAdminPortal = () => {
             <Button
               onClick={() => {
                 console.log("Quick test button clicked!");
-                alert(
+                console.log(
                   "✅ Buttons are working! SuperAdmin portal is functional.",
                 );
               }}
