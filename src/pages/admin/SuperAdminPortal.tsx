@@ -523,13 +523,13 @@ const SuperAdminPortal = () => {
               <Card className="text-center p-4 border-2">
                 <DollarSign className="h-8 w-8 text-orange-600 mx-auto mb-2" />
                 <div className="text-2xl font-bold text-foreground">
-                  {platformStats.revenue}
+                  ₹{totalPlatformRevenue.toLocaleString()}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  Total Revenue
+                  Total Platform Revenue
                 </div>
                 <div className="text-xs text-orange-600 mt-1">
-                  {platformStats.pendingPayments} pending
+                  ₹{totalPendingPayments.toLocaleString()} pending
                 </div>
               </Card>
               <Card className="text-center p-4 border-2">
