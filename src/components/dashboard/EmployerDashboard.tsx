@@ -61,18 +61,24 @@ const EmployerDashboard = () => {
   const [isCreatingJob, setIsCreatingJob] = useState(false);
 
   // Mock data
-  const jobOrders = [
+  const [jobOrders, setJobOrders] = useState([
     {
       id: 1,
       title: "Production Assistant",
       location: "Pune, Maharashtra",
       positions: 5,
       salary: "₹18,000-22,000",
+      minSalary: 18000,
+      maxSalary: 22000,
       posted: "2024-01-15",
       applications: 12,
       interviewed: 3,
       hired: 1,
       status: "active",
+      feeType: "flat",
+      feeAmount: 5000,
+      potentialFee: 25000, // 5000 x 5 positions
+      actualFee: 5000, // 1 hire x 5000
     },
     {
       id: 2,
@@ -80,11 +86,17 @@ const EmployerDashboard = () => {
       location: "Mumbai, Maharashtra",
       positions: 3,
       salary: "₹20,000-25,000",
+      minSalary: 20000,
+      maxSalary: 25000,
       posted: "2024-01-18",
       applications: 8,
       interviewed: 2,
       hired: 0,
       status: "active",
+      feeType: "percentage",
+      feeAmount: 15, // 15%
+      potentialFee: 13500, // 15% of avg salary (22500) x 3 positions
+      actualFee: 0, // no hires yet
     },
     {
       id: 3,
@@ -92,13 +104,19 @@ const EmployerDashboard = () => {
       location: "Nashik, Maharashtra",
       positions: 10,
       salary: "₹16,000-20,000",
+      minSalary: 16000,
+      maxSalary: 20000,
       posted: "2024-01-10",
       applications: 25,
       interviewed: 8,
       hired: 3,
-      status: "active",
+      status: "paused",
+      feeType: "flat",
+      feeAmount: 4000,
+      potentialFee: 40000, // 4000 x 10 positions
+      actualFee: 12000, // 3 hires x 4000
     },
-  ];
+  ]);
 
   const analytics = {
     avgTimeToHire: "12 days",
