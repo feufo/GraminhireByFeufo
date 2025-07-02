@@ -452,9 +452,10 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
         {
           id: Date.now().toString(),
           stage_from: "external",
-          stage_to: "applied",
-          feedback: "Added by admin/recruiter",
-          reason: "New talent with intro video",
+          stage_to: "admin_approval",
+          feedback:
+            "Added by admin/recruiter - pending admin approval to show to employers",
+          reason: "New talent verified with intro video",
           created_by: "Platform Admin",
           created_at: new Date().toISOString().split("T")[0],
         },
