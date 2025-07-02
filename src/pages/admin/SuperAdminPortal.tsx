@@ -733,6 +733,21 @@ const SuperAdminPortal = () => {
                     >
                       {showPasswords ? "Hide" : "Show"} Passwords
                     </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => console.log("Bulk operations clicked")}
+                    >
+                      Bulk Actions
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => console.log("Export users clicked")}
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Export
+                    </Button>
                     <Select
                       value={selectedUserType}
                       onValueChange={setSelectedUserType}
