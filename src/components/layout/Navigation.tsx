@@ -152,47 +152,19 @@ const Navigation = () => {
                   Switch Role (Demo)
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Switching to candidate role");
-                    switchRole("candidate");
-                  }}
-                >
+                <DropdownMenuItem onClick={() => switchRole("candidate")}>
                   <User className="h-4 w-4 mr-2" />
                   Job Seeker
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Switching to employer role");
-                    switchRole("employer");
-                  }}
-                >
+                <DropdownMenuItem onClick={() => switchRole("employer")}>
                   <Building2 className="h-4 w-4 mr-2" />
                   Employer
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Switching to institute role");
-                    switchRole("institute");
-                  }}
-                >
+                <DropdownMenuItem onClick={() => switchRole("institute")}>
                   <GraduationCap className="h-4 w-4 mr-2" />
                   Institute
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Switching to super admin role");
-                    switchRole("super_admin");
-                  }}
-                >
+                <DropdownMenuItem onClick={() => switchRole("super_admin")}>
                   <Shield className="h-4 w-4 mr-2" />
                   Platform Owner
                 </DropdownMenuItem>
@@ -245,14 +217,7 @@ const Navigation = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log("Sign out clicked");
-                    logout();
-                  }}
-                >
+                <DropdownMenuItem onClick={logout}>
                   <LogOut className="h-4 w-4 mr-2" />
                   Sign Out
                 </DropdownMenuItem>
