@@ -58,7 +58,12 @@ import {
   Search,
   UserPlus,
   Settings,
+  Edit,
+  Trash2,
+  Plus,
+  Upload,
 } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
 import Navigation from "@/components/layout/Navigation";
 import ProfileSettings from "./ProfileSettings";
 import AccountSettings from "./AccountSettings";
