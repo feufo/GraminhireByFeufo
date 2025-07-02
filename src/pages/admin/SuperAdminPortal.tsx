@@ -1248,7 +1248,12 @@ const SuperAdminPortal = () => {
                   <div className="space-y-2">
                     <Button
                       className="w-full"
-                      onClick={() => console.log("Create job clicked")}
+                      onClick={() => {
+                        console.log("Create global job clicked");
+                        alert(
+                          "🚀 Create Global Job - Opens job creation dialog",
+                        );
+                      }}
                     >
                       <Plus className="h-4 w-4 mr-2" />
                       Create Global Job
@@ -1908,7 +1913,7 @@ const SuperAdminPortal = () => {
                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <span className="font-medium">Employer Fee</span>
                       <div className="text-right">
-                        <div className="font-bold">₹5,000-25,000</div>
+                        <div className="font-bold">��5,000-25,000</div>
                         <div className="text-xs text-muted-foreground">
                           Per placement
                         </div>
