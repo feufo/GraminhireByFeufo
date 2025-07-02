@@ -339,7 +339,7 @@ const EmployerDashboard = () => {
           setActiveTab(value);
         }}
       >
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger
             value="overview"
             onClick={() => console.log("Overview tab clicked")}
@@ -357,12 +357,6 @@ const EmployerDashboard = () => {
             onClick={() => console.log("Kanban tab clicked")}
           >
             Hiring Pipeline
-          </TabsTrigger>
-          <TabsTrigger
-            value="analytics"
-            onClick={() => console.log("Analytics tab clicked")}
-          >
-            Analytics
           </TabsTrigger>
         </TabsList>
 
