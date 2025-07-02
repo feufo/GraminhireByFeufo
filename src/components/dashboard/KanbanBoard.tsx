@@ -765,16 +765,43 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
                 <h3 className="font-semibold text-foreground">
                   {column.title}
                 </h3>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1">
                   <Badge variant="secondary">{column.candidates.length}</Badge>
-                  {!["applied", "shortlisted", "interviewed", "hired"].includes(
-                    column.id,
-                  ) && (
+                  {/* Column reordering controls */}
+                  <div className="flex items-center space-x-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 w-6 p-0 text-gray-500 hover:text-gray-700"
+                      onClick={() => handleMoveColumn(column.id, "left")}
+                      title="Move left"
+                    >
+                      ←
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-6 w-6 p-0 text-gray-500 hover:text-gray-700"
+                      onClick={() => handleMoveColumn(column.id, "right")}
+                      title="Move right"
+                    >
+                      →
+                    </Button>
+                  </div>
+                  {/* Delete button for custom columns only */}
+                  {![
+                    "admin_approval",
+                    "awaiting_review",
+                    "interview",
+                    "hired",
+                    "rejected",
+                  ].includes(column.id) && (
                     <Button
                       variant="ghost"
                       size="sm"
                       className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
                       onClick={() => handleDeleteColumn(column.id)}
+                      title="Delete column"
                     >
                       ×
                     </Button>
