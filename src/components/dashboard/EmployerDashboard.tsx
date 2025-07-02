@@ -149,6 +149,55 @@ const EmployerDashboard = () => {
   ];
 
   const [selectedJob, setSelectedJob] = useState(jobOrders[0]);
+  const [editingJob, setEditingJob] = useState(null);
+
+  // Calculate total potential and actual fees
+  const totalPotentialFee = jobOrders
+    .filter((job) => job.status === "active")
+    .reduce((sum, job) => sum + job.potentialFee, 0);
+
+  const totalActualFee = jobOrders.reduce((sum, job) => sum + job.actualFee, 0);
+
+  // Job management functions
+  const handleJobAction = (jobId, action) => {
+    setJobOrders((prev) =>
+      prev.map((job) =>
+        job.id === jobId
+          ? { ...job, status: action === "close" ? "closed" : action }
+          : job,
+      ),
+    );
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "active":
+        return "bg-green-100 text-green-800";
+      case "paused":
+        return "bg-yellow-100 text-yellow-800";
+      case "closed":
+        return "bg-gray-100 text-gray-800";
+      case "on_hold":
+        return "bg-blue-100 text-blue-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "active":
+        return <Play className="h-3 w-3" />;
+      case "paused":
+        return <Pause className="h-3 w-3" />;
+      case "closed":
+        return <Square className="h-3 w-3" />;
+      case "on_hold":
+        return <Clock className="h-3 w-3" />;
+      default:
+        return <Clock className="h-3 w-3" />;
+    }
+  };
 
   return (
     <div className="space-y-6">
