@@ -506,7 +506,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     ];
     if (defaultColumns.includes(columnId)) return;
 
-    setColumns((prev) => prev.filter((col) => col.id !== columnId));
+    setAllColumns((prev) => prev.filter((col) => col.id !== columnId));
   };
 
   const CandidateCard = ({ candidate }: { candidate: Candidate }) => (
