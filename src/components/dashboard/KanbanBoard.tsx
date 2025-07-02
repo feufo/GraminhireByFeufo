@@ -1335,14 +1335,14 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
               />
             </div>
 
-            <div className="bg-green-50 p-3 rounded-lg text-sm">
-              <div className="text-green-900 font-medium mb-1">
-                Recruiter Function
+            <div className="bg-orange-50 p-3 rounded-lg text-sm">
+              <div className="text-orange-900 font-medium mb-1">
+                Admin Approval Required
               </div>
-              <div className="text-green-800">
-                This candidate will be added to the "Applied" stage with a note
-                that they were added by admin/recruiter after video
-                verification.
+              <div className="text-orange-800">
+                This candidate will be added to "Admin Approval" stage. Only
+                after admin approves will employers be able to see and interact
+                with this candidate.
               </div>
             </div>
 
