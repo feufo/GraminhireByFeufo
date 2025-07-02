@@ -412,6 +412,68 @@ const InstituteDashboard = () => {
             </CardContent>
           </Card>
 
+          {/* Congratulations Notifications */}
+          <Card className="border-2 bg-gradient-to-r from-green-50 to-emerald-50">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center">
+                🎉 Congratulations!
+              </CardTitle>
+              <CardDescription>
+                Recent student placement achievements
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="bg-green-100 border border-green-200 rounded-lg p-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-green-500 text-white rounded-full p-2">
+                      <CheckCircle className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-green-900">
+                        🎊 Rajesh Kumar got placed at Tata Motors!
+                      </p>
+                      <p className="text-sm text-green-700">
+                        Mechanical Engineering • ₹20,000/month • Today
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-blue-100 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-blue-500 text-white rounded-full p-2">
+                      <Star className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-blue-900">
+                        ⭐ Your institute achieved 85% placement rate this
+                        quarter!
+                      </p>
+                      <p className="text-sm text-blue-700">
+                        Above average performance • Keep up the great work!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-purple-100 border border-purple-200 rounded-lg p-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-purple-500 text-white rounded-full p-2">
+                      <TrendingUp className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-purple-900">
+                        💰 Payment received: ₹12,500 for recent placements
+                      </p>
+                      <p className="text-sm text-purple-700">
+                        5 students placed this week • Payment processed
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <div className="grid lg:grid-cols-2 gap-6">
             {/* Placement Progress */}
             <Card className="border-2">
