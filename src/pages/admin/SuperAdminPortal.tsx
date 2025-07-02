@@ -808,20 +808,7 @@ const SuperAdminPortal = () => {
           </TabsContent>
 
           <TabsContent value="reports" className="space-y-6">
-            <Card className="border-2">
-              <CardHeader>
-                <CardTitle>Reports & Analytics</CardTitle>
-                <CardDescription>
-                  Generate and view platform reports
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button onClick={() => console.log("Generating reports...")}>
-                  <FileText className="h-4 w-4 mr-2" />
-                  Generate Report
-                </Button>
-              </CardContent>
-            </Card>
+            <UserAnalyticsDashboard />
           </TabsContent>
 
           <TabsContent value="integrations" className="space-y-6">
