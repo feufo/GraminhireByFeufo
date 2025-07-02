@@ -1235,8 +1235,8 @@ const SuperAdminPortal = () => {
                                         )
                                       ) {
                                         deleteUser(user.id);
-                                        alert(
-                                          `🗑️ User ${user.name} has been permanently deleted from the platform.\n\nAll associated data has been removed.`,
+                                        console.log(
+                                          `🗑️ User ${user.name} has been permanently deleted from the platform. All associated data has been removed.`,
                                         );
                                       }
                                     }}
