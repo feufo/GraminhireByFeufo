@@ -191,13 +191,14 @@ const Navigation = () => {
                   <GraduationCap className="h-4 w-4 mr-2" />
                   Institute
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => switchRole("super_admin")}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    console.log("Switching to super admin role");
+                    switchRole("super_admin");
+                  }}
+                >
                   <Shield className="h-4 w-4 mr-2" />
-                  Super Admin
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => switchRole("internal_admin")}>
-                  <Users className="h-4 w-4 mr-2" />
-                  Internal Admin
+                  Super Admin (Platform Owner)
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
