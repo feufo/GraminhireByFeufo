@@ -702,6 +702,127 @@ const SuperAdminPortal = () => {
                 </CardContent>
               </Card>
             </div>
+
+            {/* Analytics Section */}
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold">Platform Analytics</h3>
+                <Badge variant="secondary">Real-time data</Badge>
+              </div>
+
+              <div className="grid lg:grid-cols-4 gap-4">
+                <Card className="text-center p-4">
+                  <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-foreground">
+                    98.5%
+                  </div>
+                  <div className="text-sm text-muted-foreground">Uptime</div>
+                </Card>
+                <Card className="text-center p-4">
+                  <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-foreground">
+                    1,247
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Active Users
+                  </div>
+                </Card>
+                <Card className="text-center p-4">
+                  <Building2 className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-foreground">89%</div>
+                  <div className="text-sm text-muted-foreground">
+                    Success Rate
+                  </div>
+                </Card>
+                <Card className="text-center p-4">
+                  <DollarSign className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-foreground">
+                    ₹2.4M
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Monthly Revenue
+                  </div>
+                </Card>
+              </div>
+
+              <div className="grid lg:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Performance Trends</CardTitle>
+                    <CardDescription>
+                      Key platform metrics over time
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div>
+                          <h4 className="font-medium text-green-900">
+                            User Growth
+                          </h4>
+                          <p className="text-sm text-green-700">
+                            +23% increase this month
+                          </p>
+                        </div>
+                        <div className="text-2xl font-bold text-green-600">
+                          ↗️
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <div>
+                          <h4 className="font-medium text-blue-900">
+                            Job Postings
+                          </h4>
+                          <p className="text-sm text-blue-700">
+                            +15% more jobs posted
+                          </p>
+                        </div>
+                        <div className="text-2xl font-bold text-blue-600">
+                          📈
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Platform Health</CardTitle>
+                    <CardDescription>
+                      System performance indicators
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Server Response Time</span>
+                          <span>145ms</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className="bg-green-600 h-2 rounded-full"
+                            style={{ width: "85%" }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>User Satisfaction</span>
+                          <span>4.8/5</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className="bg-purple-600 h-2 rounded-full"
+                            style={{ width: "96%" }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </TabsContent>
 
           <TabsContent value="users" className="space-y-6">
