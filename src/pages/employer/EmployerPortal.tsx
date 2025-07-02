@@ -6,11 +6,21 @@ import AccountSettings from "./AccountSettings";
 
 const EmployerPortal = () => {
   return (
-    <Routes>
-      <Route path="/" element={<EmployerDashboard />} />
-      <Route path="/profile" element={<ProfileSettings />} />
-      <Route path="/settings" element={<AccountSettings />} />
-    </Routes>
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="container mx-auto px-4 py-8">
+              <EmployerDashboard />
+            </div>
+          }
+        />
+        <Route path="/profile" element={<ProfileSettings />} />
+        <Route path="/settings" element={<AccountSettings />} />
+      </Routes>
+    </div>
   );
 };
 
