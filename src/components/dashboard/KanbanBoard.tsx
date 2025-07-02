@@ -535,10 +535,10 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     // Don't allow deleting default columns
     const defaultColumns = [
       "admin_approval",
-      "applied",
-      "shortlisted",
-      "interviewed",
+      "awaiting_review",
+      "interview",
       "hired",
+      "rejected",
     ];
     if (defaultColumns.includes(columnId)) return;
 
