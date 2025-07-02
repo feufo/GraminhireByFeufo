@@ -780,6 +780,28 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
             <Share2 className="h-4 w-4 mr-2" />
             Share Pipeline
           </Button>
+
+          {/* Save Status Indicator */}
+          <div className="flex items-center space-x-2 text-sm">
+            {saveStatus === "saving" && (
+              <div className="flex items-center text-blue-600">
+                <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-blue-600 mr-2"></div>
+                Saving...
+              </div>
+            )}
+            {saveStatus === "saved" && (
+              <div className="flex items-center text-green-600">
+                <CheckCircle className="h-3 w-3 mr-2" />
+                Saved
+              </div>
+            )}
+            {lastSaved && saveStatus === "idle" && (
+              <div className="text-muted-foreground text-xs">
+                Last saved: {lastSaved.toLocaleTimeString()}
+              </div>
+            )}
+          </div>
+
           <div className="text-right">
             <div className="text-sm text-muted-foreground">
               Total Candidates
