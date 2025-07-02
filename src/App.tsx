@@ -13,6 +13,7 @@ import EmployerPortal from "./pages/employer/EmployerPortal";
 import InstitutePortal from "./pages/institute/InstitutePortal";
 import SuperAdminPortal from "./pages/admin/SuperAdminPortal";
 import InternalAdminPortal from "./pages/internal/InternalAdminPortal";
+import SharedPipeline from "./pages/SharedPipeline";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -93,6 +94,9 @@ const AppRoutes = () => (
         </RoleBasedRoute>
       }
     />
+
+    {/* Shared pipeline route - no auth required */}
+    <Route path="/kanban/shared/:jobId" element={<SharedPipeline />} />
 
     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
     <Route path="*" element={<NotFound />} />
