@@ -214,11 +214,21 @@ const Navigation = () => {
                   <p className="text-xs text-muted-foreground">{user.email}</p>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    console.log("Profile Settings clicked");
+                    alert("👤 Profile Settings feature coming soon!");
+                  }}
+                >
                   <User className="h-4 w-4 mr-2" />
                   Profile Settings
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    console.log("Account Settings clicked");
+                    alert("⚙️ Account Settings feature coming soon!");
+                  }}
+                >
                   <Settings className="h-4 w-4 mr-2" />
                   Account Settings
                 </DropdownMenuItem>
