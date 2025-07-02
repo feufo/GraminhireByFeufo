@@ -445,6 +445,44 @@ const EmployerDashboard = () => {
         </TabsContent>
 
         <TabsContent value="jobs" className="space-y-6">
+          {/* Fee Summary Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+            <Card className="border-2 border-blue-200">
+              <CardContent className="p-6 text-center">
+                <DollarSign className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-blue-600">
+                  ₹{totalPotentialFee.toLocaleString()}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Potential Fee (Active Jobs)
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="border-2 border-green-200">
+              <CardContent className="p-6 text-center">
+                <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-green-600">
+                  ₹{totalActualFee.toLocaleString()}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Amount Owed (Confirmed Hires)
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="border-2 border-orange-200">
+              <CardContent className="p-6 text-center">
+                <AlertCircle className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-orange-600">
+                  ₹{(totalPotentialFee - totalActualFee).toLocaleString()}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Remaining Potential
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Job Orders */}
           <div className="grid gap-6">
             {jobOrders.map((job) => (
               <Card key={job.id} className="border-2">
@@ -454,6 +492,12 @@ const EmployerDashboard = () => {
                       <CardTitle className="flex items-center space-x-2">
                         <Briefcase className="h-5 w-5" />
                         <span>{job.title}</span>
+                        <Badge className={`ml-2 ${getStatusColor(job.status)}`}>
+                          {getStatusIcon(job.status)}
+                          <span className="ml-1 capitalize">
+                            {job.status.replace("_", " ")}
+                          </span>
+                        </Badge>
                       </CardTitle>
                       <CardDescription className="flex items-center mt-2">
                         <MapPin className="h-4 w-4 mr-1" />
@@ -461,13 +505,70 @@ const EmployerDashboard = () => {
                         {job.salary}/month
                       </CardDescription>
                     </div>
-                    <div className="text-right">
-                      <Badge className="bg-green-100 text-green-800 border-green-200">
-                        {job.status}
-                      </Badge>
-                      <div className="text-sm text-muted-foreground mt-1">
-                        Posted {job.posted}
+                    <div className="flex items-center space-x-2">
+                      <div className="text-right">
+                        <div className="text-sm text-muted-foreground">
+                          Posted {job.posted}
+                        </div>
                       </div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="sm">
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem onClick={() => setEditingJob(job)}>
+                            <Edit className="h-4 w-4 mr-2" />
+                            Edit Job
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          {job.status === "active" && (
+                            <>
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  handleJobAction(job.id, "paused")
+                                }
+                              >
+                                <Pause className="h-4 w-4 mr-2" />
+                                Pause Job
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  handleJobAction(job.id, "on_hold")
+                                }
+                              >
+                                <Clock className="h-4 w-4 mr-2" />
+                                Put On Hold
+                              </DropdownMenuItem>
+                            </>
+                          )}
+                          {job.status === "paused" && (
+                            <DropdownMenuItem
+                              onClick={() => handleJobAction(job.id, "active")}
+                            >
+                              <Play className="h-4 w-4 mr-2" />
+                              Resume Job
+                            </DropdownMenuItem>
+                          )}
+                          {job.status === "on_hold" && (
+                            <DropdownMenuItem
+                              onClick={() => handleJobAction(job.id, "active")}
+                            >
+                              <Play className="h-4 w-4 mr-2" />
+                              Activate Job
+                            </DropdownMenuItem>
+                          )}
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            onClick={() => handleJobAction(job.id, "close")}
+                            className="text-red-600"
+                          >
+                            <Square className="h-4 w-4 mr-2" />
+                            Close Job
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </div>
                 </CardHeader>
@@ -493,13 +594,60 @@ const EmployerDashboard = () => {
                     </div>
                     <div className="text-center p-3 bg-purple-50 rounded-lg">
                       <div className="text-2xl font-bold text-purple-600">
-                        {Math.round((job.hired / job.applications) * 100)}%
+                        {job.applications > 0
+                          ? Math.round((job.hired / job.applications) * 100)
+                          : 0}
+                        %
                       </div>
                       <div className="text-sm text-purple-800">
                         Success Rate
                       </div>
                     </div>
                   </div>
+
+                  {/* Fee Information */}
+                  <Alert className="mb-4">
+                    <DollarSign className="h-4 w-4" />
+                    <AlertDescription>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <strong>Fee Structure:</strong>{" "}
+                          {job.feeType === "flat"
+                            ? `₹${job.feeAmount.toLocaleString()} per hire`
+                            : `${job.feeAmount}% of salary`}
+                        </div>
+                        <div>
+                          <strong>Potential Fee:</strong> ₹
+                          {job.potentialFee.toLocaleString()}
+                          <span className="text-muted-foreground ml-2">
+                            (
+                            {job.feeType === "flat"
+                              ? `${job.positions} positions`
+                              : `${job.feeAmount}% × avg salary × ${job.positions}`}
+                            )
+                          </span>
+                        </div>
+                        <div>
+                          <strong>Amount Owed:</strong>
+                          <span
+                            className={`ml-2 font-semibold ${job.actualFee > 0 ? "text-green-600" : "text-gray-500"}`}
+                          >
+                            ₹{job.actualFee.toLocaleString()}
+                          </span>
+                          {job.hired > 0 && (
+                            <span className="text-muted-foreground ml-2">
+                              ({job.hired} hire{job.hired !== 1 ? "s" : ""})
+                            </span>
+                          )}
+                        </div>
+                        <div>
+                          <strong>Remaining Positions:</strong>{" "}
+                          {job.positions - job.hired} of {job.positions}
+                        </div>
+                      </div>
+                    </AlertDescription>
+                  </Alert>
+
                   <div className="flex space-x-3">
                     <Button
                       variant="outline"
@@ -511,8 +659,11 @@ const EmployerDashboard = () => {
                       <Eye className="h-4 w-4 mr-2" />
                       View Pipeline
                     </Button>
-                    <Button variant="outline">
-                      <Building2 className="h-4 w-4 mr-2" />
+                    <Button
+                      variant="outline"
+                      onClick={() => setEditingJob(job)}
+                    >
+                      <Edit className="h-4 w-4 mr-2" />
                       Edit Job
                     </Button>
                   </div>
