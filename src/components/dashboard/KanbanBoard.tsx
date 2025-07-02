@@ -347,7 +347,11 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
         candidates: column.candidates
           .map((candidate) =>
             candidate.id === feedbackDialog.candidate?.id
-              ? { ...candidate, notes: [...(candidate.notes || []), newNote] }
+              ? {
+                  ...candidate,
+                  notes: [...(candidate.notes || []), newNote],
+                  rating: rating > 0 ? rating : candidate.rating,
+                }
               : candidate,
           )
           .filter((c) => c.id !== feedbackDialog.candidate?.id),
@@ -360,6 +364,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
         const updatedCandidate = {
           ...feedbackDialog.candidate,
           notes: [...(feedbackDialog.candidate.notes || []), newNote],
+          rating: rating > 0 ? rating : feedbackDialog.candidate.rating,
         };
         targetColumn.candidates.push(updatedCandidate);
       }
@@ -376,6 +381,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     });
     setFeedback("");
     setReason("");
+    setRating(0);
   };
 
   const generateShareUrl = () => {
