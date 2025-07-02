@@ -392,12 +392,7 @@ const SuperAdminPortal = () => {
           <div className="flex space-x-3">
             <Dialog open={isCreatingUser} onOpenChange={setIsCreatingUser}>
               <DialogTrigger asChild>
-                <Button
-                  onClick={() => {
-                    console.log("Create User button clicked");
-                    setIsCreatingUser(true);
-                  }}
-                >
+                <Button>
                   <UserPlus className="h-4 w-4 mr-2" />
                   Create User
                 </Button>
