@@ -151,7 +151,7 @@ const SuperAdminPortal = () => {
       totalStudents: 150,
       placedStudents: 25,
       pendingPlacements: 8,
-      placementFeeRate: 2000, // ��2000 per placement
+      placementFeeRate: 2000, // ₹2000 per placement
       totalEarned: 50000, // 25 placements × ₹2000
       pendingPayment: 16000, // 8 pending × ₹2000
       paidAmount: 34000,
@@ -510,12 +510,11 @@ const SuperAdminPortal = () => {
             setActiveTab(value);
           }}
         >
-          <TabsList className="grid w-full grid-cols-10">
+          <TabsList className="grid w-full grid-cols-9">
             <TabsTrigger value="overview">Dashboard</TabsTrigger>
             <TabsTrigger value="users">Users</TabsTrigger>
             <TabsTrigger value="content">Content</TabsTrigger>
             <TabsTrigger value="finances">Finance</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="communications">Comms</TabsTrigger>
             <TabsTrigger value="system">System</TabsTrigger>
             <TabsTrigger value="reports">Reports</TabsTrigger>
