@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { SharedDataProvider } from "@/contexts/SharedDataContext";
 import RoleBasedRoute from "@/components/auth/RoleBasedRoute";
+import FeedbackWidget from "@/components/feedback/FeedbackWidget";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
