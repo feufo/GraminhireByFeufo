@@ -201,15 +201,12 @@ const SuperAdminPortal = () => {
 
   // Mock data
   const platformStats = {
-    totalUsers: 15420,
+    totalUsers: 15365, // Reduced by 55 (removed internal admins)
     candidates: 8500,
     institutes: 245,
     employers: 120,
-    internalAdmin: 55,
     totalPlacements: 3420,
     activePlacements: 89,
-    revenue: "₹12,45,000",
-    pendingPayments: "₹3,45,000",
     monthlyGrowth: 23,
   };
 
