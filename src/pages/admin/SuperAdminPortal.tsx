@@ -1384,7 +1384,7 @@ const SuperAdminPortal = () => {
                       className="w-full"
                       onClick={() => {
                         console.log("Create global job clicked");
-                        alert(
+                        console.log(
                           "🚀 Create Global Job - Opens job creation dialog",
                         );
                       }}
