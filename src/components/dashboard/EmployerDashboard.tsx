@@ -548,17 +548,19 @@ const EmployerDashboard = () => {
                           {job.status === "active" && (
                             <>
                               <DropdownMenuItem
-                                onClick={() =>
-                                  handleJobAction(job.id, "paused")
-                                }
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleJobAction(job.id, "paused");
+                                }}
                               >
                                 <Pause className="h-4 w-4 mr-2" />
                                 Pause Job
                               </DropdownMenuItem>
                               <DropdownMenuItem
-                                onClick={() =>
-                                  handleJobAction(job.id, "on_hold")
-                                }
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleJobAction(job.id, "on_hold");
+                                }}
                               >
                                 <Clock className="h-4 w-4 mr-2" />
                                 Put On Hold
