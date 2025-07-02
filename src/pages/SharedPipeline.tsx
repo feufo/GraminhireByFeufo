@@ -638,26 +638,26 @@ const SharedPipeline = () => {
                 {columns[0].candidates.length}
               </div>
               <div className="text-sm text-muted-foreground">
-                New Applications
+                Awaiting Review
               </div>
             </Card>
             <Card className="text-center p-4">
               <div className="text-2xl font-bold text-yellow-600 mb-1">
                 {columns[1].candidates.length}
               </div>
-              <div className="text-sm text-muted-foreground">Shortlisted</div>
-            </Card>
-            <Card className="text-center p-4">
-              <div className="text-2xl font-bold text-purple-600 mb-1">
-                {columns[2].candidates.length}
-              </div>
-              <div className="text-sm text-muted-foreground">Interviewed</div>
+              <div className="text-sm text-muted-foreground">Interview</div>
             </Card>
             <Card className="text-center p-4">
               <div className="text-2xl font-bold text-green-600 mb-1">
-                {columns[3].candidates.length}
+                {columns[2].candidates.length}
               </div>
               <div className="text-sm text-muted-foreground">Hired</div>
+            </Card>
+            <Card className="text-center p-4">
+              <div className="text-2xl font-bold text-red-600 mb-1">
+                {columns[3].candidates.length}
+              </div>
+              <div className="text-sm text-muted-foreground">Rejected</div>
             </Card>
           </div>
 
