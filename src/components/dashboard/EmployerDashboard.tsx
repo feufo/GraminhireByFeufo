@@ -45,6 +45,7 @@ import {
   MoreVertical,
   AlertCircle,
   DollarSign,
+  CheckCircle,
 } from "lucide-react";
 import {
   DropdownMenu,
