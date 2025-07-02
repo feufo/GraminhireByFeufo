@@ -46,14 +46,9 @@ const Navigation = () => {
         icon: GraduationCap,
       },
       super_admin: {
-        label: "Super Admin",
+        label: "Platform Owner",
         color: "bg-purple-100 text-purple-800",
         icon: Shield,
-      },
-      internal_admin: {
-        label: "Internal Admin",
-        color: "bg-red-100 text-red-800",
-        icon: Users,
       },
     };
     return configs[role];
@@ -92,13 +87,6 @@ const Navigation = () => {
           { label: "Jobs", href: "/admin/jobs" },
           { label: "Finances", href: "/admin/finances" },
           { label: "Analytics", href: "/admin/analytics" },
-        ];
-      case "internal_admin":
-        return [
-          { label: "Dashboard", href: "/internal" },
-          { label: "Operations", href: "/internal/operations" },
-          { label: "Support", href: "/internal/support" },
-          { label: "Reports", href: "/internal/reports" },
         ];
       default:
         return [];
@@ -146,7 +134,7 @@ const Navigation = () => {
               size="sm"
               onClick={() => {
                 console.log("Notification clicked");
-                alert("🔔 Notifications feature coming soon!");
+                alert("���� Notifications feature coming soon!");
               }}
             >
               <Bell className="h-4 w-4" />
@@ -165,7 +153,9 @@ const Navigation = () => {
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     console.log("Switching to candidate role");
                     switchRole("candidate");
                   }}
@@ -174,7 +164,9 @@ const Navigation = () => {
                   Job Seeker
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     console.log("Switching to employer role");
                     switchRole("employer");
                   }}
@@ -183,7 +175,9 @@ const Navigation = () => {
                   Employer
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     console.log("Switching to institute role");
                     switchRole("institute");
                   }}
@@ -192,13 +186,15 @@ const Navigation = () => {
                   Institute
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     console.log("Switching to super admin role");
                     switchRole("super_admin");
                   }}
                 >
                   <Shield className="h-4 w-4 mr-2" />
-                  Super Admin (Platform Owner)
+                  Platform Owner
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -231,7 +227,9 @@ const Navigation = () => {
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     console.log("Profile Settings clicked");
                     alert("👤 Profile Settings feature coming soon!");
                   }}
@@ -240,7 +238,9 @@ const Navigation = () => {
                   Profile Settings
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     console.log("Account Settings clicked");
                     alert("⚙️ Account Settings feature coming soon!");
                   }}
@@ -249,7 +249,14 @@ const Navigation = () => {
                   Account Settings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={logout}>
+                <DropdownMenuItem
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log("Sign out clicked");
+                    logout();
+                  }}
+                >
                   <LogOut className="h-4 w-4 mr-2" />
                   Sign Out
                 </DropdownMenuItem>
