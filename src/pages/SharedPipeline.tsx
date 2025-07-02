@@ -112,25 +112,6 @@ const SharedPipeline = () => {
   // Load real-time data from localStorage - synced with main kanban
   const [columns, setColumns] = useState<SharedColumn[]>([]);
 
-  // Load shared kanban data
-  const loadSharedData = () => {
-    if (!jobId) return;
-
-    const storedData = localStorage.getItem(`kanban_${jobId}`);
-    if (storedData) {
-      try {
-        const parsedData = JSON.parse(storedData);
-        setColumns(parsedData.columns || getDefaultColumns());
-        setJobTitle(parsedData.jobTitle || jobId.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()));
-      } catch (error) {
-        console.error('Error loading shared kanban data:', error);
-        setColumns(getDefaultColumns());
-      }
-    } else {
-      setColumns(getDefaultColumns());
-    }
-  };
-
   // Default fallback data
   const getDefaultColumns = (): SharedColumn[] => [
     {
@@ -154,35 +135,6 @@ const SharedPipeline = () => {
             previousWork: "Internship at Local Workshop",
             strengths: ["Quick Learner", "Punctual", "Team Player"],
             salary_expectation: "₹15,000-18,000/month",
-          },
-          notes: [
-            {
-              id: "n1",
-              stage_from: "applied",
-              stage_to: "shortlisted",
-              feedback: "Good technical skills, needs interview",
-              reason: "Strong mechanical background",
-              created_by: "HR Team",
-              created_at: "2024-01-21",
-            },
-          ],
-        },
-        {
-          id: "2",
-          name: "Priya Sharma",
-          skills: ["Machine Operation", "Safety"],
-          location: "Mumbai, Maharashtra",
-          institute: "DDU-GKY Center",
-          appliedDate: "2024-01-19",
-          experience: "1 year experience",
-          education: "ITI Electrical - 2022",
-          rating: 4.5,
-          profile: {
-            age: 24,
-            languages: ["Hindi", "English", "Gujarati"],
-            previousWork: "Machine Operator at Local Factory",
-            strengths: ["Safety Conscious", "Detail Oriented", "Leadership"],
-            salary_expectation: "₹18,000-22,000/month",
           },
           notes: [],
         },
@@ -233,17 +185,7 @@ const SharedPipeline = () => {
             strengths: ["Experienced", "Reliable", "Technical Skills"],
             salary_expectation: "₹20,000-24,000/month",
           },
-          notes: [
-            {
-              id: "n2",
-              stage_from: "interview",
-              stage_to: "hired",
-              feedback: "Selected for the position, excellent fit for the role",
-              reason: "Top performer, great cultural fit",
-              created_by: "Hiring Manager",
-              created_at: "2024-01-22",
-            },
-          ],
+          notes: [],
         },
       ],
     },
@@ -268,38 +210,67 @@ const SharedPipeline = () => {
             strengths: ["Meticulous", "Documentation Skills"],
             salary_expectation: "₹18,000-22,000/month",
           },
-          notes: [
-            {
-              id: "n3",
-              stage_from: "interview",
-              stage_to: "rejected",
-              feedback: "Not a good fit for current role requirements",
-              reason: "Lacks specific technical skills needed",
-              created_by: "Hiring Manager",
-              created_at: "2024-01-23",
-            },
-          ],
+          notes: [],
         },
       ],
     },
-  ]);
+  ];
+
+  // Load shared kanban data
+  const loadSharedData = () => {
+    if (!jobId) return;
+
+    const storedData = localStorage.getItem(`kanban_${jobId}`);
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        setColumns(parsedData.columns || getDefaultColumns());
+        setJobTitle(
+          parsedData.jobTitle ||
+            jobId.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+        );
+      } catch (error) {
+        console.error("Error loading shared kanban data:", error);
+        setColumns(getDefaultColumns());
+      }
+    } else {
+      setColumns(getDefaultColumns());
+    }
+  };
 
   useEffect(() => {
     // Simulate API call to validate the shared link
     setTimeout(() => {
       if (token && jobId) {
         setIsValidLink(true);
-        setJobTitle(
-          jobId.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
-        );
 
         // Check if this is admin mode
         const isAdmin = searchParams.get("admin") === "true";
         setIsAdminMode(isAdmin);
+
+        // Load shared data
+        loadSharedData();
       }
       setLoading(false);
     }, 1000);
   }, [token, jobId, searchParams]);
+
+  // Real-time sync - listen for localStorage changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      loadSharedData();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    // Also check for updates every 2 seconds
+    const interval = setInterval(loadSharedData, 2000);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      clearInterval(interval);
+    };
+  }, [jobId]);
 
   const openProfile = (candidate: SharedCandidate) => {
     setSelectedCandidate(candidate);
@@ -355,7 +326,11 @@ const SharedPipeline = () => {
         candidates: column.candidates
           .map((candidate) =>
             candidate.id === feedbackDialog.candidate?.id
-              ? { ...candidate, notes: [...(candidate.notes || []), newNote] }
+              ? {
+                  ...candidate,
+                  notes: [...(candidate.notes || []), newNote],
+                  rating: rating > 0 ? rating : candidate.rating,
+                }
               : candidate,
           )
           .filter((c) => c.id !== feedbackDialog.candidate?.id),
@@ -618,11 +593,15 @@ const SharedPipeline = () => {
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-4 gap-6">
+          <div
+            className="flex gap-6 overflow-x-auto pb-4"
+            style={{ minWidth: `${columns.length * 300}px` }}
+          >
             {columns.map((column) => (
               <div
                 key={column.id}
-                className={`rounded-lg border-2 ${column.color} min-h-96`}
+                className={`rounded-lg border-2 ${column.color} min-h-96 flex-shrink-0`}
+                style={{ width: "280px" }}
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, column.id)}
               >
@@ -653,34 +632,37 @@ const SharedPipeline = () => {
             ))}
           </div>
 
-          {/* Summary Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="text-center p-4">
-              <div className="text-2xl font-bold text-blue-600 mb-1">
-                {columns[0].candidates.length}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Awaiting Review
-              </div>
-            </Card>
-            <Card className="text-center p-4">
-              <div className="text-2xl font-bold text-yellow-600 mb-1">
-                {columns[1].candidates.length}
-              </div>
-              <div className="text-sm text-muted-foreground">Interview</div>
-            </Card>
-            <Card className="text-center p-4">
-              <div className="text-2xl font-bold text-green-600 mb-1">
-                {columns[2].candidates.length}
-              </div>
-              <div className="text-sm text-muted-foreground">Hired</div>
-            </Card>
-            <Card className="text-center p-4">
-              <div className="text-2xl font-bold text-red-600 mb-1">
-                {columns[3].candidates.length}
-              </div>
-              <div className="text-sm text-muted-foreground">Rejected</div>
-            </Card>
+          {/* Summary Stats - Dynamic based on visible columns */}
+          <div
+            className="grid grid-cols-2 gap-4"
+            style={{
+              gridTemplateColumns: `repeat(${Math.min(columns.length, 6)}, minmax(150px, 1fr))`,
+            }}
+          >
+            {columns.map((column, index) => {
+              const colors = [
+                "text-blue-600",
+                "text-yellow-600",
+                "text-green-600",
+                "text-red-600",
+                "text-purple-600",
+                "text-indigo-600",
+                "text-pink-600",
+              ];
+              const colorClass =
+                colors[index % colors.length] || "text-gray-600";
+
+              return (
+                <Card key={column.id} className="text-center p-4">
+                  <div className={`text-2xl font-bold ${colorClass} mb-1`}>
+                    {column.candidates.length}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {column.title}
+                  </div>
+                </Card>
+              );
+            })}
           </div>
 
           {/* Powered by Footer */}
@@ -699,7 +681,7 @@ const SharedPipeline = () => {
           </div>
         </div>
 
-        {/* Profile Dialog - Same as in main kanban */}
+        {/* Profile Dialog */}
         <Dialog open={profileDialog} onOpenChange={setProfileDialog}>
           <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
             {selectedCandidate && (
