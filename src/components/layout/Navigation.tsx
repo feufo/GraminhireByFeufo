@@ -164,15 +164,30 @@ const Navigation = () => {
                   Switch Role (Demo)
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => switchRole("candidate")}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    console.log("Switching to candidate role");
+                    switchRole("candidate");
+                  }}
+                >
                   <User className="h-4 w-4 mr-2" />
                   Job Seeker
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => switchRole("employer")}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    console.log("Switching to employer role");
+                    switchRole("employer");
+                  }}
+                >
                   <Building2 className="h-4 w-4 mr-2" />
                   Employer
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => switchRole("institute")}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    console.log("Switching to institute role");
+                    switchRole("institute");
+                  }}
+                >
                   <GraduationCap className="h-4 w-4 mr-2" />
                   Institute
                 </DropdownMenuItem>
