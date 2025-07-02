@@ -213,15 +213,16 @@ const EmployerDashboard = () => {
           </p>
           {/* Test button to verify React is working */}
           <Button
-            variant="outline"
-            size="sm"
+            variant="default"
+            size="lg"
             onClick={() => {
-              alert("React is working! Button clicked successfully.");
-              console.log("Test button clicked - React is working!");
+              document.title = "BUTTON WORKS! - " + Date.now();
+              alert("✅ React is working! Button clicked successfully.");
+              console.log("✅ Test button clicked - React is working!");
             }}
-            className="mt-2"
+            className="mt-2 bg-red-500 hover:bg-red-600 text-white font-bold"
           >
-            🔧 Test Button
+            🔧 CLICK ME TO TEST
           </Button>
         </div>
 
