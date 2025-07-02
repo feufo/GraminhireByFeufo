@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,16 +29,24 @@ import {
   Lock,
   Phone,
   MapPin,
+  Shield,
+  Loader2,
 } from "lucide-react";
+import { useAuth, UserRole } from "@/contexts/AuthContext";
 
 const Auth = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
   const [mode, setMode] = useState(searchParams.get("mode") || "login");
   const [selectedRole, setSelectedRole] = useState(
     searchParams.get("role") || "",
   );
   const [step, setStep] = useState(1);
   const [agreedToFees, setAgreedToFees] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     const urlMode = searchParams.get("mode");
@@ -46,6 +54,13 @@ const Auth = () => {
     if (urlMode) setMode(urlMode);
     if (urlRole) setSelectedRole(urlRole);
   }, [searchParams]);
+
+  useEffect(() => {
+    // Redirect if already authenticated
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const roles = [
     {
@@ -69,12 +84,41 @@ const Auth = () => {
       icon: Building2,
       color: "orange",
     },
+    {
+      id: "super_admin",
+      title: "Super Admin",
+      description: "Complete platform control and oversight",
+      icon: Shield,
+      color: "purple",
+    },
+    {
+      id: "internal_admin",
+      title: "Internal Admin",
+      description: "Operations, support, and internal management",
+      icon: Users,
+      color: "red",
+    },
   ];
 
   const handleRoleSelect = (roleId: string) => {
     setSelectedRole(roleId);
     if (mode === "signup") {
       setStep(2);
+    }
+  };
+
+  const handleLogin = async () => {
+    if (!email || !password) return;
+
+    setIsLoading(true);
+    try {
+      await login(email, password, selectedRole as UserRole);
+      // Redirect will be handled by the auth context/useEffect above
+    } catch (error) {
+      console.error("Login failed:", error);
+      // Handle error - in real app, show toast/error message
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -221,6 +265,8 @@ const Auth = () => {
                 type="email"
                 placeholder="Enter your email"
                 className="pl-10"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -285,6 +331,8 @@ const Auth = () => {
                 type="password"
                 placeholder="Enter your password"
                 className="pl-10"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
@@ -310,11 +358,14 @@ const Auth = () => {
           <Button
             className="w-full"
             disabled={
-              mode === "signup" &&
-              (selectedRole === "employer" || selectedRole === "institute") &&
-              !agreedToFees
+              isLoading ||
+              (mode === "signup" &&
+                (selectedRole === "employer" || selectedRole === "institute") &&
+                !agreedToFees)
             }
+            onClick={mode === "login" ? handleLogin : undefined}
           >
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {mode === "login" ? "Sign In" : "Create Account"}
           </Button>
 
