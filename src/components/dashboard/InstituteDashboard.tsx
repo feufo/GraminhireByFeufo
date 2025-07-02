@@ -617,9 +617,10 @@ const InstituteDashboard = () => {
                                 "View student details:",
                                 student.name,
                               );
-                              alert(
-                                `👤 ${student.name} Details:\n\n📄 Documents Available:\n• Resume/CV\n• Academic Transcripts\n• ${student.status === "placed" ? "💰 Salary Slip from " + student.placedCompany + "\n• 📋 Offer Letter from " + student.placedCompany : "📝 Application Documents"}\n• 📞 Contact: ${student.phone || "Not provided"}\n\n✅ Status: ${student.status.toUpperCase()}`,
-                              );
+                              toast({
+                                title: `👤 ${student.name} Details`,
+                                description: `Status: ${student.status.toUpperCase()} • Course: ${student.course}${student.status === "placed" ? ` • Placed at ${student.placedCompany}` : ""}`,
+                              });
                             }}
                           >
                             <Eye className="h-3 w-3" />
@@ -633,9 +634,10 @@ const InstituteDashboard = () => {
                                   "Submit student for jobs:",
                                   student.name,
                                 );
-                                alert(
-                                  `📋 Submit ${student.name} to Job Orders:\n\n✅ Student is qualified and ready for placement\n📚 Course: ${student.course}\n🎓 Status: Course Completed\n\n🔍 Finding matching job opportunities...`,
-                                );
+                                toast({
+                                  title: `📋 Submit ${student.name}`,
+                                  description: `Ready for placement • Finding matching opportunities`,
+                                });
                               }}
                             >
                               <Send className="h-3 w-3" />
