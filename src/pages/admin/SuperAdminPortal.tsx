@@ -2167,110 +2167,340 @@ const SuperAdminPortal = () => {
           </TabsContent>
 
           <TabsContent value="content" className="space-y-6">
-            <div className="grid lg:grid-cols-3 gap-6">
-              {/* Content Overview */}
+            <div className="grid lg:grid-cols-2 gap-6">
+              {/* Blog Management */}
               <Card className="border-2">
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <FileText className="h-5 w-5 mr-2" />
-                    Content Control Center
+                    Blog Management
                   </CardTitle>
                   <CardDescription>
-                    Manage all platform content and job postings
+                    Create and manage blog posts for the platform
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div className="p-3 bg-blue-50 rounded-lg">
-                      <div className="text-2xl font-bold text-blue-600">
-                        156
-                      </div>
-                      <div className="text-sm text-blue-800">Active Jobs</div>
+                      <div className="text-2xl font-bold text-blue-600">25</div>
+                      <div className="text-sm text-blue-800">Published</div>
                     </div>
                     <div className="p-3 bg-orange-50 rounded-lg">
-                      <div className="text-2xl font-bold text-orange-600">
-                        23
-                      </div>
-                      <div className="text-sm text-orange-800">
-                        Pending Review
-                      </div>
+                      <div className="text-2xl font-bold text-orange-600">4</div>
+                      <div className="text-sm text-orange-800">Drafts</div>
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <Button
-                      className="w-full"
-                      onClick={() => {
-                        console.log("Create global job clicked");
-                        console.log(
-                          "🚀 Create Global Job - Opens job creation dialog",
-                        );
-                      }}
-                    >
-                      <Plus className="h-4 w-4 mr-2" />
-                      Create Global Job
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => {
-                        console.log("Bulk edit jobs clicked");
-                        console.log(
-                          "📝 Bulk Edit Jobs - Mass edit job postings",
-                        );
-                      }}
-                    >
-                      <Edit className="h-4 w-4 mr-2" />
-                      Bulk Edit Jobs
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => {
-                        console.log("Export all data clicked");
-                        console.log(
-                          "💾 Export All Data - Generating comprehensive export...",
-                        );
-                      }}
-                    >
-                      <Download className="h-4 w-4 mr-2" />
-                      Export All Data
-                    </Button>
+
+                  <div className="space-y-3">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button className="w-full">
+                          <Plus className="h-4 w-4 mr-2" />
+                          Create New Blog Post
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-2xl">
+                        <DialogHeader>
+                          <DialogTitle>Create New Blog Post</DialogTitle>
+                          <DialogDescription>
+                            Add a new blog post to engage with your audience
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <Label htmlFor="blogTitle">Title</Label>
+                            <Input id="blogTitle" placeholder="Enter blog post title" />
+                          </div>
+                          <div>
+                            <Label htmlFor="blogCategory">Category</Label>
+                            <Select>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select category" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="insights">Industry Insights</SelectItem>
+                                <SelectItem value="success">Success Stories</SelectItem>
+                                <SelectItem value="trends">Market Trends</SelectItem>
+                                <SelectItem value="tips">Career Tips</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div>
+                            <Label htmlFor="blogExcerpt">Excerpt</Label>
+                            <Textarea id="blogExcerpt" placeholder="Brief description..." rows={2} />
+                          </div>
+                          <div>
+                            <Label htmlFor="blogContent">Content</Label>
+                            <Textarea id="blogContent" placeholder="Write your blog post content..." rows={8} />
+                          </div>
+                          <div>
+                            <Label htmlFor="blogImage">Featured Image URL</Label>
+                            <Input id="blogImage" placeholder="https://example.com/image.jpg" />
+                          </div>
+                          <div className="flex space-x-2">
+                            <Button onClick={() => console.log("Publishing blog post...")}>
+                              Publish Now
+                            </Button>
+                            <Button variant="outline" onClick={() => console.log("Saving as draft...")}>
+                              Save as Draft
+                            </Button>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+
+                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                    <h4 className="font-medium text-sm">Recent Posts</h4>
+                    {[
+                      {
+                        title: "Rural India's Digital Transformation in Employment",
+                        status: "Published",
+                        date: "Dec 15, 2024",
+                        views: "1.2k"
+                      },
+                      {
+                        title: "Success Stories: From Village to Corporate",
+                        status: "Published",
+                        date: "Dec 12, 2024",
+                        views: "856"
+                      },
+                      {
+                        title: "The Future of Skill Development in India",
+                        status: "Draft",
+                        date: "Dec 10, 2024",
+                        views: "-"
+                      }
+                    ].map((post, index) => (
+                      <div key={index} className="p-3 border rounded-lg">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <h5 className="font-medium text-sm line-clamp-1">{post.title}</h5>
+                            <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                              <span>{post.date}</span>
+                              <span>•</span>
+                              <span>{post.views} views</span>
+                              <Badge className={post.status === 'Published' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+                                {post.status}
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className="flex space-x-1">
+                            <Button size="sm" variant="ghost" onClick={() => console.log(`Editing blog: ${post.title}`)}>
+                              <Edit className="h-3 w-3" />
+                            </Button>
+                            <Button size="sm" variant="ghost" className="text-red-600" onClick={() => console.log(`Deleting blog: ${post.title}`)}>
+                              <Trash2 className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
 
+              {/* Testimonials Management */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Star className="h-5 w-5 mr-2" />
+                    Testimonials Management
+                  </CardTitle>
+                  <CardDescription>
+                    Manage customer testimonials and reviews
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-3 gap-3 text-center">
+                    <div className="p-3 bg-green-50 rounded-lg">
+                      <div className="text-xl font-bold text-green-600">12</div>
+                      <div className="text-xs text-green-800">Employers</div>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <div className="text-xl font-bold text-blue-600">8</div>
+                      <div className="text-xs text-blue-800">Institutes</div>
+                    </div>
+                    <div className="p-3 bg-purple-50 rounded-lg">
+                      <div className="text-xl font-bold text-purple-600">15</div>
+                      <div className="text-xs text-purple-800">Candidates</div>
+                    </div>
+                  </div>
+
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button className="w-full">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add New Testimonial
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle>Add Customer Testimonial</DialogTitle>
+                        <DialogDescription>
+                          Add a new testimonial from satisfied customers
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="customerName">Customer Name</Label>
+                            <Input id="customerName" placeholder="Full name" />
+                          </div>
+                          <div>
+                            <Label htmlFor="customerRole">Designation</Label>
+                            <Input id="customerRole" placeholder="Job title" />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="customerCompany">Company/Institute</Label>
+                            <Input id="customerCompany" placeholder="Organization name" />
+                          </div>
+                          <div>
+                            <Label htmlFor="customerLocation">Location</Label>
+                            <Input id="customerLocation" placeholder="City, State" />
+                          </div>
+                        </div>
+                        <div>
+                          <Label htmlFor="customerType">Customer Type</Label>
+                          <Select>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select customer type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="candidate">Job Seeker</SelectItem>
+                              <SelectItem value="employer">Employer</SelectItem>
+                              <SelectItem value="institute">Training Institute</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label htmlFor="rating">Rating</Label>
+                          <Select>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select rating" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="5">⭐⭐⭐⭐⭐ (5 stars)</SelectItem>
+                              <SelectItem value="4">⭐⭐⭐⭐ (4 stars)</SelectItem>
+                              <SelectItem value="3">⭐⭐⭐ (3 stars)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label htmlFor="testimonialContent">Testimonial Content</Label>
+                          <Textarea id="testimonialContent" placeholder="Share their experience..." rows={4} />
+                        </div>
+                        <div>
+                          <Label htmlFor="customerPhoto">Customer Photo URL</Label>
+                          <Input id="customerPhoto" placeholder="https://example.com/photo.jpg" />
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button onClick={() => console.log("Adding testimonial...")}>
+                            Add Testimonial
+                          </Button>
+                          <Button variant="outline" onClick={() => console.log("Saving as draft...")}>
+                            Save Draft
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+
+                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                    <h4 className="font-medium text-sm">Recent Testimonials</h4>
+                    {[
+                      {
+                        name: "Rajesh Kumar",
+                        company: "Tata Motors",
+                        type: "employer",
+                        rating: 5,
+                        excerpt: "GraminHire transformed our hiring process..."
+                      },
+                      {
+                        name: "Dr. Priya Singh",
+                        company: "DDU-GKY Institute",
+                        type: "institute",
+                        rating: 5,
+                        excerpt: "Our placement rates increased by 85%..."
+                      },
+                      {
+                        name: "Amit Sharma",
+                        company: "Mahindra & Mahindra",
+                        type: "candidate",
+                        rating: 5,
+                        excerpt: "I got my dream job through GraminHire..."
+                      }
+                    ].map((testimonial, index) => (
+                      <div key={index} className="p-3 border rounded-lg">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h5 className="font-medium text-sm">{testimonial.name}</h5>
+                              <Badge className={`text-xs ${
+                                testimonial.type === 'employer' ? 'bg-orange-100 text-orange-800' :
+                                testimonial.type === 'institute' ? 'bg-green-100 text-green-800' :
+                                'bg-blue-100 text-blue-800'
+                              }`}>
+                                {testimonial.type}
+                              </Badge>
+                            </div>
+                            <div className="text-xs text-gray-600 mb-1">{testimonial.company}</div>
+                            <div className="flex items-center gap-1 mb-1">
+                              {[...Array(testimonial.rating)].map((_, i) => (
+                                <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                              ))}
+                            </div>
+                            <p className="text-xs text-gray-600 line-clamp-2">{testimonial.excerpt}</p>
+                          </div>
+                          <div className="flex space-x-1">
+                            <Button size="sm" variant="ghost" onClick={() => console.log(`Editing testimonial: ${testimonial.name}`)}>
+                              <Edit className="h-3 w-3" />
+                            </Button>
+                            <Button size="sm" variant="ghost" className="text-red-600" onClick={() => console.log(`Deleting testimonial: ${testimonial.name}`)}>
+                              <Trash2 className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Job Categories & Content Moderation */}
+            <div className="grid lg:grid-cols-2 gap-6">
               {/* Job Categories Management */}
               <Card className="border-2">
                 <CardHeader>
-                  <CardTitle>Job Categories</CardTitle>
+                  <CardTitle>Job Categories & Skills</CardTitle>
                   <CardDescription>
-                    Manage job categories and skills
+                    Manage job categories and required skills
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
                     {[
-                      "Manufacturing",
-                      "Automotive",
-                      "Construction",
-                      "Textiles",
-                      "Food Processing",
-                      "Technology",
+                      { name: "Manufacturing", jobs: 45, color: "blue" },
+                      { name: "Automotive", jobs: 32, color: "green" },
+                      { name: "Construction", jobs: 28, color: "orange" },
+                      { name: "Textiles", jobs: 19, color: "purple" },
+                      { name: "Food Processing", jobs: 15, color: "red" },
+                      { name: "Technology", jobs: 12, color: "indigo" },
                     ].map((category) => (
-                      <div
-                        key={category}
-                        className="flex items-center justify-between p-2 border rounded"
-                      >
-                        <span className="font-medium">{category}</span>
+                      <div key={category.name} className="flex items-center justify-between p-3 border rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-3 h-3 rounded-full bg-${category.color}-500`}></div>
+                          <span className="font-medium">{category.name}</span>
+                          <Badge variant="secondary" className="text-xs">{category.jobs} jobs</Badge>
+                        </div>
                         <div className="flex space-x-1">
-                          <Button size="sm" variant="ghost">
+                          <Button size="sm" variant="ghost" onClick={() => console.log(`Editing category: ${category.name}`)}>
                             <Edit className="h-3 w-3" />
                           </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="text-red-600"
-                          >
+                          <Button size="sm" variant="ghost" className="text-red-600" onClick={() => console.log(`Deleting category: ${category.name}`)}>
                             <Trash2 className="h-3 w-3" />
                           </Button>
                         </div>
@@ -2279,24 +2509,44 @@ const SuperAdminPortal = () => {
                   </div>
                   <Button variant="outline" className="w-full">
                     <Plus className="h-4 w-4 mr-2" />
-                    Add Category
+                    Add New Category
                   </Button>
                 </CardContent>
               </Card>
 
-              {/* Content Moderation */}
+              {/* Quick Actions */}
               <Card className="border-2">
                 <CardHeader>
-                  <CardTitle className="text-orange-900">
-                    Content Moderation
-                  </CardTitle>
+                  <CardTitle>Quick Actions</CardTitle>
                   <CardDescription>
-                    Review and moderate user-generated content
+                    Platform management shortcuts
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-3">
-                    <div className="p-3 border border-red-200 bg-red-50 rounded-lg">
+                <CardContent className="space-y-3">
+                  <Button className="w-full justify-start" onClick={() => console.log("Creating global job posting...")}>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create Global Job Posting
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start" onClick={() => console.log("Bulk editing jobs...")}>
+                    <Edit className="h-4 w-4 mr-2" />
+                    Bulk Edit Active Jobs
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start" onClick={() => console.log("Exporting content data...")}>
+                    <Download className="h-4 w-4 mr-2" />
+                    Export Content Data
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start" onClick={() => console.log("Managing featured content...")}>
+                    <Star className="h-4 w-4 mr-2" />
+                    Manage Featured Content
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start" onClick={() => console.log("Content analytics...")}>
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    View Content Analytics
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
                       <div className="font-medium text-red-900">
                         Flagged Profile
                       </div>
