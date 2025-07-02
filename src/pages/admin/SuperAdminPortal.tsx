@@ -58,9 +58,6 @@ import {
   Search,
   UserPlus,
   Settings,
-  Edit,
-  Trash2,
-  Plus,
   Upload,
 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
@@ -154,7 +151,7 @@ const SuperAdminPortal = () => {
       totalStudents: 150,
       placedStudents: 25,
       pendingPlacements: 8,
-      placementFeeRate: 2000, // ₹2000 per placement
+      placementFeeRate: 2000, // ��2000 per placement
       totalEarned: 50000, // 25 placements × ₹2000
       pendingPayment: 16000, // 8 pending × ₹2000
       paidAmount: 34000,
