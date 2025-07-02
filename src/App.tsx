@@ -42,6 +42,9 @@ const AppRoutes = () => (
     <Route path="/" element={<Index />} />
     <Route path="/auth" element={<Auth />} />
 
+    {/* Secure admin login - hidden route */}
+    <Route path="/platform-admin" element={<AdminLogin />} />
+
     {/* Legacy dashboard route - redirects to appropriate portal */}
     <Route path="/dashboard" element={<DashboardRedirect />} />
 
