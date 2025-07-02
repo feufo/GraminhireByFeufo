@@ -959,20 +959,113 @@ const SuperAdminPortal = () => {
                               </div>
                             </div>
                             <div className="flex space-x-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => {
-                                  console.log("Edit user clicked:", user.name);
-                                  setEditingUser(user);
-                                  alert(
-                                    `✏️ Edit ${user.name} - Opening user edit dialog`,
-                                  );
+                              <Dialog
+                                open={editingUser?.id === user.id}
+                                onOpenChange={(open) => {
+                                  if (!open) setEditingUser(null);
                                 }}
                               >
-                                <Edit className="h-4 w-4 mr-2" />
-                                Edit
-                              </Button>
+                                <DialogTrigger asChild>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => {
+                                      console.log(
+                                        "Edit user clicked:",
+                                        user.name,
+                                      );
+                                      setEditingUser(user);
+                                    }}
+                                  >
+                                    <Edit className="h-4 w-4 mr-2" />
+                                    Edit
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent className="max-w-md">
+                                  <DialogHeader>
+                                    <DialogTitle>Edit User</DialogTitle>
+                                    <DialogDescription>
+                                      Update user information for {user.name}
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div className="space-y-4">
+                                    <div>
+                                      <Label htmlFor="editName">Name</Label>
+                                      <Input
+                                        id="editName"
+                                        defaultValue={user.name}
+                                        placeholder="Full name"
+                                      />
+                                    </div>
+                                    <div>
+                                      <Label htmlFor="editEmail">Email</Label>
+                                      <Input
+                                        id="editEmail"
+                                        type="email"
+                                        defaultValue={user.email}
+                                        placeholder="Email address"
+                                      />
+                                    </div>
+                                    <div>
+                                      <Label htmlFor="editPhone">Phone</Label>
+                                      <Input
+                                        id="editPhone"
+                                        defaultValue={user.phone}
+                                        placeholder="Phone number"
+                                      />
+                                    </div>
+                                    <div>
+                                      <Label htmlFor="editLocation">
+                                        Location
+                                      </Label>
+                                      <Input
+                                        id="editLocation"
+                                        defaultValue={user.location}
+                                        placeholder="City, State"
+                                      />
+                                    </div>
+                                    <div>
+                                      <Label htmlFor="editStatus">Status</Label>
+                                      <Select defaultValue={user.status}>
+                                        <SelectTrigger>
+                                          <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                          <SelectItem value="active">
+                                            Active
+                                          </SelectItem>
+                                          <SelectItem value="inactive">
+                                            Inactive
+                                          </SelectItem>
+                                          <SelectItem value="suspended">
+                                            Suspended
+                                          </SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                    </div>
+                                    <div className="flex space-x-2 pt-4">
+                                      <Button
+                                        onClick={() => {
+                                          console.log(
+                                            "Saving user changes for:",
+                                            user.name,
+                                          );
+                                          setEditingUser(null);
+                                        }}
+                                        className="flex-1"
+                                      >
+                                        Save Changes
+                                      </Button>
+                                      <Button
+                                        variant="outline"
+                                        onClick={() => setEditingUser(null)}
+                                      >
+                                        Cancel
+                                      </Button>
+                                    </div>
+                                  </div>
+                                </DialogContent>
+                              </Dialog>
                               <Button
                                 variant="outline"
                                 size="sm"
