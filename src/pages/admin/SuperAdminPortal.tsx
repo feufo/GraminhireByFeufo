@@ -64,6 +64,74 @@ const SuperAdminPortal = () => {
   const [isCreatingUser, setIsCreatingUser] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState("all");
 
+  // Mock employer financial data
+  const employers = [
+    {
+      id: 1,
+      name: "Tata Motors",
+      email: "hr@tatamotors.com",
+      location: "Mumbai, MH",
+      status: "active",
+      joinedDate: "2024-01-10",
+      activeJobs: 3,
+      totalPositions: 15,
+      totalHires: 8,
+      potentialEarnings: 125000, // ₹1,25,000
+      actualEarnings: 67000, // ₹67,000
+      pendingPayment: 67000,
+      paidAmount: 45000,
+      feeModel: "flat",
+      avgFeePerHire: 8375,
+    },
+    {
+      id: 2,
+      name: "Bajaj Auto",
+      email: "recruiting@bajajauto.com",
+      location: "Pune, MH",
+      status: "active",
+      joinedDate: "2024-01-15",
+      activeJobs: 2,
+      totalPositions: 8,
+      totalHires: 3,
+      potentialEarnings: 84000,
+      actualEarnings: 31500,
+      pendingPayment: 31500,
+      paidAmount: 0,
+      feeModel: "percentage",
+      avgFeePerHire: 10500,
+    },
+    {
+      id: 3,
+      name: "Maharashtra Auto Parts",
+      email: "hr@mapl.com",
+      location: "Nashik, MH",
+      status: "active",
+      joinedDate: "2024-01-18",
+      activeJobs: 1,
+      totalPositions: 5,
+      totalHires: 0,
+      potentialEarnings: 35000,
+      actualEarnings: 0,
+      pendingPayment: 0,
+      paidAmount: 0,
+      feeModel: "flat",
+      avgFeePerHire: 7000,
+    },
+  ];
+
+  const totalPlatformPotential = employers.reduce(
+    (sum, emp) => sum + emp.potentialEarnings,
+    0,
+  );
+  const totalPlatformActual = employers.reduce(
+    (sum, emp) => sum + emp.actualEarnings,
+    0,
+  );
+  const totalPendingPayments = employers.reduce(
+    (sum, emp) => sum + emp.pendingPayment,
+    0,
+  );
+
   // Mock data
   const platformStats = {
     totalUsers: 15420,
