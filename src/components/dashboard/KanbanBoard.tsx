@@ -45,6 +45,10 @@ import {
   Award,
   Clock,
   MessageSquare,
+  Plus,
+  UserPlus,
+  Columns,
+  Trash2,
 } from "lucide-react";
 
 interface Candidate {
