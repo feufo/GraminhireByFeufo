@@ -465,9 +465,25 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
       color: newColumnColor,
     };
 
-    setAllColumns((prev) => [...prev, newColumn]);
+    setAllColumns((prev) => {
+      if (newColumnPosition === "end") {
+        return [...prev, newColumn];
+      } else {
+        // Find the position to insert based on selection
+        const insertIndex = prev.findIndex(
+          (col) => col.id === newColumnPosition,
+        );
+        if (insertIndex === -1) return [...prev, newColumn];
+
+        const newColumns = [...prev];
+        newColumns.splice(insertIndex + 1, 0, newColumn);
+        return newColumns;
+      }
+    });
+
     setNewColumnName("");
     setNewColumnColor("bg-gray-100 border-gray-200");
+    setNewColumnPosition("end");
     setAddColumnDialog(false);
   };
 
