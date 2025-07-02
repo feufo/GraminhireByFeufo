@@ -211,19 +211,6 @@ const EmployerDashboard = () => {
           <p className="text-muted-foreground">
             Manage your job postings and hiring pipeline
           </p>
-          {/* Test button to verify React is working */}
-          <Button
-            variant="default"
-            size="lg"
-            onClick={() => {
-              document.title = "BUTTON WORKS! - " + Date.now();
-              console.log("FIXED ALERT:", "✅ React is working! Button clicked successfully.");
-              console.log("✅ Test button clicked - React is working!");
-            }}
-            className="mt-2 bg-red-500 hover:bg-red-600 text-white font-bold"
-          >
-            🔧 CLICK ME TO TEST
-          </Button>
         </div>
 
         <Dialog open={isCreatingJob} onOpenChange={setIsCreatingJob}>
