@@ -36,6 +36,9 @@ import {
   Star,
   Sparkles,
   Zap,
+  Quote,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { useAuth, UserRole } from "@/contexts/AuthContext";
 
@@ -52,6 +55,7 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [currentReview, setCurrentReview] = useState(0);
 
   useEffect(() => {
     const urlMode = searchParams.get("mode");
@@ -66,6 +70,69 @@ const Auth = () => {
       navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
+
+  // Auto-rotate reviews
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentReview((prev) => (prev + 1) % reviews.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const reviews = [
+    {
+      id: 1,
+      content:
+        "GraminHire completely transformed our hiring process. We found 50+ skilled candidates from rural areas within just 2 months. The quality exceeded our expectations!",
+      author: "Rajesh Kumar",
+      designation: "HR Director",
+      company: "Tata Motors",
+      location: "Mumbai",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      id: 2,
+      content:
+        "Our placement rates increased by 85% after joining GraminHire. The platform made it incredibly easy to connect our students with quality employers across India.",
+      author: "Dr. Priya Singh",
+      designation: "Training Coordinator",
+      company: "DDU-GKY Institute",
+      location: "Patna",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1494790108755-2616b2e5de37?w=64&h=64&fit=crop&crop=face",
+      color: "from-green-500 to-emerald-500",
+    },
+    {
+      id: 3,
+      content:
+        "I got my dream job at Mahindra through GraminHire! The video profile feature helped me showcase my skills better than any traditional resume could.",
+      author: "Amit Sharma",
+      designation: "Production Assistant",
+      company: "Mahindra & Mahindra",
+      location: "Nashik",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face",
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      id: 4,
+      content:
+        "The bulk student enrollment feature saved us hours of work. We can now efficiently manage 500+ students and track their entire placement journey.",
+      author: "Suresh Patel",
+      designation: "Institute Director",
+      company: "Skill Development Center",
+      location: "Ahmedabad",
+      rating: 5,
+      avatar:
+        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=64&h=64&fit=crop&crop=face",
+      color: "from-purple-500 to-indigo-500",
+    },
+  ];
 
   const roles = [
     {
@@ -152,6 +219,14 @@ const Auth = () => {
       default:
         return "";
     }
+  };
+
+  const nextReview = () => {
+    setCurrentReview((prev) => (prev + 1) % reviews.length);
+  };
+
+  const prevReview = () => {
+    setCurrentReview((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
   if (mode === "signup" && step === 1) {
@@ -282,57 +357,176 @@ const Auth = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/50 to-green-50/30 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Card className="border-0 shadow-2xl bg-white/80 backdrop-blur-lg">
-          <CardHeader className="text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-green-600/10"></div>
+    <div className="min-h-screen bg-white flex">
+      {/* Left Side - Reviews/Testimonials */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 via-purple-600 to-green-600 p-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
 
-            <Link
-              to="/"
-              className="inline-flex items-center text-gray-600 hover:text-blue-600 mb-6 font-medium transition-colors relative z-10"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Home
-            </Link>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-32 h-32 border border-white/30 rounded-full"></div>
+          <div className="absolute top-32 right-20 w-24 h-24 border border-white/20 rounded-full"></div>
+          <div className="absolute bottom-20 left-20 w-40 h-40 border border-white/10 rounded-full"></div>
+        </div>
 
-            <div className="flex items-center justify-center space-x-3 mb-6 relative z-10">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
+        <div className="relative z-10 flex flex-col justify-center w-full max-w-lg mx-auto">
+          {/* Header */}
+          <div className="mb-12">
+            <div className="flex items-center space-x-3 mb-8">
+              <div className="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center">
                 <span className="text-white font-bold text-xl">G</span>
               </div>
-              <div className="text-left">
-                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+              <div>
+                <span className="text-white text-2xl font-bold">
                   GraminHire
                 </span>
-                <div className="text-sm text-gray-500 font-medium">
+                <div className="text-white/80 text-sm">
                   Empowering Rural India
                 </div>
               </div>
             </div>
 
-            <CardTitle className="text-3xl mb-2 relative z-10">
-              {mode === "login" ? "Welcome Back!" : "Join the Movement"}
-            </CardTitle>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Trusted by Thousands
+            </h2>
+            <p className="text-white/90 text-lg">
+              See what our community says about their success with GraminHire
+            </p>
+          </div>
 
-            <CardDescription className="text-base relative z-10">
+          {/* Review Card */}
+          <div className="relative">
+            <Card className="border-0 bg-white/95 backdrop-blur-lg shadow-2xl">
+              <CardContent className="p-8">
+                <Quote className="w-10 h-10 text-blue-500 mb-6" />
+
+                <p className="text-gray-700 text-lg leading-relaxed mb-6 italic">
+                  "{reviews[currentReview].content}"
+                </p>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={reviews[currentReview].avatar}
+                      alt={reviews[currentReview].author}
+                      className="w-12 h-12 rounded-full border-2 border-white shadow-md"
+                    />
+                    <div>
+                      <div className="font-bold text-gray-900">
+                        {reviews[currentReview].author}
+                      </div>
+                      <div className="text-blue-600 text-sm font-medium">
+                        {reviews[currentReview].designation}
+                      </div>
+                      <div className="text-gray-600 text-sm">
+                        {reviews[currentReview].company} •{" "}
+                        {reviews[currentReview].location}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    {[...Array(reviews[currentReview].rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Navigation */}
+            <div className="flex justify-between items-center mt-6">
+              <button
+                onClick={prevReview}
+                className="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+              >
+                <ChevronLeft className="w-6 h-6 text-white" />
+              </button>
+
+              <div className="flex gap-2">
+                {reviews.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentReview(index)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      index === currentReview ? "bg-white" : "bg-white/40"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextReview}
+                className="w-12 h-12 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+              >
+                <ChevronRight className="w-6 h-6 text-white" />
+              </button>
+            </div>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-6 mt-12">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white mb-1">50K+</div>
+              <div className="text-white/80 text-sm">Candidates Placed</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white mb-1">2K+</div>
+              <div className="text-white/80 text-sm">Partner Institutes</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white mb-1">5K+</div>
+              <div className="text-white/80 text-sm">Employers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Side - Auth Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div className="w-full max-w-md">
+          <div className="mb-8">
+            <Link
+              to="/"
+              className="inline-flex items-center text-gray-600 hover:text-blue-600 mb-6 font-medium transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Home
+            </Link>
+
+            <div className="mb-6 lg:hidden">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-green-600 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">G</span>
+                </div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+                  GraminHire
+                </span>
+              </div>
+            </div>
+
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              {mode === "login" ? "Welcome Back!" : "Join GraminHire"}
+            </h1>
+            <p className="text-gray-600">
               {mode === "login"
-                ? "Sign in to continue your journey with GraminHire"
+                ? "Sign in to continue your journey"
                 : selectedRole &&
                   `Complete your ${roles.find((r) => r.id === selectedRole)?.title} registration`}
-            </CardDescription>
+            </p>
 
             {selectedRole && (
-              <Badge
-                variant="secondary"
-                className={`w-fit mx-auto mt-4 relative z-10 bg-gradient-to-r ${roles.find((r) => r.id === selectedRole)?.gradient} text-white border-0`}
-              >
-                <Zap className="w-4 h-4 mr-2" />
+              <Badge className="mt-4 bg-gradient-to-r from-blue-100 to-green-100 text-blue-700 border-blue-200">
+                <Zap className="w-4 h-4 mr-1" />
                 {roles.find((r) => r.id === selectedRole)?.title}
               </Badge>
             )}
-          </CardHeader>
+          </div>
 
-          <CardContent className="space-y-6 p-8">
+          <div className="space-y-6">
             {mode === "login" && !selectedRole && (
               <div className="space-y-3">
                 <Label htmlFor="role" className="text-base font-semibold">
@@ -540,23 +734,23 @@ const Auth = () => {
                 </button>
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
 
-        {/* Trust indicators */}
-        <div className="mt-8 text-center">
-          <div className="flex items-center justify-center gap-6 text-sm text-gray-500">
-            <div className="flex items-center gap-1">
-              <Shield className="h-4 w-4" />
-              <span>Secure & Trusted</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Users className="h-4 w-4" />
-              <span>50K+ Users</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-              <span>4.9/5 Rating</span>
+          {/* Trust indicators - visible on mobile */}
+          <div className="mt-8 lg:hidden">
+            <div className="flex items-center justify-center gap-6 text-sm text-gray-500">
+              <div className="flex items-center gap-1">
+                <Shield className="h-4 w-4" />
+                <span>Secure</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Users className="h-4 w-4" />
+                <span>50K+ Users</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                <span>4.9 Rating</span>
+              </div>
             </div>
           </div>
         </div>
