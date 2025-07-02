@@ -64,6 +64,20 @@ const SuperAdminPortal = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isCreatingUser, setIsCreatingUser] = useState(false);
   const [selectedUserType, setSelectedUserType] = useState("all");
+  const [showPasswords, setShowPasswords] = useState(false);
+  const [editingUser, setEditingUser] = useState<any>(null);
+
+  // Get shared data
+  const {
+    allUsers,
+    updateUser,
+    addUser,
+    deleteUser,
+    getUsersByRole,
+    updatePassword,
+    getTotalRevenue,
+    getPendingPayments,
+  } = useSharedData();
 
   // Mock employer financial data
   const employers = [
