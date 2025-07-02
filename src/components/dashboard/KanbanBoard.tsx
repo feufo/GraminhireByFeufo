@@ -711,28 +711,34 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <Card className="text-center p-4">
-          <div className="text-2xl font-bold text-blue-600 mb-1">
+          <div className="text-2xl font-bold text-orange-600 mb-1">
             {columns[0].candidates.length}
           </div>
-          <div className="text-sm text-muted-foreground">New Applications</div>
+          <div className="text-sm text-muted-foreground">Pending Approval</div>
+        </Card>
+        <Card className="text-center p-4">
+          <div className="text-2xl font-bold text-blue-600 mb-1">
+            {columns[1].candidates.length}
+          </div>
+          <div className="text-sm text-muted-foreground">Applied</div>
         </Card>
         <Card className="text-center p-4">
           <div className="text-2xl font-bold text-yellow-600 mb-1">
-            {columns[1].candidates.length}
+            {columns[2].candidates.length}
           </div>
           <div className="text-sm text-muted-foreground">Shortlisted</div>
         </Card>
         <Card className="text-center p-4">
           <div className="text-2xl font-bold text-purple-600 mb-1">
-            {columns[2].candidates.length}
+            {columns[3].candidates.length}
           </div>
           <div className="text-sm text-muted-foreground">Interviewed</div>
         </Card>
         <Card className="text-center p-4">
           <div className="text-2xl font-bold text-green-600 mb-1">
-            {columns[3].candidates.length}
+            {columns[4].candidates.length}
           </div>
           <div className="text-sm text-muted-foreground">Hired</div>
         </Card>
