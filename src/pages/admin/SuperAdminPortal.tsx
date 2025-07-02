@@ -4127,39 +4127,11 @@ const SuperAdminPortal = () => {
           </TabsContent>
         </Tabs>
       </div>
-    );
-  };
-
-  // Check if we're on profile or settings routes
-  const currentPath = window.location.pathname;
-  const isProfilePage = currentPath.includes("/profile");
-  const isSettingsPage = currentPath.includes("/settings");
-
-  if (isProfilePage) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        <ProfileSettings />
-      </div>
-    );
-  }
-
-  if (isSettingsPage) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        <AccountSettings />
-      </div>
-    );
-  }
-
-  // Default dashboard view
-  return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <SuperAdminDashboard />
     </div>
   );
+};
+
+export default SuperAdminPortal;
 };
 
 export default SuperAdminPortal;
