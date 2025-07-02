@@ -349,10 +349,11 @@ const SuperAdminPortal = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-7">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="users">User Management</TabsTrigger>
             <TabsTrigger value="jobs">Job Control</TabsTrigger>
+            <TabsTrigger value="pipelines">Employer Pipelines</TabsTrigger>
             <TabsTrigger value="finances">Financial Control</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="settings">Settings</TabsTrigger>
@@ -713,6 +714,258 @@ const SuperAdminPortal = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="pipelines" className="space-y-6">
+            <Card className="border-2">
+              <CardHeader>
+                <CardTitle>Employer Pipeline Management</CardTitle>
+                <CardDescription>
+                  View and manage hiring pipelines for all employers
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {/* Employer Pipeline List */}
+                  <div className="border rounded-lg p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          Production Assistant - Tata Motors
+                        </h3>
+                        <p className="text-muted-foreground">
+                          HR Team: hr@tatamotors.com • 5 positions • Pune,
+                          Maharashtra
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Posted 2024-01-20 • Fee: ₹15,000 per hire
+                        </p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800 border-green-200">
+                        Active
+                      </Badge>
+                    </div>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <div className="text-xl font-bold text-blue-600">3</div>
+                        <div className="text-sm text-blue-800">Applied</div>
+                      </div>
+                      <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                        <div className="text-xl font-bold text-yellow-600">
+                          1
+                        </div>
+                        <div className="text-sm text-yellow-800">
+                          Shortlisted
+                        </div>
+                      </div>
+                      <div className="text-center p-3 bg-purple-50 rounded-lg">
+                        <div className="text-xl font-bold text-purple-600">
+                          1
+                        </div>
+                        <div className="text-sm text-purple-800">
+                          Interviewed
+                        </div>
+                      </div>
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <div className="text-xl font-bold text-green-600">
+                          1
+                        </div>
+                        <div className="text-sm text-green-800">Hired</div>
+                      </div>
+                    </div>
+
+                    <div className="flex space-x-3">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          // Open kanban in admin mode
+                          window.open(
+                            "/kanban/shared/production-assistant?token=admin-access&admin=true",
+                            "_blank",
+                          );
+                        }}
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        View & Manage Pipeline
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Send className="h-4 w-4 mr-2" />
+                        Generate Share Link
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <FileText className="h-4 w-4 mr-2" />
+                        Download Report
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="border rounded-lg p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          Quality Inspector - Bajaj Auto
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Recruiting Team: recruiting@bajajauto.com • 3
+                          positions • Mumbai, Maharashtra
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Posted 2024-01-19 • Fee: 12% of first month salary
+                        </p>
+                      </div>
+                      <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200">
+                        Pending Review
+                      </Badge>
+                    </div>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <div className="text-xl font-bold text-blue-600">8</div>
+                        <div className="text-sm text-blue-800">Applied</div>
+                      </div>
+                      <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                        <div className="text-xl font-bold text-yellow-600">
+                          2
+                        </div>
+                        <div className="text-sm text-yellow-800">
+                          Shortlisted
+                        </div>
+                      </div>
+                      <div className="text-center p-3 bg-purple-50 rounded-lg">
+                        <div className="text-xl font-bold text-purple-600">
+                          0
+                        </div>
+                        <div className="text-sm text-purple-800">
+                          Interviewed
+                        </div>
+                      </div>
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <div className="text-xl font-bold text-green-600">
+                          0
+                        </div>
+                        <div className="text-sm text-green-800">Hired</div>
+                      </div>
+                    </div>
+
+                    <div className="flex space-x-3">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          // Open kanban in admin mode
+                          window.open(
+                            "/kanban/shared/quality-inspector?token=admin-access&admin=true",
+                            "_blank",
+                          );
+                        }}
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        View & Manage Pipeline
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <CheckCircle className="h-4 w-4 mr-2" />
+                        Approve Job
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Send className="h-4 w-4 mr-2" />
+                        Generate Share Link
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="border rounded-lg p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          Machine Operator - Mahindra & Mahindra
+                        </h3>
+                        <p className="text-muted-foreground">
+                          HR Dept: hr@mahindra.com • 10 positions • Nashik,
+                          Maharashtra
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Posted 2024-01-10 • Fee: ₹12,000 per hire
+                        </p>
+                      </div>
+                      <Badge className="bg-green-100 text-green-800 border-green-200">
+                        Active
+                      </Badge>
+                    </div>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <div className="text-xl font-bold text-blue-600">
+                          25
+                        </div>
+                        <div className="text-sm text-blue-800">Applied</div>
+                      </div>
+                      <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                        <div className="text-xl font-bold text-yellow-600">
+                          8
+                        </div>
+                        <div className="text-sm text-yellow-800">
+                          Shortlisted
+                        </div>
+                      </div>
+                      <div className="text-center p-3 bg-purple-50 rounded-lg">
+                        <div className="text-xl font-bold text-purple-600">
+                          5
+                        </div>
+                        <div className="text-sm text-purple-800">
+                          Interviewed
+                        </div>
+                      </div>
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <div className="text-xl font-bold text-green-600">
+                          3
+                        </div>
+                        <div className="text-sm text-green-800">Hired</div>
+                      </div>
+                    </div>
+
+                    <div className="flex space-x-3">
+                      <Button
+                        size="sm"
+                        onClick={() => {
+                          // Open kanban in admin mode
+                          window.open(
+                            "/kanban/shared/machine-operator?token=admin-access&admin=true",
+                            "_blank",
+                          );
+                        }}
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        View & Manage Pipeline
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Send className="h-4 w-4 mr-2" />
+                        Generate Share Link
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <FileText className="h-4 w-4 mr-2" />
+                        Download Report
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                  <div className="font-medium text-blue-900 mb-2">
+                    Admin Pipeline Management
+                  </div>
+                  <ul className="text-blue-800 space-y-1 text-sm">
+                    <li>• View and manage any employer's hiring pipeline</li>
+                    <li>
+                      • Move candidates between stages on behalf of employers
+                    </li>
+                    <li>• Add feedback and notes as admin user</li>
+                    <li>• Generate shareable links for stakeholders</li>
+                    <li>• Override employer decisions when necessary</li>
+                    <li>• Download hiring reports and analytics</li>
+                  </ul>
                 </div>
               </CardContent>
             </Card>
