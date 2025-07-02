@@ -331,10 +331,10 @@ const EmployerDashboard = () => {
 
         <TabsContent value="overview" className="space-y-6">
           {/* Quick Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
             <Card className="text-center p-4">
               <div className="text-2xl font-bold text-brand-600 mb-1">
-                {jobOrders.length}
+                {jobOrders.filter((job) => job.status === "active").length}
               </div>
               <div className="text-sm text-muted-foreground">Active Jobs</div>
             </Card>
@@ -355,6 +355,12 @@ const EmployerDashboard = () => {
                 {jobOrders.reduce((acc, job) => acc + job.hired, 0)}
               </div>
               <div className="text-sm text-muted-foreground">Hired</div>
+            </Card>
+            <Card className="text-center p-4 border-2 border-blue-200">
+              <div className="text-2xl font-bold text-blue-600 mb-1">
+                ₹{totalActualFee.toLocaleString()}
+              </div>
+              <div className="text-sm text-muted-foreground">Amount Owed</div>
             </Card>
           </div>
 
