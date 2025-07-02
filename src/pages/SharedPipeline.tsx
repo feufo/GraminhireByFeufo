@@ -346,6 +346,7 @@ const SharedPipeline = () => {
         const updatedCandidate = {
           ...feedbackDialog.candidate,
           notes: [...(feedbackDialog.candidate.notes || []), newNote],
+          rating: rating > 0 ? rating : feedbackDialog.candidate.rating,
         };
         targetColumn.candidates.push(updatedCandidate);
       }
@@ -362,6 +363,7 @@ const SharedPipeline = () => {
     });
     setFeedback("");
     setReason("");
+    setRating(0);
   };
 
   if (loading) {
