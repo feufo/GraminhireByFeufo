@@ -531,7 +531,16 @@ const EmployerDashboard = () => {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => setEditingJob(job)}>
+                          <DropdownMenuItem
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              console.log(
+                                "Edit job dropdown clicked for:",
+                                job.title,
+                              );
+                              setEditingJob(job);
+                            }}
+                          >
                             <Edit className="h-4 w-4 mr-2" />
                             Edit Job
                           </DropdownMenuItem>
