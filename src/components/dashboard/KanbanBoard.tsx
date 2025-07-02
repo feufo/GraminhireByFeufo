@@ -333,6 +333,7 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
   const [newColumnColor, setNewColumnColor] = useState(
     "bg-gray-100 border-gray-200",
   );
+  const [newColumnPosition, setNewColumnPosition] = useState("end");
   const [newCandidate, setNewCandidate] = useState({
     name: "",
     email: "",
