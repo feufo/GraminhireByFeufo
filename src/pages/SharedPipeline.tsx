@@ -111,8 +111,8 @@ const SharedPipeline = () => {
   // Mock data - in real app this would be fetched based on jobId and token
   const [columns, setColumns] = useState<SharedColumn[]>([
     {
-      id: "applied",
-      title: "Applied",
+      id: "awaiting_review",
+      title: "Awaiting Review",
       color: "bg-blue-100 border-blue-200",
       candidates: [
         {
