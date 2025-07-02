@@ -437,6 +437,146 @@ const CandidatePortal = () => {
               </CardContent>
             </Card>
 
+            {/* Resume Upload Section */}
+            <Card className="border-2 border-dashed border-blue-200">
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <FileText className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">
+                      Upload Resume • रिज्यूमे अपलोड करें
+                    </CardTitle>
+                    <CardDescription>
+                      Upload your resume to increase your chances • अपने अवसर
+                      बढ़ाने के लि��� रिज्यूमे अपलोड करें
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <Upload className="h-8 w-8 text-gray-400 mx-auto mb-4" />
+                    <p className="text-sm text-gray-600 mb-2">
+                      Drag and drop your resume here, or click to browse
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Supported formats: PDF, DOC, DOCX (Max 5MB)
+                    </p>
+                    <Button
+                      variant="outline"
+                      className="mt-4"
+                      onClick={() => {
+                        console.log("Resume upload clicked");
+                        alert("📄 Resume upload feature coming soon!");
+                      }}
+                    >
+                      <Upload className="h-4 w-4 mr-2" />
+                      Choose File
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Personal Details Form */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">
+                  Personal Details • व्यक्तिगत विवरण
+                </CardTitle>
+                <CardDescription>
+                  Update your personal information
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="fullName">Full Name</Label>
+                    <Input
+                      id="fullName"
+                      defaultValue="Rajesh Kumar"
+                      onChange={() => console.log("Name updated")}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      defaultValue="rajesh.kumar@email.com"
+                      onChange={() => console.log("Email updated")}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Phone Number</Label>
+                    <Input
+                      id="phone"
+                      defaultValue="+91 98765 43210"
+                      onChange={() => console.log("Phone updated")}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="age">Age</Label>
+                    <Input
+                      id="age"
+                      type="number"
+                      defaultValue="22"
+                      onChange={() => console.log("Age updated")}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="location">Current Location</Label>
+                    <Input
+                      id="location"
+                      defaultValue="Pune, Maharashtra"
+                      onChange={() => console.log("Location updated")}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="experience">Work Experience</Label>
+                    <Select
+                      onValueChange={(value) =>
+                        console.log("Experience updated:", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select experience" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="fresher">Fresher</SelectItem>
+                        <SelectItem value="0-1">0-1 years</SelectItem>
+                        <SelectItem value="1-2">1-2 years</SelectItem>
+                        <SelectItem value="2-5">2-5 years</SelectItem>
+                        <SelectItem value="5+">5+ years</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <Label htmlFor="skills">Skills</Label>
+                  <Textarea
+                    id="skills"
+                    placeholder="Enter your skills separated by commas"
+                    defaultValue="Assembly, Quality Control, Machine Operation, Safety Protocols"
+                    onChange={() => console.log("Skills updated")}
+                  />
+                </div>
+                <Button
+                  className="mt-4"
+                  onClick={() => {
+                    console.log("Save profile clicked");
+                    alert("✅ Profile saved successfully!");
+                  }}
+                >
+                  <Save className="h-4 w-4 mr-2" />
+                  Save Profile
+                </Button>
+              </CardContent>
+            </Card>
+
             {/* Video introduction */}
             {!hasVideo && (
               <Card className="border-2 border-dashed border-brand-200">
