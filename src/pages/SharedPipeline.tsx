@@ -17,7 +17,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   MapPin,
   Calendar,
@@ -31,6 +40,12 @@ import {
   ExternalLink,
   Shield,
   Clock,
+  Phone,
+  FileText,
+  Play,
+  MoreVertical,
+  CheckCircle,
+  UserCog,
 } from "lucide-react";
 
 interface SharedCandidate {
@@ -80,6 +95,17 @@ const SharedPipeline = () => {
     useState<SharedCandidate | null>(null);
   const [profileDialog, setProfileDialog] = useState(false);
   const [jobTitle, setJobTitle] = useState("");
+  const [draggedCandidate, setDraggedCandidate] =
+    useState<SharedCandidate | null>(null);
+  const [feedbackDialog, setFeedbackDialog] = useState({
+    open: false,
+    candidate: null as SharedCandidate | null,
+    fromStage: "",
+    toStage: "",
+  });
+  const [feedback, setFeedback] = useState("");
+  const [reason, setReason] = useState("");
+  const [isViewerMode, setIsViewerMode] = useState(false);
 
   // Mock data - in real app this would be fetched based on jobId and token
   const [columns, setColumns] = useState<SharedColumn[]>([
@@ -257,6 +283,86 @@ const SharedPipeline = () => {
     setProfileDialog(true);
   };
 
+  const handleDragStart = (candidate: SharedCandidate) => {
+    setDraggedCandidate(candidate);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent, targetColumnId: string) => {
+    e.preventDefault();
+    if (!draggedCandidate) return;
+
+    // Find current stage of candidate
+    const currentStage = columns.find((col) =>
+      col.candidates.some((c) => c.id === draggedCandidate.id),
+    )?.id;
+
+    if (currentStage && currentStage !== targetColumnId) {
+      // Open feedback dialog before moving
+      setFeedbackDialog({
+        open: true,
+        candidate: draggedCandidate,
+        fromStage: currentStage,
+        toStage: targetColumnId,
+      });
+    }
+
+    setDraggedCandidate(null);
+  };
+
+  const handleFeedbackSubmit = () => {
+    if (!feedbackDialog.candidate) return;
+
+    const newNote = {
+      id: Date.now().toString(),
+      stage_from: feedbackDialog.fromStage,
+      stage_to: feedbackDialog.toStage,
+      feedback,
+      reason,
+      created_by: "External Collaborator", // Could be user name if authenticated
+      created_at: new Date().toISOString().split("T")[0],
+    };
+
+    setColumns((prevColumns) => {
+      const newColumns = prevColumns.map((column) => ({
+        ...column,
+        candidates: column.candidates
+          .map((candidate) =>
+            candidate.id === feedbackDialog.candidate?.id
+              ? { ...candidate, notes: [...(candidate.notes || []), newNote] }
+              : candidate,
+          )
+          .filter((c) => c.id !== feedbackDialog.candidate?.id),
+      }));
+
+      const targetColumn = newColumns.find(
+        (col) => col.id === feedbackDialog.toStage,
+      );
+      if (targetColumn && feedbackDialog.candidate) {
+        const updatedCandidate = {
+          ...feedbackDialog.candidate,
+          notes: [...(feedbackDialog.candidate.notes || []), newNote],
+        };
+        targetColumn.candidates.push(updatedCandidate);
+      }
+
+      return newColumns;
+    });
+
+    // Reset dialog state
+    setFeedbackDialog({
+      open: false,
+      candidate: null,
+      fromStage: "",
+      toStage: "",
+    });
+    setFeedback("");
+    setReason("");
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -294,7 +400,11 @@ const SharedPipeline = () => {
   }: {
     candidate: SharedCandidate;
   }) => (
-    <Card className="mb-3 hover:shadow-md transition-shadow border-2">
+    <Card
+      className={`mb-3 hover:shadow-md transition-shadow border-2 ${!isViewerMode ? "cursor-move" : "cursor-default"}`}
+      draggable={!isViewerMode}
+      onDragStart={() => !isViewerMode && handleDragStart(candidate)}
+    >
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
           <Avatar
@@ -333,14 +443,31 @@ const SharedPipeline = () => {
               {candidate.institute}
             </div>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-6 w-6 p-0"
-            onClick={() => openProfile(candidate)}
-          >
-            <Eye className="h-3 w-3" />
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                <MoreVertical className="h-3 w-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem onClick={() => openProfile(candidate)}>
+                <Eye className="h-4 w-4 mr-2" />
+                View Full Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Play className="h-4 w-4 mr-2" />
+                Watch Video
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <FileText className="h-4 w-4 mr-2" />
+                View Resume
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Phone className="h-4 w-4 mr-2" />
+                Contact Candidate
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         <div className="mt-3">
@@ -415,15 +542,38 @@ const SharedPipeline = () => {
                 Hiring Pipeline
               </h2>
               <p className="text-muted-foreground">
-                {jobTitle} • Read-only view
+                {jobTitle} •{" "}
+                {isViewerMode
+                  ? "View-only mode"
+                  : "Interactive mode - Drag candidates between stages"}
               </p>
             </div>
-            <div className="text-right">
-              <div className="text-sm text-muted-foreground">
-                Total Candidates
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant={isViewerMode ? "outline" : "default"}
+                  size="sm"
+                  onClick={() => setIsViewerMode(false)}
+                >
+                  <UserCog className="h-4 w-4 mr-2" />
+                  Manage
+                </Button>
+                <Button
+                  variant={isViewerMode ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setIsViewerMode(true)}
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  View Only
+                </Button>
               </div>
-              <div className="text-2xl font-bold text-brand-600">
-                {columns.reduce((acc, col) => acc + col.candidates.length, 0)}
+              <div className="text-right">
+                <div className="text-sm text-muted-foreground">
+                  Total Candidates
+                </div>
+                <div className="text-2xl font-bold text-brand-600">
+                  {columns.reduce((acc, col) => acc + col.candidates.length, 0)}
+                </div>
               </div>
             </div>
           </div>
@@ -433,6 +583,8 @@ const SharedPipeline = () => {
               <div
                 key={column.id}
                 className={`rounded-lg border-2 ${column.color} min-h-96`}
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, column.id)}
               >
                 <div className="p-4 border-b">
                   <div className="flex items-center justify-between">
@@ -725,6 +877,76 @@ const SharedPipeline = () => {
                 </div>
               </>
             )}
+          </DialogContent>
+        </Dialog>
+
+        {/* Feedback Dialog */}
+        <Dialog
+          open={feedbackDialog.open}
+          onOpenChange={(open) =>
+            setFeedbackDialog((prev) => ({ ...prev, open }))
+          }
+        >
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Move Candidate</DialogTitle>
+              <DialogDescription>
+                Moving {feedbackDialog.candidate?.name} from{" "}
+                <span className="capitalize font-medium">
+                  {feedbackDialog.fromStage}
+                </span>{" "}
+                to{" "}
+                <span className="capitalize font-medium">
+                  {feedbackDialog.toStage}
+                </span>
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="reason">Reason for moving</Label>
+                <Input
+                  id="reason"
+                  placeholder="e.g., Passed technical round"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="feedback">Feedback/Notes</Label>
+                <Textarea
+                  id="feedback"
+                  placeholder="Add detailed feedback for next interview or notes..."
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                  rows={3}
+                />
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg text-sm">
+                <div className="text-blue-900 font-medium mb-1">
+                  Acting as External Collaborator
+                </div>
+                <div className="text-blue-800">
+                  Your feedback will be visible to the employer and team
+                  members.
+                </div>
+              </div>
+              <div className="flex justify-end space-x-3">
+                <Button
+                  variant="outline"
+                  onClick={() =>
+                    setFeedbackDialog((prev) => ({ ...prev, open: false }))
+                  }
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleFeedbackSubmit}
+                  disabled={!reason.trim()}
+                >
+                  Move Candidate
+                </Button>
+              </div>
+            </div>
           </DialogContent>
         </Dialog>
       </div>
