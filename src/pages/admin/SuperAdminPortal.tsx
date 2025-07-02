@@ -1065,6 +1065,398 @@ const SuperAdminPortal = () => {
             </Card>
           </TabsContent>
 
+          <TabsContent value="content" className="space-y-6">
+            <div className="grid lg:grid-cols-3 gap-6">
+              {/* Content Overview */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <FileText className="h-5 w-5 mr-2" />
+                    Content Control Center
+                  </CardTitle>
+                  <CardDescription>
+                    Manage all platform content and job postings
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <div className="text-2xl font-bold text-blue-600">
+                        156
+                      </div>
+                      <div className="text-sm text-blue-800">Active Jobs</div>
+                    </div>
+                    <div className="p-3 bg-orange-50 rounded-lg">
+                      <div className="text-2xl font-bold text-orange-600">
+                        23
+                      </div>
+                      <div className="text-sm text-orange-800">
+                        Pending Review
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Button
+                      className="w-full"
+                      onClick={() => console.log("Create job clicked")}
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Create Global Job
+                    </Button>
+                    <Button variant="outline" className="w-full">
+                      <Edit className="h-4 w-4 mr-2" />
+                      Bulk Edit Jobs
+                    </Button>
+                    <Button variant="outline" className="w-full">
+                      <Download className="h-4 w-4 mr-2" />
+                      Export All Data
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Job Categories Management */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle>Job Categories</CardTitle>
+                  <CardDescription>
+                    Manage job categories and skills
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    {[
+                      "Manufacturing",
+                      "Automotive",
+                      "Construction",
+                      "Textiles",
+                      "Food Processing",
+                      "Technology",
+                    ].map((category) => (
+                      <div
+                        key={category}
+                        className="flex items-center justify-between p-2 border rounded"
+                      >
+                        <span className="font-medium">{category}</span>
+                        <div className="flex space-x-1">
+                          <Button size="sm" variant="ghost">
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-red-600"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Category
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Content Moderation */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="text-orange-900">
+                    Content Moderation
+                  </CardTitle>
+                  <CardDescription>
+                    Review and moderate user-generated content
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="p-3 border border-red-200 bg-red-50 rounded-lg">
+                      <div className="font-medium text-red-900">
+                        Flagged Profile
+                      </div>
+                      <div className="text-sm text-red-700">
+                        Inappropriate content detected
+                      </div>
+                      <div className="flex space-x-2 mt-2">
+                        <Button size="sm" variant="destructive">
+                          Block
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          Review
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="p-3 border border-yellow-200 bg-yellow-50 rounded-lg">
+                      <div className="font-medium text-yellow-900">
+                        Job Posting
+                      </div>
+                      <div className="text-sm text-yellow-700">
+                        Needs salary verification
+                      </div>
+                      <div className="flex space-x-2 mt-2">
+                        <Button size="sm" className="bg-green-600">
+                          Approve
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          Edit
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    View All Pending
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="communications" className="space-y-6">
+            <div className="grid lg:grid-cols-2 gap-6">
+              {/* Broadcast Center */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Send className="h-5 w-5 mr-2" />
+                    Broadcast Center
+                  </CardTitle>
+                  <CardDescription>
+                    Send announcements and notifications to users
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <Label htmlFor="broadcastType">Broadcast Type</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select audience" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Users</SelectItem>
+                        <SelectItem value="candidates">
+                          Candidates Only
+                        </SelectItem>
+                        <SelectItem value="employers">
+                          Employers Only
+                        </SelectItem>
+                        <SelectItem value="institutes">
+                          Institutes Only
+                        </SelectItem>
+                        <SelectItem value="active">Active Users</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="subject">Subject</Label>
+                    <Input placeholder="Announcement subject" />
+                  </div>
+                  <div>
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      placeholder="Type your announcement here..."
+                      rows={4}
+                    />
+                  </div>
+                  <div className="flex space-x-2">
+                    <Button className="flex-1">
+                      <Send className="h-4 w-4 mr-2" />
+                      Send Now
+                    </Button>
+                    <Button variant="outline">Schedule</Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Support & Tickets */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle>Support Center</CardTitle>
+                  <CardDescription>
+                    Manage user support requests and tickets
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-3 gap-3 text-center">
+                    <div className="p-3 bg-red-50 rounded-lg">
+                      <div className="text-xl font-bold text-red-600">12</div>
+                      <div className="text-xs text-red-800">Urgent</div>
+                    </div>
+                    <div className="p-3 bg-yellow-50 rounded-lg">
+                      <div className="text-xl font-bold text-yellow-600">
+                        45
+                      </div>
+                      <div className="text-xs text-yellow-800">Pending</div>
+                    </div>
+                    <div className="p-3 bg-green-50 rounded-lg">
+                      <div className="text-xl font-bold text-green-600">89</div>
+                      <div className="text-xs text-green-800">Resolved</div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="p-3 border rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-medium">Payment Issue</div>
+                          <div className="text-sm text-muted-foreground">
+                            User: Rajesh Kumar • 2 hours ago
+                          </div>
+                        </div>
+                        <Badge className="bg-red-100 text-red-800">
+                          Urgent
+                        </Badge>
+                      </div>
+                      <div className="flex space-x-2 mt-2">
+                        <Button size="sm">Respond</Button>
+                        <Button size="sm" variant="outline">
+                          Assign
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="w-full">
+                    View All Tickets
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="system" className="space-y-6">
+            <div className="grid lg:grid-cols-3 gap-6">
+              {/* System Health */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Settings className="h-5 w-5 mr-2" />
+                    System Health
+                  </CardTitle>
+                  <CardDescription>
+                    Monitor platform performance and status
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span>Server Status</span>
+                      <Badge className="bg-green-100 text-green-800">
+                        Online
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Database</span>
+                      <Badge className="bg-green-100 text-green-800">
+                        Healthy
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>API Status</span>
+                      <Badge className="bg-green-100 text-green-800">
+                        Active
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Backup Status</span>
+                      <Badge className="bg-blue-100 text-blue-800">
+                        Running
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="pt-3 border-t">
+                    <div className="text-sm">
+                      <div className="flex justify-between">
+                        <span>CPU Usage</span>
+                        <span>45%</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                        <div
+                          className="bg-blue-600 h-2 rounded-full"
+                          style={{ width: "45%" }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Platform Settings */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle>Platform Configuration</CardTitle>
+                  <CardDescription>
+                    Global platform settings and features
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span>User Registration</span>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Job Auto-Approval</span>
+                      <Switch />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Payment Processing</span>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Email Notifications</span>
+                      <Switch defaultChecked />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Maintenance Mode</span>
+                      <Switch />
+                    </div>
+                  </div>
+                  <Button className="w-full">Save Configuration</Button>
+                </CardContent>
+              </Card>
+
+              {/* Backup & Recovery */}
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="text-purple-900">
+                    Data Management
+                  </CardTitle>
+                  <CardDescription>
+                    Backup, restore, and data operations
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Button className="w-full" variant="outline">
+                      <Download className="h-4 w-4 mr-2" />
+                      Create Full Backup
+                    </Button>
+                    <Button className="w-full" variant="outline">
+                      <Upload className="h-4 w-4 mr-2" />
+                      Restore Backup
+                    </Button>
+                    <Button className="w-full" variant="outline">
+                      <FileText className="h-4 w-4 mr-2" />
+                      Export User Data
+                    </Button>
+                    <Button className="w-full" variant="outline">
+                      <BarChart3 className="h-4 w-4 mr-2" />
+                      Generate Reports
+                    </Button>
+                  </div>
+                  <div className="pt-3 border-t">
+                    <div className="text-sm text-muted-foreground">
+                      Last backup: Today 03:00 AM
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Size: 2.3 GB
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
           <TabsContent value="pipelines" className="space-y-6">
             <Card className="border-2">
               <CardHeader>
