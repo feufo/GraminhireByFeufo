@@ -562,6 +562,22 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     setAllColumns((prev) => prev.filter((col) => col.id !== columnId));
   };
 
+  const handleMoveColumn = (columnId: string, direction: "left" | "right") => {
+    setAllColumns((prev) => {
+      const currentIndex = prev.findIndex((col) => col.id === columnId);
+      if (currentIndex === -1) return prev;
+
+      const newIndex =
+        direction === "left" ? currentIndex - 1 : currentIndex + 1;
+      if (newIndex < 0 || newIndex >= prev.length) return prev;
+
+      const newColumns = [...prev];
+      const [movedColumn] = newColumns.splice(currentIndex, 1);
+      newColumns.splice(newIndex, 0, movedColumn);
+      return newColumns;
+    });
+  };
+
   const CandidateCard = ({ candidate }: { candidate: Candidate }) => (
     <Card
       className="mb-3 cursor-move hover:shadow-md transition-shadow border-2"
