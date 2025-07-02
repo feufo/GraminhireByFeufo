@@ -930,6 +930,32 @@ const SharedPipeline = () => {
                 />
               </div>
               <div>
+                <Label>Rate this candidate (optional)</Label>
+                <div className="flex items-center space-x-1 mt-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setRating(star)}
+                      className="p-1 hover:scale-110 transition-transform"
+                    >
+                      <Star
+                        className={`h-6 w-6 ${
+                          star <= rating
+                            ? "text-yellow-500 fill-current"
+                            : "text-gray-300 hover:text-yellow-400"
+                        }`}
+                      />
+                    </button>
+                  ))}
+                  {rating > 0 && (
+                    <span className="text-sm text-muted-foreground ml-2">
+                      {rating}/5
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div>
                 <Label htmlFor="feedback">Feedback/Notes</Label>
                 <Textarea
                   id="feedback"
