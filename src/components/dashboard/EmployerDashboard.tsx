@@ -160,7 +160,7 @@ const EmployerDashboard = () => {
   const totalActualFee = jobOrders.reduce((sum, job) => sum + job.actualFee, 0);
 
   // Job management functions
-  const handleJobAction = (jobId, action) => {
+  const handleJobAction = (jobId: number, action: string) => {
     setJobOrders((prev) =>
       prev.map((job) =>
         job.id === jobId
