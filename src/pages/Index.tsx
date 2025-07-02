@@ -822,6 +822,12 @@ const Index = () => {
                 >
                   Facebook
                 </a>
+                <Link
+                  to="/platform-admin"
+                  className="text-gray-600 hover:text-gray-400 transition-colors text-xs opacity-50"
+                >
+                  •
+                </Link>
               </div>
             </div>
           </div>
