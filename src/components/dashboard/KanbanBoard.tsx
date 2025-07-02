@@ -267,6 +267,11 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     },
   ]);
 
+  // Filter columns based on user role - hide admin approval from non-internal users
+  const columns = isInternalUser
+    ? allColumns
+    : allColumns.filter((col) => col.id !== "admin_approval");
+
   const [draggedCandidate, setDraggedCandidate] = useState<Candidate | null>(
     null,
   );
