@@ -653,10 +653,15 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
           </p>
         </div>
         <div className="flex items-center space-x-3">
-          <Button variant="outline" onClick={() => setAddCandidateDialog(true)}>
-            <Plus className="h-4 w-4 mr-2" />
-            Add Candidate
-          </Button>
+          {isInternalUser && (
+            <Button
+              variant="outline"
+              onClick={() => setAddCandidateDialog(true)}
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add Candidate
+            </Button>
+          )}
           <Button variant="outline" onClick={() => setAddColumnDialog(true)}>
             <Plus className="h-4 w-4 mr-2" />
             Add Column
