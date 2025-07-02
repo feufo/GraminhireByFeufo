@@ -28,7 +28,6 @@ import {
   Save,
   Trash2,
 } from "lucide-react";
-import Navigation from "@/components/layout/Navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
