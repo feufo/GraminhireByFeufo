@@ -120,16 +120,23 @@ const SharedPipeline = () => {
     if (storedData) {
       try {
         const parsedData = JSON.parse(storedData);
-        setColumns(parsedData.columns || []);
+        setColumns(parsedData.columns || getDefaultColumns());
         setJobTitle(parsedData.jobTitle || jobId.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()));
       } catch (error) {
         console.error('Error loading shared kanban data:', error);
-        // Fallback to default data
-        setColumns([
-          {
-            id: "awaiting_review",
-            title: "Awaiting Review",
-            color: "bg-blue-100 border-blue-200",
+        setColumns(getDefaultColumns());
+      }
+    } else {
+      setColumns(getDefaultColumns());
+    }
+  };
+
+  // Default fallback data
+  const getDefaultColumns = (): SharedColumn[] => [
+    {
+      id: "awaiting_review",
+      title: "Awaiting Review",
+      color: "bg-blue-100 border-blue-200",
       candidates: [
         {
           id: "1",
