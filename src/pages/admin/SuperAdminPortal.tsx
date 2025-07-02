@@ -603,48 +603,72 @@ const SuperAdminPortal = () => {
 
               <Card className="border-2">
                 <CardHeader>
-                  <CardTitle>Platform Health</CardTitle>
+                  <CardTitle>Revenue Breakdown</CardTitle>
                   <CardDescription>
-                    Key metrics and system status
+                    Income streams from employers and institutes
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                      <div>
-                        <h4 className="font-medium text-green-900">
-                          System Status
-                        </h4>
-                        <p className="text-sm text-green-700">
-                          All services operational
-                        </p>
-                      </div>
-                      <CheckCircle className="h-6 w-6 text-green-600" />
-                    </div>
                     <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                       <div>
                         <h4 className="font-medium text-blue-900">
-                          Placement Rate
+                          Employer Revenue
                         </h4>
                         <p className="text-sm text-blue-700">
-                          78% success rate
+                          From job placement fees
                         </p>
                       </div>
-                      <div className="text-2xl font-bold text-blue-600">
-                        78%
+                      <div className="text-right">
+                        <div className="text-xl font-bold text-blue-600">
+                          ₹{totalPlatformActual.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-blue-700">
+                          ₹{totalEmployerPending.toLocaleString()} pending
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                       <div>
-                        <h4 className="font-medium text-orange-900">
-                          Avg Time to Hire
+                        <h4 className="font-medium text-green-900">
+                          Institute Revenue
                         </h4>
-                        <p className="text-sm text-orange-700">
-                          Industry benchmark: 14 days
+                        <p className="text-sm text-green-700">
+                          From student placement fees
                         </p>
                       </div>
-                      <div className="text-2xl font-bold text-orange-600">
-                        12d
+                      <div className="text-right">
+                        <div className="text-xl font-bold text-green-600">
+                          ₹{totalInstituteEarned.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-green-700">
+                          ₹{totalInstitutePending.toLocaleString()} pending
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg border-2 border-purple-200">
+                      <div>
+                        <h4 className="font-medium text-purple-900">
+                          Combined Revenue
+                        </h4>
+                        <p className="text-sm text-purple-700">
+                          Total platform earnings
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-purple-600">
+                          ₹{totalPlatformRevenue.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-purple-700">
+                          {Math.round(
+                            (totalPlatformActual / totalPlatformRevenue) * 100,
+                          )}
+                          % employers,{" "}
+                          {Math.round(
+                            (totalInstituteEarned / totalPlatformRevenue) * 100,
+                          )}
+                          % institutes
+                        </div>
                       </div>
                     </div>
                   </div>
