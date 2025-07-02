@@ -759,7 +759,8 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
         {columns.map((column) => (
           <div
             key={column.id}
-            className={`rounded-lg border-2 ${column.color} min-h-96`}
+            className={`rounded-lg border-2 ${column.color} min-h-96 flex-shrink-0`}
+            style={{ width: "280px" }}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, column.id)}
           >
