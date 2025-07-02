@@ -1466,6 +1466,215 @@ const SuperAdminPortal = () => {
             </Card>
           </TabsContent>
 
+          <TabsContent value="institutes" className="space-y-6">
+            {/* Institute Payment Overview */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+              <Card className="border-2 border-green-200">
+                <CardContent className="p-6 text-center">
+                  <GraduationCap className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-green-600">
+                    ₹{totalInstituteEarned.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Platform Revenue from Institutes
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-2 border-orange-200">
+                <CardContent className="p-6 text-center">
+                  <AlertTriangle className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-orange-600">
+                    ₹{totalInstitutePending.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Pending Institute Payments
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-2 border-blue-200">
+                <CardContent className="p-6 text-center">
+                  <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-blue-600">
+                    {institutes.reduce(
+                      (sum, inst) => sum + inst.placedStudents,
+                      0,
+                    )}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Students Placed
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-2 border-purple-200">
+                <CardContent className="p-6 text-center">
+                  <Building2 className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-purple-600">
+                    {
+                      institutes.filter((inst) => inst.status === "active")
+                        .length
+                    }
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Active Institutes
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Institute Details */}
+            <Card className="border-2">
+              <CardHeader>
+                <CardTitle>Institute Payment & Performance Tracking</CardTitle>
+                <CardDescription>
+                  CRM-style view of all institutes with placement fees and
+                  student performance
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {institutes.map((institute) => (
+                    <div
+                      key={institute.id}
+                      className="border rounded-lg p-6 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-start justify-between mb-4">
+                        <div>
+                          <h3 className="text-lg font-semibold text-foreground">
+                            {institute.name}
+                          </h3>
+                          <p className="text-muted-foreground">
+                            {institute.email} • {institute.location}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Partner since {institute.joinedDate} • ₹
+                            {institute.placementFeeRate.toLocaleString()} per
+                            placement
+                          </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Badge className={getStatusColor(institute.status)}>
+                            {getStatusIcon(institute.status)}
+                            <span className="ml-1 capitalize">
+                              {institute.status}
+                            </span>
+                          </Badge>
+                        </div>
+                      </div>
+
+                      {/* Key Metrics Grid */}
+                      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
+                        <div className="text-center p-3 bg-blue-50 rounded-lg">
+                          <div className="text-xl font-bold text-blue-600">
+                            {institute.totalStudents}
+                          </div>
+                          <div className="text-sm text-blue-800">
+                            Total Students
+                          </div>
+                        </div>
+                        <div className="text-center p-3 bg-green-50 rounded-lg">
+                          <div className="text-xl font-bold text-green-600">
+                            {institute.placedStudents}
+                          </div>
+                          <div className="text-sm text-green-800">
+                            Students Placed
+                          </div>
+                        </div>
+                        <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                          <div className="text-xl font-bold text-yellow-600">
+                            {institute.pendingPlacements}
+                          </div>
+                          <div className="text-sm text-yellow-800">
+                            Pending Placements
+                          </div>
+                        </div>
+                        <div className="text-center p-3 bg-purple-50 rounded-lg">
+                          <div className="text-xl font-bold text-purple-600">
+                            {institute.successRate}%
+                          </div>
+                          <div className="text-sm text-purple-800">
+                            Success Rate
+                          </div>
+                        </div>
+                        <div className="text-center p-3 bg-indigo-50 rounded-lg">
+                          <div className="text-xl font-bold text-indigo-600">
+                            ₹{institute.placementFeeRate.toLocaleString()}
+                          </div>
+                          <div className="text-sm text-indigo-800">
+                            Fee per Placement
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Payment Breakdown */}
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+                        <div className="border rounded-lg p-4 bg-green-50">
+                          <div className="text-sm font-medium text-green-900 mb-1">
+                            Total Revenue Generated
+                          </div>
+                          <div className="text-2xl font-bold text-green-600 mb-2">
+                            ₹{institute.totalEarned.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-green-700">
+                            From {institute.placedStudents} successful
+                            placements
+                          </div>
+                        </div>
+                        <div className="border rounded-lg p-4 bg-orange-50">
+                          <div className="text-sm font-medium text-orange-900 mb-1">
+                            Amount Institute Owes
+                          </div>
+                          <div className="text-2xl font-bold text-orange-600 mb-2">
+                            ₹{institute.pendingPayment.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-orange-700">
+                            From {institute.pendingPlacements} pending
+                            placements
+                          </div>
+                        </div>
+                        <div className="border rounded-lg p-4 bg-blue-50">
+                          <div className="text-sm font-medium text-blue-900 mb-1">
+                            Payment Status
+                          </div>
+                          <div className="text-2xl font-bold text-blue-600 mb-2">
+                            ₹{institute.paidAmount.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-blue-700">
+                            Paid • ₹{institute.pendingPayment.toLocaleString()}{" "}
+                            pending
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex space-x-3">
+                        <Button variant="outline" size="sm">
+                          <Eye className="h-4 w-4 mr-2" />
+                          View Students
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <DollarSign className="h-4 w-4 mr-2" />
+                          Payment History
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Send className="h-4 w-4 mr-2" />
+                          Send Invoice
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <FileText className="h-4 w-4 mr-2" />
+                          Performance Report
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Edit className="h-4 w-4 mr-2" />
+                          Edit Institute
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="analytics" className="space-y-6">
             <div className="grid lg:grid-cols-2 gap-6">
               <Card className="border-2">
