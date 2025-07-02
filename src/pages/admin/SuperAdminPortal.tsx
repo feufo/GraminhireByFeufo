@@ -1410,7 +1410,7 @@ const SuperAdminPortal = () => {
                       className="w-full"
                       onClick={() => {
                         console.log("Export all data clicked");
-                        alert(
+                        console.log(
                           "💾 Export All Data - Generating comprehensive export...",
                         );
                       }}
