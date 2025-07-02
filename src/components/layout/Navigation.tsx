@@ -141,7 +141,14 @@ const Navigation = () => {
           </div>
 
           <div className="flex items-center space-x-3">
-            <Button variant="ghost" size="sm">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                console.log("Notification clicked");
+                alert("🔔 Notifications feature coming soon!");
+              }}
+            >
               <Bell className="h-4 w-4" />
             </Button>
 
