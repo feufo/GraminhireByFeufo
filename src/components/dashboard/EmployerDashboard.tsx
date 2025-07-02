@@ -660,6 +660,10 @@ const EmployerDashboard = () => {
                     <Button
                       variant="outline"
                       onClick={() => {
+                        console.log(
+                          "View Pipeline clicked for job:",
+                          job.title,
+                        ); // Debug log
                         setSelectedJob(job);
                         setActiveTab("kanban");
                       }}
