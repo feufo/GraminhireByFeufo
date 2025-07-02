@@ -712,9 +712,10 @@ const InstituteDashboard = () => {
                             .slice(0, job.matchingStudents)
                             .map((s) => `• ${s.name} (${s.course})`)
                             .join("\n");
-                          alert(
-                            `📋 Select Students for ${job.title}\n\n🎯 Eligible Students (${job.matchingStudents} matching):\n${studentList}\n\n✅ Click OK to submit these students\n💼 Company: ${job.company}\n💰 Salary: ${job.salary}/month\n📍 Location: ${job.location}`,
-                          );
+                          toast({
+                            title: `📋 Submit Students for ${job.title}`,
+                            description: `${job.matchingStudents} eligible students • ${job.company} • ${job.salary}/month`,
+                          });
                         }}
                       >
                         <Send className="h-4 w-4 mr-2" />
