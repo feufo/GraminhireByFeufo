@@ -895,7 +895,7 @@ const SuperAdminPortal = () => {
                       size="sm"
                       onClick={() => {
                         console.log("Bulk operations clicked");
-                        alert(
+                        console.log(
                           "💡 Bulk Actions - Mass user operations (edit/delete/export)",
                         );
                       }}
