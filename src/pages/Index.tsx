@@ -23,8 +23,11 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Index = () => {
+  const { isAuthenticated, user } = useAuth();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-blue-50/50 to-green-50/50">
       {/* Header */}
@@ -62,12 +65,27 @@ const Index = () => {
             </nav>
 
             <div className="flex items-center space-x-3">
-              <Link to="/auth?mode=login">
-                <Button variant="ghost">Sign In</Button>
-              </Link>
-              <Link to="/auth?mode=signup">
-                <Button>Get Started</Button>
-              </Link>
+              {isAuthenticated && user ? (
+                <>
+                  <span className="text-sm text-muted-foreground hidden md:block">
+                    Welcome back, {user.name}
+                  </span>
+                  <Link
+                    to={`/${user.role === "candidate" ? "candidate" : user.role === "employer" ? "employer" : user.role === "institute" ? "institute" : user.role === "super_admin" ? "admin" : "internal"}`}
+                  >
+                    <Button>Go to Dashboard</Button>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/auth?mode=login">
+                    <Button variant="ghost">Sign In</Button>
+                  </Link>
+                  <Link to="/auth?mode=signup">
+                    <Button>Get Started</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
