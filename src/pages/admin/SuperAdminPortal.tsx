@@ -1194,6 +1194,210 @@ const SuperAdminPortal = () => {
             </Card>
           </TabsContent>
 
+          <TabsContent value="employers" className="space-y-6">
+            {/* Employer Financial Overview */}
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+              <Card className="border-2 border-blue-200">
+                <CardContent className="p-6 text-center">
+                  <DollarSign className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-blue-600">
+                    ₹{totalPlatformPotential.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Potential Earnings
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-2 border-green-200">
+                <CardContent className="p-6 text-center">
+                  <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-green-600">
+                    ₹{totalPlatformActual.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Actual Net Revenue
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-2 border-orange-200">
+                <CardContent className="p-6 text-center">
+                  <AlertTriangle className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-orange-600">
+                    ₹{totalPendingPayments.toLocaleString()}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Pending Payments
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="border-2 border-purple-200">
+                <CardContent className="p-6 text-center">
+                  <Building2 className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-purple-600">
+                    {employers.filter((emp) => emp.status === "active").length}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Active Employers
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Employer Details */}
+            <Card className="border-2">
+              <CardHeader>
+                <CardTitle>Employer Performance & Revenue Tracking</CardTitle>
+                <CardDescription>
+                  CRM-style view of all employers with financial metrics
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {employers.map((employer) => (
+                    <div
+                      key={employer.id}
+                      className="border rounded-lg p-6 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-start justify-between mb-4">
+                        <div>
+                          <h3 className="text-lg font-semibold text-foreground">
+                            {employer.name}
+                          </h3>
+                          <p className="text-muted-foreground">
+                            {employer.email} • {employer.location}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            Member since {employer.joinedDate} •{" "}
+                            {employer.feeModel === "flat"
+                              ? "Flat Fee Model"
+                              : "Percentage Fee Model"}
+                          </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Badge className={getStatusColor(employer.status)}>
+                            {getStatusIcon(employer.status)}
+                            <span className="ml-1 capitalize">
+                              {employer.status}
+                            </span>
+                          </Badge>
+                        </div>
+                      </div>
+
+                      {/* Key Metrics Grid */}
+                      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
+                        <div className="text-center p-3 bg-blue-50 rounded-lg">
+                          <div className="text-xl font-bold text-blue-600">
+                            {employer.activeJobs}
+                          </div>
+                          <div className="text-sm text-blue-800">
+                            Active Jobs
+                          </div>
+                        </div>
+                        <div className="text-center p-3 bg-purple-50 rounded-lg">
+                          <div className="text-xl font-bold text-purple-600">
+                            {employer.totalPositions}
+                          </div>
+                          <div className="text-sm text-purple-800">
+                            Total Positions
+                          </div>
+                        </div>
+                        <div className="text-center p-3 bg-green-50 rounded-lg">
+                          <div className="text-xl font-bold text-green-600">
+                            {employer.totalHires}
+                          </div>
+                          <div className="text-sm text-green-800">
+                            Successful Hires
+                          </div>
+                        </div>
+                        <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                          <div className="text-xl font-bold text-yellow-600">
+                            {employer.totalPositions > 0
+                              ? Math.round(
+                                  (employer.totalHires /
+                                    employer.totalPositions) *
+                                    100,
+                                )
+                              : 0}
+                            %
+                          </div>
+                          <div className="text-sm text-yellow-800">
+                            Fill Rate
+                          </div>
+                        </div>
+                        <div className="text-center p-3 bg-indigo-50 rounded-lg">
+                          <div className="text-xl font-bold text-indigo-600">
+                            ₹{employer.avgFeePerHire.toLocaleString()}
+                          </div>
+                          <div className="text-sm text-indigo-800">
+                            Avg Fee/Hire
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Financial Breakdown */}
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+                        <div className="border rounded-lg p-4 bg-blue-50">
+                          <div className="text-sm font-medium text-blue-900 mb-1">
+                            Potential Earnings
+                          </div>
+                          <div className="text-2xl font-bold text-blue-600 mb-2">
+                            ₹{employer.potentialEarnings.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-blue-700">
+                            Based on {employer.totalPositions} total positions
+                          </div>
+                        </div>
+                        <div className="border rounded-lg p-4 bg-green-50">
+                          <div className="text-sm font-medium text-green-900 mb-1">
+                            Actual Earnings
+                          </div>
+                          <div className="text-2xl font-bold text-green-600 mb-2">
+                            ₹{employer.actualEarnings.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-green-700">
+                            From {employer.totalHires} confirmed hires
+                          </div>
+                        </div>
+                        <div className="border rounded-lg p-4 bg-orange-50">
+                          <div className="text-sm font-medium text-orange-900 mb-1">
+                            Payment Status
+                          </div>
+                          <div className="text-2xl font-bold text-orange-600 mb-2">
+                            ₹{employer.pendingPayment.toLocaleString()}
+                          </div>
+                          <div className="text-xs text-orange-700">
+                            Pending • ₹{employer.paidAmount.toLocaleString()}{" "}
+                            paid
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex space-x-3">
+                        <Button variant="outline" size="sm">
+                          <Eye className="h-4 w-4 mr-2" />
+                          View Job Orders
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <DollarSign className="h-4 w-4 mr-2" />
+                          Payment History
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <Send className="h-4 w-4 mr-2" />
+                          Send Invoice
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <FileText className="h-4 w-4 mr-2" />
+                          Generate Report
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="analytics" className="space-y-6">
             <div className="grid lg:grid-cols-2 gap-6">
               <Card className="border-2">
