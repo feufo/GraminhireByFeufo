@@ -2041,9 +2041,9 @@ const SuperAdminPortal = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       <Routes>
-        <Route path="/" element={<SuperAdminDashboard />} />
         <Route path="/profile" element={<ProfileSettings />} />
         <Route path="/settings" element={<AccountSettings />} />
+        <Route path="/*" element={<SuperAdminDashboard />} />
       </Routes>
     </div>
   );
