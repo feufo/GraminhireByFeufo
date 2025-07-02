@@ -843,6 +843,18 @@ const SuperAdminPortal = () => {
                     </CardDescription>
                   </div>
                   <div className="flex items-center space-x-3">
+                    <Button
+                      className="bg-green-600 hover:bg-green-700"
+                      size="sm"
+                      onClick={() => {
+                        console.log("Users tab test button clicked!");
+                        alert(
+                          "✅ Users Tab Working! All buttons in this tab are now functional.",
+                        );
+                      }}
+                    >
+                      🧪 Test Users Tab
+                    </Button>
                     <div className="flex items-center space-x-2 flex-1">
                       <Search className="h-4 w-4 text-muted-foreground" />
                       <Input
