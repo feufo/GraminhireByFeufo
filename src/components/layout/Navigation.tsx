@@ -80,7 +80,6 @@ const Navigation = () => {
           { label: "Dashboard", href: "/institute" },
           { label: "Students", href: "/institute/students" },
           { label: "Job Orders", href: "/institute/jobs" },
-          { label: "Reports", href: "/institute/reports" },
         ];
       case "super_admin":
         return [
