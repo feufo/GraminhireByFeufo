@@ -38,7 +38,22 @@ import {
   Eye,
   Calendar,
   Building2,
+  Play,
+  Pause,
+  Square,
+  Edit,
+  MoreVertical,
+  AlertCircle,
+  DollarSign,
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import KanbanBoard from "./KanbanBoard";
 
 const EmployerDashboard = () => {
