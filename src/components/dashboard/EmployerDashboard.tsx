@@ -569,7 +569,10 @@ const EmployerDashboard = () => {
                           )}
                           {job.status === "paused" && (
                             <DropdownMenuItem
-                              onClick={() => handleJobAction(job.id, "active")}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleJobAction(job.id, "active");
+                              }}
                             >
                               <Play className="h-4 w-4 mr-2" />
                               Resume Job
@@ -577,7 +580,10 @@ const EmployerDashboard = () => {
                           )}
                           {job.status === "on_hold" && (
                             <DropdownMenuItem
-                              onClick={() => handleJobAction(job.id, "active")}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleJobAction(job.id, "active");
+                              }}
                             >
                               <Play className="h-4 w-4 mr-2" />
                               Activate Job
@@ -585,7 +591,10 @@ const EmployerDashboard = () => {
                           )}
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
-                            onClick={() => handleJobAction(job.id, "close")}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleJobAction(job.id, "close");
+                            }}
                             className="text-red-600"
                           >
                             <Square className="h-4 w-4 mr-2" />
