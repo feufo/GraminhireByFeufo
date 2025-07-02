@@ -42,11 +42,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Navigation from "@/components/layout/Navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const CandidatePortal = () => {
   const [hasVideo, setHasVideo] = useState(false);
   const [profileComplete] = useState(75);
   const [searchQuery, setSearchQuery] = useState("");
+  const { toast } = useToast();
 
   // Mock data
   const applications = [
@@ -493,7 +495,7 @@ const CandidatePortal = () => {
                     </CardTitle>
                     <CardDescription>
                       Upload your resume to increase your chances • अपने अवसर
-                      बढ़ाने के लि��� रिज्यूमे अपलोड करें
+                      बढ़ाने ���े लि��� रिज्यूमे अपलोड करें
                     </CardDescription>
                   </div>
                 </div>
@@ -634,7 +636,7 @@ const CandidatePortal = () => {
                       </CardTitle>
                       <CardDescription>
                         Employers love to see a personal introduction • नियोक्ता
-                        आपका परिचय देखना पसंद करते हैं
+                        आ���का परिचय देखना पसंद करते हैं
                       </CardDescription>
                     </div>
                   </div>
