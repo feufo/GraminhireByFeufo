@@ -65,6 +65,7 @@ import { Switch } from "@/components/ui/switch";
 import Navigation from "@/components/layout/Navigation";
 import ProfileSettings from "./ProfileSettings";
 import AccountSettings from "./AccountSettings";
+import UserAnalyticsDashboard from "@/components/admin/UserAnalyticsDashboard";
 
 const SuperAdminPortal = () => {
   const [activeTab, setActiveTab] = useState("overview");
