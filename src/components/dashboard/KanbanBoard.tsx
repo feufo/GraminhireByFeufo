@@ -472,14 +472,15 @@ const KanbanBoard = ({ jobTitle }: KanbanBoardProps) => {
     setRating(0);
   };
 
-  const generateShareUrl = () => {
+  const generateShareUrl = useCallback(() => {
+    console.log("Generate share URL clicked"); // Debug log
     const baseUrl = window.location.origin;
     const jobId = jobTitle.toLowerCase().replace(/\s+/g, "-");
     const shareToken = Math.random().toString(36).substring(7);
     const url = `${baseUrl}/kanban/shared/${jobId}?token=${shareToken}`;
     setShareUrl(url);
     setShareDialog(true);
-  };
+  }, [jobTitle]);
 
   const copyShareUrl = async () => {
     try {
