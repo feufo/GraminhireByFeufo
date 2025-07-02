@@ -554,11 +554,35 @@ const InstituteDashboard = () => {
                       </TableCell>
                       <TableCell>
                         <div className="flex space-x-2">
-                          <Button variant="outline" size="sm">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              console.log(
+                                "View student details:",
+                                student.name,
+                              );
+                              alert(
+                                `👤 ${student.name} Details:\n\n📄 Documents Available:\n• Resume/CV\n• Academic Transcripts\n• ${student.status === "placed" ? "💰 Salary Slip from " + student.placedCompany + "\n• 📋 Offer Letter from " + student.placedCompany : "📝 Application Documents"}\n• 📞 Contact: ${student.phone || "Not provided"}\n\n✅ Status: ${student.status.toUpperCase()}`,
+                              );
+                            }}
+                          >
                             <Eye className="h-3 w-3" />
                           </Button>
                           {student.status === "completed" && (
-                            <Button variant="outline" size="sm">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                console.log(
+                                  "Submit student for jobs:",
+                                  student.name,
+                                );
+                                alert(
+                                  `📋 Submit ${student.name} to Job Orders:\n\n✅ Student is qualified and ready for placement\n📚 Course: ${student.course}\n🎓 Status: Course Completed\n\n🔍 Finding matching job opportunities...`,
+                                );
+                              }}
+                            >
                               <Send className="h-3 w-3" />
                             </Button>
                           )}
@@ -622,8 +646,17 @@ const InstituteDashboard = () => {
                             "Submit students clicked for job:",
                             job.title,
                           );
+                          const eligibleStudents = students.filter(
+                            (s) =>
+                              s.status === "completed" ||
+                              s.status === "training",
+                          );
+                          const studentList = eligibleStudents
+                            .slice(0, job.matchingStudents)
+                            .map((s) => `• ${s.name} (${s.course})`)
+                            .join("\n");
                           alert(
-                            `📋 Submitting ${job.matchingStudents} students for ${job.title}`,
+                            `📋 Select Students for ${job.title}\n\n🎯 Eligible Students (${job.matchingStudents} matching):\n${studentList}\n\n✅ Click OK to submit these students\n💼 Company: ${job.company}\n💰 Salary: ${job.salary}/month\n📍 Location: ${job.location}`,
                           );
                         }}
                       >
