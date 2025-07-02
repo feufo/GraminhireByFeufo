@@ -5,27 +5,39 @@ import {
   useEffect,
   ReactNode,
 } from "react";
+import { authService, type AuthUser } from "../lib/auth";
 
 export type UserRole = "candidate" | "employer" | "institute" | "super_admin";
 
 export interface User {
   id: string;
-  name: string;
+  full_name: string;
   email: string;
   role: UserRole;
   avatar?: string;
   organization?: string;
   institute?: string;
   permissions?: string[];
+  phone?: string;
+  location?: string;
+  verified?: boolean;
+  created_at: string;
 }
 
 export interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   login: (email: string, password: string, role?: UserRole) => Promise<void>;
+  register: (
+    email: string,
+    password: string,
+    role: string,
+    name: string,
+  ) => Promise<void>;
   logout: () => void;
   switchRole: (role: UserRole) => void;
   hasPermission: (permission: string) => boolean;
+  isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
