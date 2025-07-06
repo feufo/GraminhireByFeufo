@@ -670,8 +670,8 @@ const SharedPipeline = () => {
             <p className="text-sm text-muted-foreground">
               Powered by{" "}
               <span className="font-semibold text-brand-600">GraminHire</span> •{" "}
-              <a
-                href="/"
+              <Link
+                to="/"
                 className="text-brand-600 hover:underline inline-flex items-center"
               >
                 Get your own pipeline
