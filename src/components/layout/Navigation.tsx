@@ -24,7 +24,7 @@ import { useAuth, UserRole } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
 const Navigation = () => {
-  const { user, logout, switchRole } = useAuth();
+  const { user, logout } = useAuth();
   const { toast } = useToast();
 
   if (!user) return null;
