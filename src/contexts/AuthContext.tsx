@@ -86,14 +86,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setIsAuthenticated(true);
     } catch (error) {
       console.error("Login error:", error);
-      // Fallback to mock data for demo
-      if (role && mockUsers[role] && mockUsers[role].email === email) {
-        const userData = mockUsers[role];
-        setUser(userData);
-        setIsAuthenticated(true);
-      } else {
-        throw new Error("Invalid credentials");
-      }
+      throw new Error(
+        "Invalid credentials. Please check your email and password.",
+      );
     } finally {
       setIsLoading(false);
     }
