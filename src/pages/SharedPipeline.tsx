@@ -676,7 +676,7 @@ const SharedPipeline = () => {
               >
                 Get your own pipeline
                 <ExternalLink className="h-3 w-3 ml-1" />
-              </a>
+              </Link>
             </p>
           </div>
         </div>
