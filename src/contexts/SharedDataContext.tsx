@@ -1,11 +1,17 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { supabase } from "@/lib/supabase";
 
 export interface UserProfile {
   id: string;
   name: string;
   email: string;
   phone: string;
-  password: string; // Super Admin access
   role: "candidate" | "employer" | "institute" | "super_admin";
   avatar?: string;
   location: string;
@@ -15,57 +21,58 @@ export interface UserProfile {
 
   // Role-specific data
   candidateData?: {
-    age: number;
-    experience: string;
-    skills: string[];
-    institute: string;
-    course: string;
+    age?: number;
+    experience?: string;
+    skills?: string[];
+    institute?: string;
+    course?: string;
     resumeUrl?: string;
     videoUrl?: string;
-    rating: number;
-    applications: number;
-    interviews: number;
-    placements: number;
-    profileComplete: number;
-    salaryExpectation: string;
-    languages: string[];
-    strengths: string[];
+    rating?: number;
+    applications?: number;
+    interviews?: number;
+    placements?: number;
+    profileComplete?: number;
+    salaryExpectation?: string;
+    languages?: string[];
+    strengths?: string[];
   };
 
   employerData?: {
-    company: string;
-    industry: string;
-    activeJobs: number;
-    totalHires: number;
-    totalSpent: number;
-    pendingPayments: number;
-    feeModel: "flat" | "percentage";
-    avgFeePerHire: number;
+    company?: string;
+    industry?: string;
+    activeJobs?: number;
+    totalHires?: number;
+    totalSpent?: number;
+    pendingPayments?: number;
+    feeModel?: "flat" | "percentage";
+    avgFeePerHire?: number;
   };
 
   instituteData?: {
-    instituteName: string;
-    totalStudents: number;
-    placedStudents: number;
-    pendingPlacements: number;
-    successRate: number;
-    placementFeeRate: number;
-    totalEarned: number;
-    pendingPayment: number;
-    courses: string[];
+    instituteName?: string;
+    totalStudents?: number;
+    placedStudents?: number;
+    pendingPlacements?: number;
+    successRate?: number;
+    placementFeeRate?: number;
+    totalEarned?: number;
+    pendingPayment?: number;
+    courses?: string[];
   };
 }
 
 interface SharedDataContextType {
   allUsers: UserProfile[];
-  updateUser: (userId: string, updates: Partial<UserProfile>) => void;
-  addUser: (user: UserProfile) => void;
-  deleteUser: (userId: string) => void;
+  updateUser: (userId: string, updates: Partial<UserProfile>) => Promise<void>;
+  addUser: (user: Omit<UserProfile, "id">) => Promise<void>;
+  deleteUser: (userId: string) => Promise<void>;
   getUsersByRole: (role: string) => UserProfile[];
   getCurrentUser: (userId: string) => UserProfile | undefined;
-  updatePassword: (userId: string, newPassword: string) => void; // Super Admin only
   getTotalRevenue: () => number;
   getPendingPayments: () => number;
+  isLoading: boolean;
+  refreshData: () => Promise<void>;
 }
 
 const SharedDataContext = createContext<SharedDataContextType | undefined>(
@@ -78,155 +85,164 @@ interface SharedDataProviderProps {
 
 export const SharedDataProvider = ({ children }: SharedDataProviderProps) => {
   const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
-    {
-      id: "cand-002",
-      name: "Priya Sharma",
-      email: "priya.sharma@email.com",
-      phone: "+91 87654 32109",
-      password: "priya456",
-      role: "candidate",
-      location: "Mumbai, Maharashtra",
-      joinedDate: "2024-01-18",
-      lastActive: "1 day ago",
-      status: "active",
-      candidateData: {
-        age: 24,
-        experience: "1-2 years",
-        skills: ["Machine Operation", "Safety", "Quality Control"],
-        institute: "DDU-GKY Center",
-        course: "Electrical Engineering",
-        rating: 4.5,
-        applications: 8,
-        interviews: 3,
-        placements: 1,
-        profileComplete: 90,
-        salaryExpectation: "₹18,000-22,000",
-        languages: ["Hindi", "English", "Gujarati"],
-        strengths: ["Safety Conscious", "Detail Oriented", "Leadership"],
-      },
-    },
+  const [isLoading, setIsLoading] = useState(true);
 
-    // Employers
-    {
-      id: "emp-001",
-      name: "Vikram Patel",
-      email: "hr@tatamotors.com",
-      phone: "+91 98765 11111",
-      password: "tata2024",
-      role: "employer",
-      location: "Mumbai, Maharashtra",
-      joinedDate: "2024-01-10",
-      lastActive: "30 minutes ago",
-      status: "active",
-      employerData: {
-        company: "Tata Motors",
-        industry: "Automotive",
-        activeJobs: 3,
-        totalHires: 8,
-        totalSpent: 67000,
-        pendingPayments: 25000,
-        feeModel: "flat",
-        avgFeePerHire: 8375,
-      },
-    },
-    {
-      id: "emp-002",
-      name: "Anjali Singh",
-      email: "recruiting@bajajauto.com",
-      phone: "+91 98765 22222",
-      password: "bajaj2024",
-      role: "employer",
-      location: "Pune, Maharashtra",
-      joinedDate: "2024-01-15",
-      lastActive: "2 hours ago",
-      status: "active",
-      employerData: {
-        company: "Bajaj Auto",
-        industry: "Automotive",
-        activeJobs: 2,
-        totalHires: 3,
-        totalSpent: 31500,
-        pendingPayments: 15000,
-        feeModel: "percentage",
-        avgFeePerHire: 10500,
-      },
-    },
+  // Load users from Supabase
+  const loadUsers = async () => {
+    try {
+      setIsLoading(true);
 
-    // Institutes
-    {
-      id: "inst-001",
-      name: "Dr. Rajesh Verma",
-      email: "admin@itipune.edu.in",
-      phone: "+91 98765 33333",
-      password: "iti2024pune",
-      role: "institute",
-      location: "Pune, Maharashtra",
-      joinedDate: "2024-01-05",
-      lastActive: "1 hour ago",
-      status: "active",
-      instituteData: {
-        instituteName: "ITI Pune",
-        totalStudents: 150,
-        placedStudents: 25,
-        pendingPlacements: 8,
-        successRate: 67,
-        placementFeeRate: 2000,
-        totalEarned: 50000,
-        pendingPayment: 16000,
-        courses: ["Mechanical Engineering", "Electrical", "Fitter"],
-      },
-    },
-    {
-      id: "inst-002",
-      name: "Dr. Sunita Devi",
-      email: "admin@ddugky.gov.in",
-      phone: "+91 98765 44444",
-      password: "ddugky2024",
-      role: "institute",
-      location: "Mumbai, Maharashtra",
-      joinedDate: "2024-01-10",
-      lastActive: "3 hours ago",
-      status: "active",
-      instituteData: {
-        instituteName: "DDU-GKY Center Mumbai",
-        totalStudents: 200,
-        placedStudents: 18,
-        pendingPlacements: 5,
-        successRate: 78,
-        placementFeeRate: 2500,
-        totalEarned: 45000,
-        pendingPayment: 12500,
-        courses: ["Electronics", "Computer Hardware", "Welding"],
-      },
-    },
+      // Get users from Supabase
+      const { data: users, error: usersError } = await supabase
+        .from("users")
+        .select("*");
 
-    // Super Admin
-    {
-      id: "admin-001",
-      name: "Super Admin",
-      email: "admin@graminhire.com",
-      phone: "+91 98765 00000",
-      password: "superadmin123",
-      role: "super_admin",
-      location: "Delhi, India",
-      joinedDate: "2024-01-01",
-      lastActive: "Online",
-      status: "active",
-    },
-  ]);
+      if (usersError) {
+        console.error("Error loading users:", usersError);
+        return;
+      }
 
-  const updateUser = (userId: string, updates: Partial<UserProfile>) => {
-    setAllUsers((prev) =>
-      prev.map((user) => (user.id === userId ? { ...user, ...updates } : user)),
-    );
+      // Get user profiles
+      const { data: profiles, error: profilesError } = await supabase
+        .from("user_profiles")
+        .select("*");
+
+      if (profilesError) {
+        console.error("Error loading profiles:", profilesError);
+      }
+
+      // Combine users with their profiles
+      const combinedUsers: UserProfile[] = users.map((user) => {
+        const profile = profiles?.find((p) => p.user_id === user.id);
+
+        return {
+          id: user.id,
+          name: user.full_name || user.email,
+          email: user.email,
+          phone: user.phone || "",
+          role: user.role,
+          avatar: profile?.avatar_url,
+          location: user.location || "",
+          joinedDate: new Date(user.created_at).toLocaleDateString(),
+          lastActive: "Recently",
+          status: user.verified ? "active" : "pending",
+          candidateData:
+            user.role === "candidate"
+              ? {
+                  experience: profile?.experience_years
+                    ? `${profile.experience_years} years`
+                    : "0-1 years",
+                  skills: profile?.skills || [],
+                  course: profile?.education || "",
+                  resumeUrl: profile?.resume_url,
+                  videoUrl: profile?.video_profile_url,
+                  rating: 4.0,
+                  applications: 0,
+                  interviews: 0,
+                  placements: 0,
+                  profileComplete: profile ? 75 : 25,
+                }
+              : undefined,
+          employerData:
+            user.role === "employer"
+              ? {
+                  company: "",
+                  industry: "",
+                  activeJobs: 0,
+                  totalHires: 0,
+                  totalSpent: 0,
+                  pendingPayments: 0,
+                  feeModel: "flat",
+                  avgFeePerHire: 0,
+                }
+              : undefined,
+          instituteData:
+            user.role === "institute"
+              ? {
+                  instituteName: "",
+                  totalStudents: 0,
+                  placedStudents: 0,
+                  pendingPlacements: 0,
+                  successRate: 0,
+                  placementFeeRate: 2000,
+                  totalEarned: 0,
+                  pendingPayment: 0,
+                  courses: [],
+                }
+              : undefined,
+        };
+      });
+
+      setAllUsers(combinedUsers);
+    } catch (error) {
+      console.error("Error in loadUsers:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const addUser = (user: UserProfile) => {
-    setAllUsers((prev) => [...prev, user]);
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const updateUser = async (userId: string, updates: Partial<UserProfile>) => {
+    try {
+      // Update user in Supabase
+      const { error } = await supabase
+        .from("users")
+        .update({
+          full_name: updates.name,
+          phone: updates.phone,
+          location: updates.location,
+        })
+        .eq("id", userId);
+
+      if (error) {
+        console.error("Error updating user:", error);
+        return;
+      }
+
+      // Update local state
+      setAllUsers((prev) =>
+        prev.map((user) =>
+          user.id === userId ? { ...user, ...updates } : user,
+        ),
+      );
+    } catch (error) {
+      console.error("Error in updateUser:", error);
+    }
   };
 
-  const deleteUser = (userId: string) => {
-    setAllUsers((prev) => prev.filter((user) => user.id !== userId));
+  const addUser = async (user: Omit<UserProfile, "id">) => {
+    try {
+      // This would typically be handled by the registration process
+      // For now, just update local state
+      const newUser: UserProfile = {
+        ...user,
+        id: `user_${Date.now()}`,
+      };
+
+      setAllUsers((prev) => [...prev, newUser]);
+    } catch (error) {
+      console.error("Error in addUser:", error);
+    }
+  };
+
+  const deleteUser = async (userId: string) => {
+    try {
+      // Delete user from Supabase
+      const { error } = await supabase.from("users").delete().eq("id", userId);
+
+      if (error) {
+        console.error("Error deleting user:", error);
+        return;
+      }
+
+      // Update local state
+      setAllUsers((prev) => prev.filter((user) => user.id !== userId));
+    } catch (error) {
+      console.error("Error in deleteUser:", error);
+    }
   };
 
   const getUsersByRole = (role: string) => {
@@ -237,22 +253,14 @@ export const SharedDataProvider = ({ children }: SharedDataProviderProps) => {
     return allUsers.find((user) => user.id === userId);
   };
 
-  const updatePassword = (userId: string, newPassword: string) => {
-    setAllUsers((prev) =>
-      prev.map((user) =>
-        user.id === userId ? { ...user, password: newPassword } : user,
-      ),
-    );
-  };
-
   const getTotalRevenue = () => {
     let total = 0;
     allUsers.forEach((user) => {
       if (user.employerData) {
-        total += user.employerData.totalSpent;
+        total += user.employerData.totalSpent || 0;
       }
       if (user.instituteData) {
-        total += user.instituteData.totalEarned;
+        total += user.instituteData.totalEarned || 0;
       }
     });
     return total;
@@ -262,13 +270,17 @@ export const SharedDataProvider = ({ children }: SharedDataProviderProps) => {
     let total = 0;
     allUsers.forEach((user) => {
       if (user.employerData) {
-        total += user.employerData.pendingPayments;
+        total += user.employerData.pendingPayments || 0;
       }
       if (user.instituteData) {
-        total += user.instituteData.pendingPayment;
+        total += user.instituteData.pendingPayment || 0;
       }
     });
     return total;
+  };
+
+  const refreshData = async () => {
+    await loadUsers();
   };
 
   return (
@@ -280,9 +292,10 @@ export const SharedDataProvider = ({ children }: SharedDataProviderProps) => {
         deleteUser,
         getUsersByRole,
         getCurrentUser,
-        updatePassword,
         getTotalRevenue,
         getPendingPayments,
+        isLoading,
+        refreshData,
       }}
     >
       {children}
