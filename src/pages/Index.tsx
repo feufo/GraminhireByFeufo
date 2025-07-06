@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-// Updated: 2025-01-02 - Removed hardcoded URLs
 import {
   Card,
   CardContent,
@@ -41,7 +40,6 @@ const Index = () => {
   const { isAuthenticated, user } = useAuth();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-  // Auto-rotate testimonials
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -53,7 +51,7 @@ const Index = () => {
     {
       id: 1,
       content:
-        "GraminHire transformed our hiring process. We found 50+ skilled candidates from rural areas within 2 months. The quality of talent exceeded our expectations.",
+        "GraminHire transformed our hiring process. We found 50+ skilled candidates from rural areas within 2 months.",
       author: "Rajesh Kumar",
       designation: "HR Director",
       company: "Tata Motors",
@@ -61,7 +59,6 @@ const Index = () => {
       rating: 5,
       avatar:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face",
-      type: "employer",
     },
     {
       id: 2,
@@ -74,7 +71,6 @@ const Index = () => {
       rating: 5,
       avatar:
         "https://images.unsplash.com/photo-1494790108755-2616b2e5de37?w=64&h=64&fit=crop&crop=face",
-      type: "institute",
     },
     {
       id: 3,
@@ -87,59 +83,6 @@ const Index = () => {
       rating: 5,
       avatar:
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face",
-      type: "candidate",
-    },
-    {
-      id: 4,
-      content:
-        "The bulk student enrollment feature saved us hours of work. We can now manage 500+ students efficiently and track their placement journey.",
-      author: "Suresh Patel",
-      designation: "Institute Director",
-      company: "Skill Development Center",
-      location: "Ahmedabad",
-      rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=64&h=64&fit=crop&crop=face",
-      type: "institute",
-    },
-  ];
-
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Rural India's Digital Transformation in Employment",
-      excerpt:
-        "How technology is bridging the gap between rural talent and urban opportunities, creating sustainable employment ecosystems.",
-      image:
-        "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=400&h=250&fit=crop",
-      author: "GraminHire Team",
-      date: "Dec 15, 2024",
-      readTime: "5 min read",
-      category: "Insights",
-    },
-    {
-      id: 2,
-      title: "Success Stories: From Village to Corporate",
-      excerpt:
-        "Real stories of candidates who transformed their careers through skill development and strategic job placements.",
-      image:
-        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=250&fit=crop",
-      author: "Priya Sharma",
-      date: "Dec 12, 2024",
-      readTime: "3 min read",
-      category: "Success Stories",
-    },
-    {
-      id: 3,
-      title: "The Future of Skill Development in India",
-      excerpt:
-        "Emerging trends in vocational training and how institutes are adapting to meet industry demands.",
-      image:
-        "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=250&fit=crop",
-      author: "Dr. Rajesh Kumar",
-      date: "Dec 10, 2024",
-      readTime: "7 min read",
-      category: "Industry Trends",
     },
   ];
 
@@ -218,7 +161,7 @@ const Index = () => {
                   </Link>
                 </>
               ) : (
-                <div className="flex items-center space-x-3">
+                <>
                   <Link to="/auth?mode=login">
                     <Button variant="ghost" className="font-medium">
                       Sign In
@@ -229,7 +172,7 @@ const Index = () => {
                       Join Now
                     </Button>
                   </Link>
-                </div>
+                </>
               )}
             </div>
           </div>
@@ -264,10 +207,7 @@ const Index = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Link
-                to="/auth?mode=signup&role=candidate"
-                className="inline-block"
-              >
+              <Link to="/auth?mode=signup&role=candidate">
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-lg px-8 py-4 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
@@ -277,10 +217,7 @@ const Index = () => {
                   <ArrowRight className="ml-3 h-5 w-5" />
                 </Button>
               </Link>
-              <Link
-                to="/auth?mode=signup&role=employer"
-                className="inline-block"
-              >
+              <Link to="/auth?mode=signup&role=employer">
                 <Button
                   size="lg"
                   variant="outline"
@@ -383,45 +320,6 @@ const Index = () => {
                 </CardDescription>
               </CardHeader>
             </Card>
-
-            <Card className="border-2 hover:border-orange-200 transition-all duration-300 hover:shadow-xl group">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Zap className="h-8 w-8 text-orange-600" />
-                </div>
-                <CardTitle className="text-xl">Instant Matching</CardTitle>
-                <CardDescription className="text-base">
-                  AI-powered job matching based on skills, location, and salary
-                  preferences
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="border-2 hover:border-blue-200 transition-all duration-300 hover:shadow-xl group">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Target className="h-8 w-8 text-blue-600" />
-                </div>
-                <CardTitle className="text-xl">Smart Analytics</CardTitle>
-                <CardDescription className="text-base">
-                  Track placement rates, salary trends, and hiring success with
-                  detailed insights
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="border-2 hover:border-teal-200 transition-all duration-300 hover:shadow-xl group">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-teal-100 to-teal-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <Award className="h-8 w-8 text-teal-600" />
-                </div>
-                <CardTitle className="text-xl">Verified Profiles</CardTitle>
-                <CardDescription className="text-base">
-                  All candidates and employers undergo verification for trust
-                  and quality assurance
-                </CardDescription>
-              </CardHeader>
-            </Card>
           </div>
         </div>
       </section>
@@ -510,9 +408,7 @@ const Index = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentTestimonial ? "bg-blue-600" : "bg-gray-300"
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-colors ${index === currentTestimonial ? "bg-blue-600" : "bg-gray-300"}`}
                 />
               ))}
             </div>
@@ -520,185 +416,27 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Blog Section */}
-      <section id="blog" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-purple-100 text-purple-700">
-              Insights & Stories
-            </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              From Our <span className="text-purple-600">Blog</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Latest insights on rural employment, skill development, and
-              success stories
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {blogPosts.map((post) => (
-              <Card
-                key={post.id}
-                className="border-2 hover:border-purple-200 transition-all duration-300 hover:shadow-xl group overflow-hidden"
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-green-600 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Ready to Transform Your Career?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Join thousands of rural professionals who have found their dream
+            jobs through GraminHire
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/auth?mode=signup">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="bg-white text-blue-600 hover:bg-gray-100 font-semibold"
               >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <Badge className="absolute top-4 left-4 bg-white/90 text-purple-700 backdrop-blur-sm">
-                    {post.category}
-                  </Badge>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-purple-600 transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        {post.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {post.readTime}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="mt-4 pt-4 border-t">
-                    <Button
-                      variant="ghost"
-                      className="p-0 h-auto text-purple-600 hover:text-purple-700 font-medium"
-                    >
-                      Read More →
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-purple-600 text-purple-600 hover:bg-purple-50"
-            >
-              View All Articles
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Impact Section */}
-      <section
-        id="impact"
-        className="py-20 bg-gradient-to-br from-gray-50 to-blue-50"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <Badge className="mb-4 bg-blue-100 text-blue-700">
-                Real Impact
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Transforming{" "}
-                <span className="text-blue-600">Lives & Communities</span>
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Every placement creates a ripple effect - lifting families,
-                strengthening communities, and building a stronger India
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-              <Card className="text-center p-6 border-2 hover:border-blue-200 transition-all duration-300 hover:shadow-lg">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="h-8 w-8 text-green-600" />
-                </div>
-                <div className="text-3xl font-bold text-green-600 mb-2">
-                  85%
-                </div>
-                <div className="text-gray-600 font-medium">Salary Increase</div>
-                <div className="text-sm text-gray-500 mt-1">
-                  Average post-placement
-                </div>
-              </Card>
-
-              <Card className="text-center p-6 border-2 hover:border-blue-200 transition-all duration-300 hover:shadow-lg">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-blue-600" />
-                </div>
-                <div className="text-3xl font-bold text-blue-600 mb-2">
-                  2.5L
-                </div>
-                <div className="text-gray-600 font-medium">Family Members</div>
-                <div className="text-sm text-gray-500 mt-1">Lives improved</div>
-              </Card>
-
-              <Card className="text-center p-6 border-2 hover:border-orange-200 transition-all duration-300 hover:shadow-lg">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <MapPin className="h-8 w-8 text-orange-600" />
-                </div>
-                <div className="text-3xl font-bold text-orange-600 mb-2">
-                  500+
-                </div>
-                <div className="text-gray-600 font-medium">
-                  Villages Connected
-                </div>
-                <div className="text-sm text-gray-500 mt-1">Across India</div>
-              </Card>
-
-              <Card className="text-center p-6 border-2 hover:border-purple-200 transition-all duration-300 hover:shadow-lg">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Heart className="h-8 w-8 text-purple-600" />
-                </div>
-                <div className="text-3xl font-bold text-purple-600 mb-2">
-                  95%
-                </div>
-                <div className="text-gray-600 font-medium">
-                  Satisfaction Rate
-                </div>
-                <div className="text-sm text-gray-500 mt-1">
-                  Employer feedback
-                </div>
-              </Card>
-            </div>
-
-            <Card className="p-8 bg-gradient-to-r from-blue-600 to-green-600 text-white border-0">
-              <div className="text-center">
-                <h3 className="text-3xl font-bold mb-4">Join the Movement</h3>
-                <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                  Be part of India's largest rural employment transformation.
-                  Together, we're building a stronger, more inclusive economy.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/auth?mode=signup">
-                    <Button
-                      size="lg"
-                      variant="secondary"
-                      className="bg-white text-blue-600 hover:bg-gray-100 font-semibold"
-                    >
-                      Start Your Journey Today
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </Link>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white text-white hover:bg-white/10"
-                  >
-                    Learn More About Impact
-                  </Button>
-                </div>
-              </div>
-            </Card>
+                Start Your Journey Today
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
