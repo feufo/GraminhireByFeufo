@@ -19,7 +19,6 @@ import {
   Building2,
   GraduationCap,
   Shield,
-  Briefcase,
 } from "lucide-react";
 import { useAuth, UserRole } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
@@ -142,37 +141,6 @@ const Navigation = () => {
             >
               <Bell className="h-4 w-4" />
             </Button>
-
-            {/* Role Switcher for Demo */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm">
-                  <Briefcase className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <div className="px-2 py-1.5 text-xs text-muted-foreground">
-                  Switch Role (Demo)
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => switchRole("candidate")}>
-                  <User className="h-4 w-4 mr-2" />
-                  Job Seeker
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => switchRole("employer")}>
-                  <Building2 className="h-4 w-4 mr-2" />
-                  Employer
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => switchRole("institute")}>
-                  <GraduationCap className="h-4 w-4 mr-2" />
-                  Institute
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => switchRole("super_admin")}>
-                  <Shield className="h-4 w-4 mr-2" />
-                  Platform Owner
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
