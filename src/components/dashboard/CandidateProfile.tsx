@@ -190,6 +190,42 @@ const CandidateProfile = () => {
     ],
   });
 
+  useEffect(() => {
+    const loadCandidateData = async () => {
+      if (!user) return;
+
+      try {
+        const profile = await profileService.getUserProfile(user.id);
+        if (profile) {
+          setCandidateData((prev) => ({
+            ...prev,
+            personalInfo: {
+              ...prev.personalInfo,
+              firstName: user.full_name?.split(" ")[0] || "",
+              lastName: user.full_name?.split(" ").slice(1).join(" ") || "",
+              email: user.email || "",
+              phone: user.phone || "",
+            },
+            skills: profile.skills || [],
+            experience: {
+              ...prev.experience,
+              totalExperience: profile.experience_years?.toString() || "0",
+            },
+            documents: {
+              ...prev.documents,
+              resume: profile.resume_url || "",
+              videoProfile: profile.video_profile_url || "",
+            },
+          }));
+        }
+      } catch (error) {
+        console.error("Error loading candidate data:", error);
+      }
+    };
+
+    loadCandidateData();
+  }, [user]);
+
   const completionPercentage = () => {
     let completed = 0;
     let total = 10;
