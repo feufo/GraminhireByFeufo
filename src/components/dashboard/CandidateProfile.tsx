@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { profileService } from "@/lib/services";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -117,21 +119,22 @@ const CandidateProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [uploadingDoc, setUploadingDoc] = useState<string | null>(null);
 
-  // Mock candidate data
+  // Real candidate data from Supabase
+  const { user } = useAuth();
   const [candidateData, setCandidateData] = useState<CandidateData>({
     personalInfo: {
-      firstName: "Rajesh",
-      lastName: "Kumar",
-      email: "rajesh.kumar@email.com",
-      phone: "+91 98765 43210",
-      dateOfBirth: "1995-05-15",
-      gender: "male",
-      address: "123 Gandhi Nagar, Katraj",
-      city: "Pune",
-      state: "Maharashtra",
-      pincode: "411046",
-      aadhaarNumber: "1234 5678 9012",
-      panNumber: "ABCDE1234F",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      dateOfBirth: "",
+      gender: "",
+      address: "",
+      city: "",
+      state: "",
+      pincode: "",
+      aadhaarNumber: "",
+      panNumber: "",
     },
     education: {
       highestEducation: "12th",
