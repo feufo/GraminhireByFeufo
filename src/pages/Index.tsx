@@ -144,12 +144,12 @@ const Index = () => {
                 </>
               ) : (
                 <div className="flex items-center space-x-3">
-                  <Link to="/auth?mode=login">
+                  <Link to="/auth?mode=login" className="no-external-link">
                     <Button variant="ghost" className="font-medium">
                       Sign In
                     </Button>
                   </Link>
-                  <Link to="/auth?mode=signup">
+                  <Link to="/auth?mode=signup" className="no-external-link">
                     <Button className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 shadow-lg">
                       Join Now
                     </Button>
