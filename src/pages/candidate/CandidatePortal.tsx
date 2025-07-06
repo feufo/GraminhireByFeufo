@@ -53,8 +53,8 @@ const CandidatePortal = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
 
-  // Mock data
-  const applications = [
+  // Sample data for demonstration
+  const sampleApplications = [
     {
       id: 1,
       jobTitle: "Production Assistant",
