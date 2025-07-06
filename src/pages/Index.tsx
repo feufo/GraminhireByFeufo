@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+// Updated: 2025-01-02 - Removed hardcoded URLs
 import {
   Card,
   CardContent,
