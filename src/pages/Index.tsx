@@ -450,24 +450,33 @@ const Index = () => {
               <h4 className="font-bold text-lg mb-6">Platform</h4>
               <ul className="space-y-3 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link
+                    to="/auth?mode=signup&role=candidate"
+                    className="hover:text-white transition-colors"
+                  >
                     For Job Seekers
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link
+                    to="/auth?mode=signup&role=employer"
+                    className="hover:text-white transition-colors"
+                  >
                     For Employers
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link
+                    to="/auth?mode=signup&role=institute"
+                    className="hover:text-white transition-colors"
+                  >
                     For Institutes
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     Success Stories
-                  </a>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -476,24 +485,24 @@ const Index = () => {
               <h4 className="font-bold text-lg mb-6">Resources</h4>
               <ul className="space-y-3 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     Blog
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     Help Center
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     Career Guide
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     Skill Assessment
-                  </a>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -502,24 +511,24 @@ const Index = () => {
               <h4 className="font-bold text-lg mb-6">Company</h4>
               <ul className="space-y-3 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     About Us
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     Contact
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     Privacy Policy
-                  </a>
+                  </span>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <span className="hover:text-white transition-colors cursor-pointer">
                     Terms of Service
-                  </a>
+                  </span>
                 </li>
               </ul>
             </div>
