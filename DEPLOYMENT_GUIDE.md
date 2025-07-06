@@ -423,11 +423,5 @@ npm run build
 
 ---
 
-**Your GraminHire platform is ready to change lives! 🌟**
-
-**Need help with deployment? Contact [your-support-contact]**
-
----
-
 _Last Updated: [Current Date]_
 _Deployment Guide v1.0_
