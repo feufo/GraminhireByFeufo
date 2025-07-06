@@ -63,26 +63,27 @@ const EmployerDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isCreatingJob, setIsCreatingJob] = useState(false);
 
-  // Mock data
-  const [jobOrders, setJobOrders] = useState([
-    {
-      id: 1,
-      title: "Production Assistant",
-      location: "Pune, Maharashtra",
-      positions: 5,
-      salary: "₹18,000-22,000",
-      minSalary: 18000,
-      maxSalary: 22000,
-      posted: "2024-01-15",
-      applications: 12,
-      interviewed: 3,
-      hired: 1,
-      status: "active",
-      feeType: "flat",
-      feeAmount: 5000,
-      potentialFee: 25000, // 5000 x 5 positions
-      actualFee: 5000, // 1 hire x 5000
-    },
+  // Real data from Supabase
+  const { user } = useAuth();
+  const [jobOrders, setJobOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadJobs = async () => {
+      if (!user) return;
+
+      try {
+        const jobs = await jobService.getJobsByEmployer(user.id);
+        setJobOrders(jobs);
+      } catch (error) {
+        console.error("Error loading jobs:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadJobs();
+  }, [user]);
     {
       id: 2,
       title: "Quality Inspector",
