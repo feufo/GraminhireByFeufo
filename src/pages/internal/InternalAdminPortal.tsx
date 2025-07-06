@@ -28,8 +28,8 @@ const InternalAdminPortal = () => {
   const [activeTab, setActiveTab] = useState("operations");
   const { user } = useAuth();
 
-  // Mock data
-  const supportTickets = [
+  // Sample data for demonstration
+  const sampleSupportTickets = [
     {
       id: 1,
       title: "Unable to upload documents",
