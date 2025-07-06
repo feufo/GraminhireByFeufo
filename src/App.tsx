@@ -10,7 +10,6 @@ import FeedbackWidget from "@/components/feedback/FeedbackWidget";
 import UserAnalyticsProvider from "@/components/analytics/UserAnalytics";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
-import Dashboard from "./pages/Dashboard";
 import CandidatePortal from "./pages/candidate/CandidatePortal";
 import EmployerPortal from "./pages/employer/EmployerPortal";
 import InstitutePortal from "./pages/institute/InstitutePortal";
@@ -88,16 +87,6 @@ const AppRoutes = () => (
       element={
         <RoleBasedRoute allowedRoles={["internal_admin"]}>
           <InternalAdminPortal />
-        </RoleBasedRoute>
-      }
-    />
-
-    {/* Legacy dashboard with role switcher - keep for demo */}
-    <Route
-      path="/demo"
-      element={
-        <RoleBasedRoute>
-          <Dashboard />
         </RoleBasedRoute>
       }
     />
