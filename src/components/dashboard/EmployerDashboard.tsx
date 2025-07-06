@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { jobService, applicationService } from "@/lib/services";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -389,7 +391,7 @@ const EmployerDashboard = () => {
             </Card>
             <Card className="text-center p-4 border-2 border-blue-200">
               <div className="text-2xl font-bold text-blue-600 mb-1">
-                ₹{totalActualFee.toLocaleString()}
+                ��{totalActualFee.toLocaleString()}
               </div>
               <div className="text-sm text-muted-foreground">Amount Owed</div>
             </Card>
