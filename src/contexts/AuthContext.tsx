@@ -129,12 +129,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const switchRole = (role: UserRole) => {
-    // For demo purposes - allows switching between roles
-    if (mockUsers[role]) {
-      const userData = mockUsers[role];
-      setUser(userData);
-      setIsAuthenticated(true);
-    }
+    // Role switching disabled in production - users must register with their actual role
+    console.log(
+      "Role switching is disabled. Please register with your actual role.",
+    );
   };
 
   const hasPermission = (permission: string): boolean => {
