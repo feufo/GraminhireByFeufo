@@ -51,55 +51,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Mock user data for demo purposes when needed
-  const mockUsers: Record<UserRole, User> = {
-    candidate: {
-      id: "550e8400-e29b-41d4-a716-446655440001",
-      full_name: "Rajesh Kumar",
-      email: "rajesh.kumar@email.com",
-      role: "candidate",
-      institute: "ITI Pune",
-      phone: "+91-9876543210",
-      location: "Pune, Maharashtra",
-      verified: true,
-      created_at: new Date().toISOString(),
-    },
-    employer: {
-      id: "550e8400-e29b-41d4-a716-446655440003",
-      full_name: "Amit Patel",
-      email: "amit.patel@techcorp.com",
-      role: "employer",
-      organization: "TechCorp Solutions",
-      phone: "+91-9876543212",
-      location: "Mumbai, Maharashtra",
-      verified: true,
-      created_at: new Date().toISOString(),
-    },
-    institute: {
-      id: "550e8400-e29b-41d4-a716-446655440004",
-      full_name: "Dr. Ravi Singh",
-      email: "dr.singh@ruraltech.edu",
-      role: "institute",
-      organization: "Rural Technology Institute",
-      phone: "+91-9876543213",
-      location: "Chandigarh",
-      verified: true,
-      created_at: new Date().toISOString(),
-    },
-    super_admin: {
-      id: "550e8400-e29b-41d4-a716-446655440005",
-      full_name: "Platform Admin",
-      email: "admin@graminhire.com",
-      role: "super_admin",
-      organization: "GraminHire",
-      permissions: ["all"],
-      phone: "+91-9876543214",
-      location: "Delhi",
-      verified: true,
-      created_at: new Date().toISOString(),
-    },
-  };
-
   useEffect(() => {
     // Check for existing session with Supabase
     authService.getCurrentUser().then((currentUser) => {
