@@ -206,7 +206,7 @@ const Index = () => {
                   <span className="text-sm text-gray-600 hidden md:block">
                     Welcome back,{" "}
                     <span className="font-semibold text-blue-600">
-                      {user.name}
+                      {user.full_name}
                     </span>
                   </span>
                   <Link
@@ -218,7 +218,7 @@ const Index = () => {
                   </Link>
                 </>
               ) : (
-                <>
+                <div className="flex items-center space-x-3">
                   <Link to="/auth?mode=login">
                     <Button variant="ghost" className="font-medium">
                       Sign In
@@ -229,7 +229,7 @@ const Index = () => {
                       Join Now
                     </Button>
                   </Link>
-                </>
+                </div>
               )}
             </div>
           </div>
