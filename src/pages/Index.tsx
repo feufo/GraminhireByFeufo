@@ -161,18 +161,18 @@ const Index = () => {
                   </Link>
                 </>
               ) : (
-                <>
-                  <Link to="/auth?mode=login">
+                <div className="flex items-center space-x-3">
+                  <Link to="/auth?mode=login" className="inline-block">
                     <Button variant="ghost" className="font-medium">
                       Sign In
                     </Button>
                   </Link>
-                  <Link to="/auth?mode=signup">
+                  <Link to="/auth?mode=signup" className="inline-block">
                     <Button className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 shadow-lg">
                       Join Now
                     </Button>
                   </Link>
-                </>
+                </div>
               )}
             </div>
           </div>
