@@ -99,30 +99,18 @@ const Index = () => {
             </div>
 
             <nav className="hidden md:flex items-center space-x-8">
-              <a
-                href="#features"
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
-              >
+              <span className="text-gray-600 hover:text-blue-600 transition-colors font-medium cursor-pointer">
                 Features
-              </a>
-              <a
-                href="#testimonials"
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
-              >
+              </span>
+              <span className="text-gray-600 hover:text-blue-600 transition-colors font-medium cursor-pointer">
                 Success Stories
-              </a>
-              <a
-                href="#blog"
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
-              >
+              </span>
+              <span className="text-gray-600 hover:text-blue-600 transition-colors font-medium cursor-pointer">
                 Blog
-              </a>
-              <a
-                href="#impact"
-                className="text-gray-600 hover:text-blue-600 transition-colors font-medium"
-              >
+              </span>
+              <span className="text-gray-600 hover:text-blue-600 transition-colors font-medium cursor-pointer">
                 Impact
-              </a>
+              </span>
             </nav>
 
             <div className="flex items-center space-x-3">
@@ -144,12 +132,12 @@ const Index = () => {
                 </>
               ) : (
                 <div className="flex items-center space-x-3">
-                  <Link to="/auth?mode=login" className="no-external-link">
+                  <Link to="/auth?mode=login">
                     <Button variant="ghost" className="font-medium">
                       Sign In
                     </Button>
                   </Link>
-                  <Link to="/auth?mode=signup" className="no-external-link">
+                  <Link to="/auth?mode=signup">
                     <Button className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 shadow-lg">
                       Join Now
                     </Button>
