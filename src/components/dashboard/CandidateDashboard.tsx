@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { applicationService, jobService } from "@/lib/services";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,39 +35,27 @@ const CandidateDashboard = () => {
   const [profileComplete, setProfileComplete] = useState(65);
   const [activeTab, setActiveTab] = useState("overview");
 
-  // Mock data
-  const applications = [
-    {
-      id: 1,
-      jobTitle: "Production Assistant",
-      company: "Tata Motors",
-      location: "Pune, Maharashtra",
-      salary: "₹18,000-22,000/month",
-      appliedDate: "2024-01-15",
-      status: "interviewed",
-      institute: "ITI Pune",
-    },
-    {
-      id: 2,
-      jobTitle: "Quality Inspector",
-      company: "Bajaj Auto",
-      location: "Aurangabad, Maharashtra",
-      salary: "₹20,000-25,000/month",
-      appliedDate: "2024-01-18",
-      status: "applied",
-      institute: "DDU-GKY Center",
-    },
-    {
-      id: 3,
-      jobTitle: "Machine Operator",
-      company: "Mahindra & Mahindra",
-      location: "Nashik, Maharashtra",
-      salary: "₹16,000-20,000/month",
-      appliedDate: "2024-01-12",
-      status: "hired",
-      institute: "ITI Pune",
-    },
-  ];
+  // Real data from Supabase
+  const [applications, setApplications] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadApplications = async () => {
+      if (!user) return;
+
+      try {
+        const userApplications =
+          await applicationService.getApplicationsByCandidate(user.id);
+        setApplications(userApplications);
+      } catch (error) {
+        console.error("Error loading applications:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadApplications();
+  }, [user]);
 
   const jobMatches = [
     {
