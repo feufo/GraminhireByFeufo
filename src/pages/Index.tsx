@@ -1,34 +1,15 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   ArrowRight,
-  Users,
   Building2,
-  GraduationCap,
-  User,
   Star,
-  MapPin,
-  TrendingUp,
-  Shield,
   Video,
   Smartphone,
   Globe,
-  CheckCircle,
   Quote,
   Play,
-  Calendar,
-  Clock,
-  Target,
-  Award,
-  Zap,
   Heart,
   ChevronLeft,
   ChevronRight,
@@ -162,12 +143,12 @@ const Index = () => {
                 </>
               ) : (
                 <div className="flex items-center space-x-3">
-                  <Link to="/auth?mode=login" className="inline-block">
+                  <Link to="/auth?mode=login">
                     <Button variant="ghost" className="font-medium">
                       Sign In
                     </Button>
                   </Link>
-                  <Link to="/auth?mode=signup" className="inline-block">
+                  <Link to="/auth?mode=signup">
                     <Button className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 shadow-lg">
                       Join Now
                     </Button>
@@ -282,44 +263,48 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="border-2 hover:border-blue-200 transition-all duration-300 hover:shadow-xl group">
-              <CardHeader className="text-center">
+            <div className="border-2 hover:border-blue-200 transition-all duration-300 hover:shadow-xl group p-6 rounded-lg">
+              <div className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-red-100 to-red-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <Video className="h-8 w-8 text-red-600" />
                 </div>
-                <CardTitle className="text-xl">Video Introductions</CardTitle>
-                <CardDescription className="text-base">
+                <h3 className="text-xl font-semibold mb-3">
+                  Video Introductions
+                </h3>
+                <p className="text-base text-gray-600">
                   Showcase your personality and skills through compelling video
                   profiles that employers love
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </p>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:border-green-200 transition-all duration-300 hover:shadow-xl group">
-              <CardHeader className="text-center">
+            <div className="border-2 hover:border-green-200 transition-all duration-300 hover:shadow-xl group p-6 rounded-lg">
+              <div className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <Smartphone className="h-8 w-8 text-green-600" />
                 </div>
-                <CardTitle className="text-xl">Mobile-First Design</CardTitle>
-                <CardDescription className="text-base">
+                <h3 className="text-xl font-semibold mb-3">
+                  Mobile-First Design
+                </h3>
+                <p className="text-base text-gray-600">
                   Works flawlessly on basic smartphones with low bandwidth -
                   perfect for rural connectivity
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </p>
+              </div>
+            </div>
 
-            <Card className="border-2 hover:border-purple-200 transition-all duration-300 hover:shadow-xl group">
-              <CardHeader className="text-center">
+            <div className="border-2 hover:border-purple-200 transition-all duration-300 hover:shadow-xl group p-6 rounded-lg">
+              <div className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <Globe className="h-8 w-8 text-purple-600" />
                 </div>
-                <CardTitle className="text-xl">15+ Languages</CardTitle>
-                <CardDescription className="text-base">
+                <h3 className="text-xl font-semibold mb-3">15+ Languages</h3>
+                <p className="text-base text-gray-600">
                   Native support for Hindi, regional languages, and Google
                   Translate integration
-                </CardDescription>
-              </CardHeader>
-            </Card>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -344,50 +329,48 @@ const Index = () => {
           </div>
 
           <div className="relative max-w-4xl mx-auto">
-            <Card className="border-0 shadow-2xl bg-white/80 backdrop-blur-sm">
-              <CardContent className="p-8 md:p-12">
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="flex-shrink-0">
-                    <img
-                      src={testimonials[currentTestimonial].avatar}
-                      alt={testimonials[currentTestimonial].author}
-                      className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
-                    />
+            <div className="border-0 shadow-2xl bg-white/80 backdrop-blur-sm rounded-lg p-8 md:p-12">
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                <div className="flex-shrink-0">
+                  <img
+                    src={testimonials[currentTestimonial].avatar}
+                    alt={testimonials[currentTestimonial].author}
+                    className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+                  />
+                </div>
+
+                <div className="flex-1 text-center md:text-left">
+                  <Quote className="w-12 h-12 text-blue-200 mb-4 mx-auto md:mx-0" />
+                  <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6 italic">
+                    "{testimonials[currentTestimonial].content}"
+                  </p>
+
+                  <div className="flex items-center justify-center md:justify-start gap-1 mb-4">
+                    {[...Array(testimonials[currentTestimonial].rating)].map(
+                      (_, i) => (
+                        <Star
+                          key={i}
+                          className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                        />
+                      ),
+                    )}
                   </div>
 
-                  <div className="flex-1 text-center md:text-left">
-                    <Quote className="w-12 h-12 text-blue-200 mb-4 mx-auto md:mx-0" />
-                    <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6 italic">
-                      "{testimonials[currentTestimonial].content}"
-                    </p>
-
-                    <div className="flex items-center justify-center md:justify-start gap-1 mb-4">
-                      {[...Array(testimonials[currentTestimonial].rating)].map(
-                        (_, i) => (
-                          <Star
-                            key={i}
-                            className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                          />
-                        ),
-                      )}
+                  <div>
+                    <div className="font-bold text-lg text-gray-900">
+                      {testimonials[currentTestimonial].author}
                     </div>
-
-                    <div>
-                      <div className="font-bold text-lg text-gray-900">
-                        {testimonials[currentTestimonial].author}
-                      </div>
-                      <div className="text-blue-600 font-medium">
-                        {testimonials[currentTestimonial].designation}
-                      </div>
-                      <div className="text-gray-600">
-                        {testimonials[currentTestimonial].company} •{" "}
-                        {testimonials[currentTestimonial].location}
-                      </div>
+                    <div className="text-blue-600 font-medium">
+                      {testimonials[currentTestimonial].designation}
+                    </div>
+                    <div className="text-gray-600">
+                      {testimonials[currentTestimonial].company} •{" "}
+                      {testimonials[currentTestimonial].location}
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             <button
               onClick={prevTestimonial}
