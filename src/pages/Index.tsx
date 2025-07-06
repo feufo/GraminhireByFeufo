@@ -264,7 +264,10 @@ const Index = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Link to="/auth?mode=signup&role=candidate">
+              <Link
+                to="/auth?mode=signup&role=candidate"
+                className="inline-block"
+              >
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 text-lg px-8 py-4 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
@@ -274,7 +277,10 @@ const Index = () => {
                   <ArrowRight className="ml-3 h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/auth?mode=signup&role=employer">
+              <Link
+                to="/auth?mode=signup&role=employer"
+                className="inline-block"
+              >
                 <Button
                   size="lg"
                   variant="outline"
