@@ -17,6 +17,7 @@ import {
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
+// Clean deployment - all hardcoded URLs removed
 const Index = () => {
   const { isAuthenticated, user } = useAuth();
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
