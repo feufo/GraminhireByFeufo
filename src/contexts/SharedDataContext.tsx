@@ -77,35 +77,7 @@ interface SharedDataProviderProps {
 }
 
 export const SharedDataProvider = ({ children }: SharedDataProviderProps) => {
-  const [allUsers, setAllUsers] = useState<UserProfile[]>([
-    // Candidates
-    {
-      id: "cand-001",
-      name: "Rajesh Kumar",
-      email: "rajesh.kumar@email.com",
-      phone: "+91 98765 43210",
-      password: "rajesh123", // Plain text for demo - would be encrypted in real app
-      role: "candidate",
-      location: "Pune, Maharashtra",
-      joinedDate: "2024-01-15",
-      lastActive: "2 hours ago",
-      status: "active",
-      candidateData: {
-        age: 22,
-        experience: "0-1 years",
-        skills: ["Assembly", "Quality Control", "Machine Operation"],
-        institute: "ITI Pune",
-        course: "Mechanical Engineering",
-        rating: 4.2,
-        applications: 15,
-        interviews: 5,
-        placements: 1,
-        profileComplete: 85,
-        salaryExpectation: "₹15,000-18,000",
-        languages: ["Hindi", "Marathi", "English"],
-        strengths: ["Quick Learner", "Punctual", "Team Player"],
-      },
-    },
+  const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
     {
       id: "cand-002",
       name: "Priya Sharma",
